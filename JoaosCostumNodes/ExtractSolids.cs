@@ -1,4 +1,4 @@
-﻿using System;
+﻿ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -18,11 +18,10 @@ namespace JoaosCustomNodes
 
    public class ExtractSolids
    {
-
       public static Autodesk.Revit.DB.Solid[] GetGeometry(Revit.Elements.DirectShape directShapes, bool removeEmptyVolumes = false)
       {
-         Autodesk.Revit.DB.Element elem; 
-         
+         Autodesk.Revit.DB.Element elem;
+
          try
          {
             elem = directShapes.InternalElement;
@@ -33,7 +32,7 @@ namespace JoaosCustomNodes
          }
 
          //Element[] selElements = elem as Element[];
-         
+
 
          List<Autodesk.Revit.DB.Solid> geomSolid = new List<Autodesk.Revit.DB.Solid>();
 
@@ -52,12 +51,12 @@ namespace JoaosCustomNodes
                Autodesk.Revit.DB.Solid tempSolid = geometryObject as Autodesk.Revit.DB.Solid;
                Autodesk.Revit.DB.FaceArray tempFaces = tempSolid.Faces;
                //Autodesk.Revit.DB.Surface[] surfaces = new Autodesk.Revit.DB.Surface[tempFaces.Size];
-               
+
                for (int i = 0; i < tempFaces.Size; i++)
                {
                   Autodesk.Revit.DB.Face face = tempFaces.get_Item(i);
                   //surfaces[i] = face.GetSurface();
-                  
+
                }
                IEnumerable<Autodesk.Revit.DB.Surface> D_surfaces = (Autodesk.Revit.DB.Surface[])Enum.GetValues(typeof(Autodesk.Revit.DB.Surface));
 
@@ -82,7 +81,7 @@ namespace JoaosCustomNodes
          return geomSolid.ToArray();
       }
 
-      [MultiReturn(new[] {"Volume", "Bounding Box" })]
+      [MultiReturn(new[] { "Volume", "Bounding Box" })]
       public static Dictionary<string, object> GetVolumeAndBoundingBox(Autodesk.Revit.DB.Solid geomSolid)
       {
          double volume = GetGeometryVolumes(geomSolid);
