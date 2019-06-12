@@ -12,6 +12,7 @@ using Autodesk.DesignScript.Geometry;
 using Autodesk.DesignScript.Interfaces;
 using Autodesk.DesignScript.Runtime;
 using Revit.Elements;
+using Revit.GeometryConversion;
 
 namespace JoaosCustomNodes
 {
@@ -58,7 +59,7 @@ namespace JoaosCustomNodes
                   //surfaces[i] = face.GetSurface();
 
                }
-               IEnumerable<Autodesk.Revit.DB.Surface> D_surfaces = (Autodesk.Revit.DB.Surface[])Enum.GetValues(typeof(Autodesk.Revit.DB.Surface));
+               //IEnumerable<Autodesk.Revit.DB.Surface> D_surfaces = (Autodesk.Revit.DB.Surface[])Enum.GetValues(typeof(Autodesk.Revit.DB.Surface));
 
                //Autodesk.DesignScript.Geometry.Surface D_face = Autodesk.DesignScript.Geometry.Surface.ByPerimeterPoints();
                //Autodesk.DesignScript.Geometry.Solid D_Solid = Autodesk.DesignScript.Geometry.Solid.ByJoinedSurfaces(D_surfaces as);
@@ -79,6 +80,13 @@ namespace JoaosCustomNodes
 
 
          return geomSolid.ToArray();
+      }
+
+      public static Autodesk.DesignScript.Geometry.Solid ConvertToDynamoSolid(Autodesk.Revit.DB.Solid solid)
+      {
+         
+         Autodesk.DesignScript.Geometry.Solid tempSolid = solid.ToProtoType();
+         return tempSolid;
       }
 
       [MultiReturn(new[] { "Volume", "Bounding Box" })]
