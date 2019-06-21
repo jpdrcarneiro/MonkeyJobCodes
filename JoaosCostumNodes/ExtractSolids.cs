@@ -19,7 +19,8 @@ namespace JoaosCustomNodes
 
    public class ExtractSolids
    {
-      public static Autodesk.Revit.DB.Solid[] GetGeometry(Revit.Elements.DirectShape directShapes, bool removeEmptyVolumes = false)
+      [MultiReturn(new[] { "RevitSolid", "DynamoSolid" })]
+      public static Dictionary<Autodesk.Revit.DB.Solid[], Autodesk.DesignScript.Geometry.Solid[]> GetGeometry(Revit.Elements.DirectShape directShapes, bool removeEmptyVolumes = false)
       {
          Autodesk.Revit.DB.Element elem;
 
@@ -36,6 +37,7 @@ namespace JoaosCustomNodes
 
 
          List<Autodesk.Revit.DB.Solid> geomSolid = new List<Autodesk.Revit.DB.Solid>();
+         List<Autodesk.DesignScript.Geometry.Solid> dynSolids = new List<Autodesk.DesignScript.Geometry.Solid>();
 
          GeometryElement temp = elem.get_Geometry(new Options());
 
@@ -50,36 +52,34 @@ namespace JoaosCustomNodes
             if (type.Name == "Solid")
             {
                Autodesk.Revit.DB.Solid tempSolid = geometryObject as Autodesk.Revit.DB.Solid;
-               Autodesk.Revit.DB.FaceArray tempFaces = tempSolid.Faces;
+               Autodesk.DesignScript.Geometry.Solid dynamoTempSolid = tempSolid.ToProtoType();
                //Autodesk.Revit.DB.Surface[] surfaces = new Autodesk.Revit.DB.Surface[tempFaces.Size];
 
-               for (int i = 0; i < tempFaces.Size; i++)
-               {
-                  Autodesk.Revit.DB.Face face = tempFaces.get_Item(i);
-                  //surfaces[i] = face.GetSurface();
-
-               }
-               //IEnumerable<Autodesk.Revit.DB.Surface> D_surfaces = (Autodesk.Revit.DB.Surface[])Enum.GetValues(typeof(Autodesk.Revit.DB.Surface));
-
-               //Autodesk.DesignScript.Geometry.Surface D_face = Autodesk.DesignScript.Geometry.Surface.ByPerimeterPoints();
-               //Autodesk.DesignScript.Geometry.Solid D_Solid = Autodesk.DesignScript.Geometry.Solid.ByJoinedSurfaces(D_surfaces as);
                if (tempSolid.Volume > 0 && removeEmptyVolumes == true)
                {
                   geomSolid.Add(tempSolid);
+                  dynSolids.Add(dynamoTempSolid);
 
                }
-               else
+               else if (removeEmptyVolumes == false)
                {
                   geomSolid.Add(tempSolid);
+                  dynSolids.Add(dynamoTempSolid);
                }
                tempSolid.Dispose();
                geometryObject.Dispose();
             }
          }
          enumeratorTemp.Dispose();
+         Autodesk.Revit.DB.Solid[] geomSolids = geomSolid.ToArray();
+         Autodesk.DesignScript.Geometry.Solid[] dynSolids2 = dynSolids.ToArray();
+         Dictionary<Autodesk.Revit.DB.Solid[], Autodesk.DesignScript.Geometry.Solid[]> MultiOutPut = new Dictionary<Autodesk.Revit.DB.Solid[], Autodesk.DesignScript.Geometry.Solid[]>
+         {
+            {"RevitSolid", geomSolids },
+            {"DynamoSolid", dynSolids2 }
+         };
 
-
-         return geomSolid.ToArray();
+         return MultiOutPut;
       }
 
       public static Autodesk.DesignScript.Geometry.Solid ConvertToDynamoSolid(Autodesk.Revit.DB.Solid solid)
@@ -107,23 +107,35 @@ namespace JoaosCustomNodes
       public static double GetGeometryVolumes(Autodesk.Revit.DB.Solid geomSolid)
       {
          double elemVolume = new double();
-         elemVolume = geomSolid.Volume;
-         geomSolid.Dispose();
-         return elemVolume;
+         try
+         {
+            elemVolume = geomSolid.Volume;
+            geomSolid.Dispose();
+            return elemVolume;
+         }
+
+         catch
+         {
+            return 0.00;
+         }
       }
       public static Autodesk.DesignScript.Geometry.BoundingBox bboxSquare(Autodesk.Revit.DB.Solid solidGeom)
       {
-         Autodesk.Revit.DB.BoundingBoxXYZ bbox = solidGeom.GetBoundingBox();
-         Autodesk.DesignScript.Geometry.Point bboxMin = Autodesk.DesignScript.Geometry.Point.ByCoordinates(bbox.Min.X, bbox.Min.Y, bbox.Min.Z);
-         Autodesk.DesignScript.Geometry.Point bboxMax = Autodesk.DesignScript.Geometry.Point.ByCoordinates(bbox.Max.X, bbox.Max.Y, bbox.Max.Z);
-         bbox.Dispose();
-         Autodesk.DesignScript.Geometry.BoundingBox boundingBox = BoundingBox.ByCorners(bboxMin, bboxMax);
-         bboxMin.Dispose();
-         bboxMax.Dispose();
-
-
-
-         return boundingBox;
+         try
+         {
+            Autodesk.Revit.DB.BoundingBoxXYZ bbox = solidGeom.GetBoundingBox();
+            Autodesk.DesignScript.Geometry.Point bboxMin = Autodesk.DesignScript.Geometry.Point.ByCoordinates(bbox.Min.X, bbox.Min.Y, bbox.Min.Z);
+            Autodesk.DesignScript.Geometry.Point bboxMax = Autodesk.DesignScript.Geometry.Point.ByCoordinates(bbox.Max.X, bbox.Max.Y, bbox.Max.Z);
+            bbox.Dispose();
+            Autodesk.DesignScript.Geometry.BoundingBox boundingBox = BoundingBox.ByCorners(bboxMin, bboxMax);
+            bboxMin.Dispose();
+            bboxMax.Dispose();
+            return boundingBox;
+         }
+         catch {
+            return null;
+         }
+         
       }
 
    }
