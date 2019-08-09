@@ -13,74 +13,77 @@ using Autodesk.DesignScript.Interfaces;
 using Autodesk.DesignScript.Runtime;
 using Revit.Elements;
 using Revit.GeometryConversion;
+using RevitServices.Persistence;
+
 
 namespace JoaosCustomNodes
 {
 
    public class ExtractSolids
    {
-      [MultiReturn(new[] { "RevitSolid", "DynamoSolid" })]
-      public static Dictionary<Autodesk.Revit.DB.Solid[], Autodesk.DesignScript.Geometry.Solid[]> GetGeometry(Revit.Elements.DirectShape directShapes, bool removeEmptyVolumes = false)
-      {
-         Autodesk.Revit.DB.Element elem;
+      //[MultiReturn(new[] { "RevitSolid", "DynamoSolid" })]
+      //public static Dictionary<Autodesk.Revit.DB.Solid[], Autodesk.DesignScript.Geometry.Solid[]> GetGeometry(Revit.Elements.DirectShape directShapes, bool removeEmptyVolumes = false)
+      //{
+      //   Autodesk.Revit.DB.Element elem;
 
-         try
-         {
-            elem = directShapes.InternalElement;
-         }
-         catch
-         {
-            return null;
-         }
+      //   try
+      //   {
+      //      elem = directShapes.InternalElement;
+      //   }
+      //   catch
+      //   {
+      //      return null;
+      //   }
 
-         //Element[] selElements = elem as Element[];
+      //   //Element[] selElements = elem as Element[];
 
 
-         List<Autodesk.Revit.DB.Solid> geomSolid = new List<Autodesk.Revit.DB.Solid>();
-         List<Autodesk.DesignScript.Geometry.Solid> dynSolids = new List<Autodesk.DesignScript.Geometry.Solid>();
+      //   List<Autodesk.Revit.DB.Solid> geomSolid = new List<Autodesk.Revit.DB.Solid>();
+      //   List<Autodesk.DesignScript.Geometry.Solid> dynSolids = new List<Autodesk.DesignScript.Geometry.Solid>();
 
-         GeometryElement temp = elem.get_Geometry(new Options());
+      //   GeometryElement temp = elem.get_Geometry(new Options());
 
-         IEnumerator<GeometryObject> enumeratorTemp = temp.GetEnumerator();
-         //temp.Dispose();
-         while (enumeratorTemp.MoveNext())
-         {
-            GeometryObject geometryObject = enumeratorTemp.Current;
-            Type type = geometryObject.GetType();
-            var propertyInfo = geometryObject.GetType().GetProperties(System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-            var materialValue = propertyInfo.GetValue(0);
-            if (type.Name == "Solid")
-            {
-               Autodesk.Revit.DB.Solid tempSolid = geometryObject as Autodesk.Revit.DB.Solid;
-               Autodesk.DesignScript.Geometry.Solid dynamoTempSolid = tempSolid.ToProtoType();
-               //Autodesk.Revit.DB.Surface[] surfaces = new Autodesk.Revit.DB.Surface[tempFaces.Size];
+      //   IEnumerator<GeometryObject> enumeratorTemp = temp.GetEnumerator();
+      //   //temp.Dispose();
+      //   while (enumeratorTemp.MoveNext())
+      //   {
+      //      GeometryObject geometryObject = enumeratorTemp.Current;
+      //      Type type = geometryObject.GetType();
+      //      var propertyInfo = geometryObject.GetType().GetProperties(System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+      //      var materialValue = propertyInfo.GetValue(0);
+      //      if (type.Name == "Solid")
+      //      {
+      //         Autodesk.Revit.DB.Solid tempSolid = geometryObject as Autodesk.Revit.DB.Solid;
+      //         Autodesk.DesignScript.Geometry.Solid dynamoTempSolid = tempSolid.ToProtoType();
+      //         //Autodesk.Revit.DB.Surface[] surfaces = new Autodesk.Revit.DB.Surface[tempFaces.Size];
 
-               if (tempSolid.Volume > 0 && removeEmptyVolumes == true)
-               {
-                  geomSolid.Add(tempSolid);
-                  dynSolids.Add(dynamoTempSolid);
+      //         if (tempSolid.Volume > 0 && removeEmptyVolumes == true)
+      //         {
+      //            geomSolid.Add(tempSolid);
+      //            dynSolids.Add(dynamoTempSolid);
 
-               }
-               else if (removeEmptyVolumes == false)
-               {
-                  geomSolid.Add(tempSolid);
-                  dynSolids.Add(dynamoTempSolid);
-               }
-               tempSolid.Dispose();
-               geometryObject.Dispose();
-            }
-         }
-         enumeratorTemp.Dispose();
-         Autodesk.Revit.DB.Solid[] geomSolids = geomSolid.ToArray();
-         Autodesk.DesignScript.Geometry.Solid[] dynSolids2 = dynSolids.ToArray();
-         Dictionary<Autodesk.Revit.DB.Solid[], Autodesk.DesignScript.Geometry.Solid[]> MultiOutPut = new Dictionary<Autodesk.Revit.DB.Solid[], Autodesk.DesignScript.Geometry.Solid[]>
-         {
-            {"RevitSolid", geomSolids },
-            {"DynamoSolid", dynSolids2 }
-         };
+      //         }
+      //         else if (removeEmptyVolumes == false)
+      //         {
+      //            geomSolid.Add(tempSolid);
+      //            dynSolids.Add(dynamoTempSolid);
+      //         }
+      //         tempSolid.Dispose();
+      //         geometryObject.Dispose();
+      //      }
+      //   }
+      //   enumeratorTemp.Dispose();
+      //   Autodesk.Revit.DB.Solid[] geomSolids = geomSolid.ToArray();
+      //   Autodesk.DesignScript.Geometry.Solid[] dynSolids2 = dynSolids.ToArray();
+      //       Dictionary<Autodesk.Revit.DB.Solid[], Autodesk.DesignScript.Geometry.Solid[]> MultiOutPut = new Dictionary<Autodesk.Revit.DB.Solid[], Autodesk.DesignScript.Geometry.Solid[]>
+      //       {
+      //          { "RevitSolid", geomSolids },
+      //          {"DynamoSolid", dynSolids2 }
+      //       };
 
-         return MultiOutPut;
-      }
+      //      return MultiOutPut;
+            
+      //}
 
       public static Autodesk.DesignScript.Geometry.Solid ConvertToDynamoSolid(Autodesk.Revit.DB.Solid solid)
       {
@@ -138,7 +141,44 @@ namespace JoaosCustomNodes
          
       }
 
-   }
+        public static string OpenDocumentFile(string filePath, bool audit = false, bool detachFromCentral = false)
+        {
+            var uiapp = DocumentManager.Instance.CurrentUIApplication;
+            var app = uiapp.Application;
+            Document doc;
+            string docTitle = string.Empty;
+            //instantiate open options for user to pick to audit or not
+            OpenOptions openOpts = new OpenOptions();
+            openOpts.Audit = audit;
+            TransmittedModelOptions tOpt = TransmittedModelOptions.SaveAsNewCentral;
+            if (detachFromCentral == false)
+            {
+                openOpts.DetachFromCentralOption = DetachFromCentralOption.DoNotDetach;
+            }
+            else
+            {
+                openOpts.DetachFromCentralOption = DetachFromCentralOption.DetachAndPreserveWorksets;
+            }
+
+            //convert string to model path for open
+            ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(filePath);
+
+            try
+            {
+                docTitle = DocumentUtils.OpenDocument(modelPath, openOpts);
+                doc.Close(true);
+                result = "closed";
+            }
+            catch (Exception)
+            {
+                //nothing
+            }
+
+            return result;
+        }
+
+    }
 
 
-}
+    }
+
