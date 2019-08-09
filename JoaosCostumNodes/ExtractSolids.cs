@@ -1,4 +1,4 @@
-﻿ using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -143,8 +143,9 @@ namespace JoaosCustomNodes
 
         public static string OpenDocumentFile(string filePath, bool audit = false, bool detachFromCentral = true)
         {
-         var uiapp = RevitServices.Persistence.DocumentManager.Instance.CurrentUIApplication;
-         var app = uiapp.Application;
+            Autodesk.Revit.UI.UIApplication uiapp = new UIApplication;
+         //var uiapp = RevitServices.Persistence.DocumentManager.Instance.CurrentUIApplication;
+         //var app = uiapp.Application;
             Autodesk.Revit.DB.Document docOpened;
             string docTitle = string.Empty;
             //instantiate open options for user to pick to audit or not
@@ -166,8 +167,8 @@ namespace JoaosCustomNodes
 
             try
             {
-               docOpened = app.OpenDocumentFile(modelPath, openOpts); //Autodesk.Revit.ApplicationServices.Application.OpenDocumentFile(modelPath, openOpts);
-               docOpened.SaveAs(filePath, saveOpts);
+                docOpened = app.OpenDocumentFile(modelPath, openOpts); Autodesk.Revit.ApplicationServices.Application.OpenDocumentFile(modelPath, openOpts);
+                docOpened.SaveAs(filePath, saveOpts);
                //docOpened.Close(true);
                result = "closed";
             }
