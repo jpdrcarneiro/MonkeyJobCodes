@@ -141,16 +141,16 @@ namespace JoaosCustomNodes
          
       }
 
-        public static string OpenDocumentFile(string filePath, bool audit = false, bool detachFromCentral = false)
+        public static string OpenDocumentFile(string filePath, bool audit = false, bool detachFromCentral = true)
         {
-            var uiapp = DocumentManager.Instance.CurrentUIApplication;
+            var uiapp = RevitServices.Persistence.DocumentManager.Instance.CurrentUIApplication;
             var app = uiapp.Application;
-            Document doc;
+            Autodesk.Revit.DB.Document docOpened;
             string docTitle = string.Empty;
             //instantiate open options for user to pick to audit or not
             OpenOptions openOpts = new OpenOptions();
+         SaveAsOptions saveOpts = new SaveAsOptions();
             openOpts.Audit = audit;
-            TransmittedModelOptions tOpt = TransmittedModelOptions.SaveAsNewCentral;
             if (detachFromCentral == false)
             {
                 openOpts.DetachFromCentralOption = DetachFromCentralOption.DoNotDetach;
@@ -162,15 +162,18 @@ namespace JoaosCustomNodes
 
             //convert string to model path for open
             ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(filePath);
+         string result;   
 
             try
             {
-                docTitle = DocumentUtils.OpenDocument(modelPath, openOpts);
-                doc.Close(true);
-                result = "closed";
+               docOpened = app.OpenDocumentFile(modelPath, openOpts); //Autodesk.Revit.ApplicationServices.Application.OpenDocumentFile(modelPath, openOpts);
+               docOpened.SaveAs(filePath, saveOpts);
+               docOpened.Close(true);
+               result = "closed";
             }
-            catch (Exception)
+            catch (Exception e)
             {
+            result = e.ToString();
                 //nothing
             }
 
