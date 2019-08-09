@@ -167,7 +167,7 @@ namespace JoaosCustomNodes
             try
             {
                docOpened = app.OpenDocumentFile(modelPath, openOpts); //Autodesk.Revit.ApplicationServices.Application.OpenDocumentFile(modelPath, openOpts);
-               docOpened.SaveAs(filePath, saveOpts);
+               //docOpened.SaveAs(filePath, saveOpts);
                docOpened.Close(true);
                result = "closed";
             }
@@ -176,6 +176,7 @@ namespace JoaosCustomNodes
             result = e.ToString();
                 //nothing
             }
+
 
             return result;
         }
