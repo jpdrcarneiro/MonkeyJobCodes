@@ -82,12 +82,12 @@ namespace JoaosCustomNodes
       //       };
 
       //      return MultiOutPut;
-            
+
       //}
 
       public static Autodesk.DesignScript.Geometry.Solid ConvertToDynamoSolid(Autodesk.Revit.DB.Solid solid)
       {
-         
+
          Autodesk.DesignScript.Geometry.Solid tempSolid = solid.ToProtoType();
          return tempSolid;
       }
@@ -135,55 +135,97 @@ namespace JoaosCustomNodes
             bboxMax.Dispose();
             return boundingBox;
          }
-         catch {
+         catch
+         {
             return null;
          }
-         
+
       }
 
-        public static string OpenDocumentFile(string filePath, bool audit = false, bool detachFromCentral = true)
-        {
-            Autodesk.Revit.UI.UIApplication uiapp = new UIApplication;
-         //var uiapp = RevitServices.Persistence.DocumentManager.Instance.CurrentUIApplication;
-         //var app = uiapp.Application;
-            Autodesk.Revit.DB.Document docOpened;
-            string docTitle = string.Empty;
-            //instantiate open options for user to pick to audit or not
-            OpenOptions openOpts = new OpenOptions();
-         SaveAsOptions saveOpts = new SaveAsOptions();
-            openOpts.Audit = audit;
-            if (detachFromCentral == false)
-            {
-                openOpts.DetachFromCentralOption = DetachFromCentralOption.DoNotDetach;
-            }
-            else
-            {
-                openOpts.DetachFromCentralOption = DetachFromCentralOption.DetachAndPreserveWorksets;
-            }
+      public string OpenDocumentFile(string filePath, bool audit = false, bool detachFromCentral = true)
+      {
+         Autodesk.Revit.UI.UIApplication uiapp = RevitServices.Persistence.DocumentManager.Instance.CurrentUIApplication;
+         Autodesk.Revit.ApplicationServices.Application app = uiapp.Application;
+         Autodesk.Revit.UI.UIDocument uiDoc;
+         Autodesk.Revit.DB.Document appDoc;
+         string docTitle = string.Empty;
+         //instantiate open options for user to pick to audit or not
+         OpenOptions openOpts = new OpenOptions();
+         SaveAsOptions saveAsOpts = new SaveAsOptions();
+         saveAsOpts.OverwriteExistingFile = true;
+         WorksharingSaveAsOptions worksharingSaveAs = new WorksharingSaveAsOptions();
+         worksharingSaveAs.SaveAsCentral = true;
+         saveAsOpts.SetWorksharingOptions(worksharingSaveAs);
+         Autodesk.Revit.UI.UISaveAsOptions saveOpts = new Autodesk.Revit.UI.UISaveAsOptions();
+         saveOpts.ShowOverwriteWarning = false;
+         openOpts.Audit = audit;
+         if (detachFromCentral == false)
+         {
+            openOpts.DetachFromCentralOption = DetachFromCentralOption.DoNotDetach;
+         }
+         else
+         {
+            openOpts.DetachFromCentralOption = DetachFromCentralOption.DetachAndPreserveWorksets;
+         }
 
-            //convert string to model path for open
-            ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(filePath);
-         string result;   
+         //convert string to model path for open
+         ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(filePath);
+         string result;
+         bool tryApp = false;
+         try
+         {
+            //docOpened = app.OpenDocumentFile(modelPath, openOpts); Autodesk.Revit.ApplicationServices.Application.OpenDocumentFile(modelPath, openOpts);
+            uiDoc = uiapp.OpenAndActivateDocument(modelPath, openOpts, false);
+            //docOpened.SaveAs(filePath, saveOpts);
+            uiDoc.SaveAs(saveOpts);
+            uiDoc.SaveAndClose();
+            //docOpened.Close(true);
+            result = "closed";
+
+         }
+         catch (Exception e)
+         {
+            
+            result = e.ToString();
+            tryApp = true;
+            //nothing
+         }
+         if (tryApp == true)
+         {
 
             try
             {
-                docOpened = app.OpenDocumentFile(modelPath, openOpts); Autodesk.Revit.ApplicationServices.Application.OpenDocumentFile(modelPath, openOpts);
-                docOpened.SaveAs(filePath, saveOpts);
-               //docOpened.Close(true);
-               result = "closed";
+               appDoc = app.OpenDocumentFile(modelPath, openOpts);
+               appDoc.SaveAs(filePath, saveAsOpts);
+               appDoc.Close();
+
+               result = "appDoc Closed";
             }
             catch (Exception e)
             {
-            result = e.ToString();
-                //nothing
+               result = result + "\n" + e.ToString();
+
             }
+         }
+
+         return result;
+      }
+
+   }
+}
+
+   //public class uiapp : IExternalCommand {
+
+   //   public Autodesk.Revit.UI.UIApplication uiapp() {
+
+   //      DocumentManager.Instance.CurrentUIApplication;
+
+   //      public static Autodesk.Revit.ApplicationServices.Application app = new Autodesk.Revit.ApplicationServices.Application();
+
+   //   }
+   //}
 
 
-            return result;
-        }
+   // }
 
-    }
-
-
-    }
 
