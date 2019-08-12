@@ -158,6 +158,9 @@ namespace JoaosCustomNodes
          Autodesk.Revit.UI.UISaveAsOptions saveOpts = new Autodesk.Revit.UI.UISaveAsOptions();
          saveOpts.ShowOverwriteWarning = false;
          openOpts.Audit = audit;
+
+         
+
          if (detachFromCentral == false)
          {
             openOpts.DetachFromCentralOption = DetachFromCentralOption.DoNotDetach;
@@ -207,23 +210,8 @@ namespace JoaosCustomNodes
             catch (Exception f)
             {
                 result = result + "\n" + f.ToString();
-                try
-                {
-                  worksharingSaveAs.SaveAsCentral = true;
-                  saveAsOpts.SetWorksharingOptions(worksharingSaveAs);
-                  appDoc = app.OpenDocumentFile(modelPath, openOpts);
-                    appDoc.SaveAs(filePath, saveAsOpts);
-                    appDoc.Close();
 
-                    result = "appDoc Closed - Working Sharing";
-                }
-                catch (Exception g)
-                {
-                    result = result + "\n" + g.ToString();
-
-                }
-
-                }
+            }
 
             //nothing
          }
@@ -231,22 +219,15 @@ namespace JoaosCustomNodes
          return result;
       }
 
+      public void UnloadRevitLinks(Autodesk.Revit.DB.Document document)
+      {
+         Autodesk.Revit.DB.FilteredElementCollector elements = new Autodesk.Revit.DB.FilteredElementCollector(document).OfClass(typeof(RevitLinkInstance));
+
+
+      }
+
 
    }
 }
-
-   //public class uiapp : IExternalCommand {
-
-   //   public Autodesk.Revit.UI.UIApplication uiapp() {
-
-   //      DocumentManager.Instance.CurrentUIApplication;
-
-   //      public static Autodesk.Revit.ApplicationServices.Application app = new Autodesk.Revit.ApplicationServices.Application();
-
-   //   }
-   //}
-
-
-   // }
 
 
