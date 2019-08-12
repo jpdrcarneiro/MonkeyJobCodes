@@ -154,6 +154,7 @@ namespace JoaosCustomNodes
          SaveAsOptions saveAsOpts = new SaveAsOptions();
          saveAsOpts.OverwriteExistingFile = true;
          WorksharingSaveAsOptions worksharingSaveAs = new WorksharingSaveAsOptions();
+         worksharingSaveAs.SaveAsCentral = true;
          Autodesk.Revit.UI.UISaveAsOptions saveOpts = new Autodesk.Revit.UI.UISaveAsOptions();
          saveOpts.ShowOverwriteWarning = false;
          openOpts.Audit = audit;
@@ -187,18 +188,30 @@ namespace JoaosCustomNodes
             try
             {
                 appDoc = app.OpenDocumentFile(modelPath, openOpts);
-                appDoc.SaveAs(filePath, saveAsOpts);
-                appDoc.Close();
+               if (appDoc.IsWorkshared == true) {
+                  saveAsOpts.SetWorksharingOptions(worksharingSaveAs);
+                  appDoc.SaveAs(filePath, saveAsOpts);
+                  appDoc.Close();
+                  result = "appDoc Closed - Workshare Save";
+               }
+               else
+               {
+                  appDoc.SaveAs(filePath, saveAsOpts);
+                  appDoc.Close();
+                  result = "appDoc Closed - Regular Save";
+               }
+                
 
-                result = "appDoc Closed - Regular Save";
+                
             }
             catch (Exception f)
             {
                 result = result + "\n" + f.ToString();
                 try
                 {
-                    worksharingSaveAs.SaveAsCentral = true;
-                    appDoc = app.OpenDocumentFile(modelPath, openOpts);
+                  worksharingSaveAs.SaveAsCentral = true;
+                  saveAsOpts.SetWorksharingOptions(worksharingSaveAs);
+                  appDoc = app.OpenDocumentFile(modelPath, openOpts);
                     appDoc.SaveAs(filePath, saveAsOpts);
                     appDoc.Close();
 
@@ -217,6 +230,7 @@ namespace JoaosCustomNodes
 
          return result;
       }
+
 
    }
 }
