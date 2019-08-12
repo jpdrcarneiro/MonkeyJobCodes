@@ -148,7 +148,7 @@ namespace JoaosCustomNodes
          Autodesk.Revit.ApplicationServices.Application app = uiapp.Application;
          Autodesk.Revit.UI.UIDocument uiDoc;
          Autodesk.Revit.DB.Document appDoc;
-         string docTitle = string.Empty;
+         //string docTitle = string.Empty;
          //instantiate open options for user to pick to audit or not
          OpenOptions openOpts = new OpenOptions();
          SaveAsOptions saveAsOpts = new SaveAsOptions();
@@ -177,7 +177,7 @@ namespace JoaosCustomNodes
             uiDoc.SaveAs(saveOpts);
             uiDoc.SaveAndClose();
             //docOpened.Close(true);
-            result = "closed";
+            result = "UIapp Closed";
 
          }
          catch (Exception e)
@@ -190,7 +190,7 @@ namespace JoaosCustomNodes
                 appDoc.SaveAs(filePath, saveAsOpts);
                 appDoc.Close();
 
-                result = "appDoc Closed";
+                result = "appDoc Closed - Regular Save";
             }
             catch (Exception f)
             {
@@ -202,7 +202,7 @@ namespace JoaosCustomNodes
                     appDoc.SaveAs(filePath, saveAsOpts);
                     appDoc.Close();
 
-                    result = "appDoc Closed";
+                    result = "appDoc Closed - Working Sharing";
                 }
                 catch (Exception g)
                 {
