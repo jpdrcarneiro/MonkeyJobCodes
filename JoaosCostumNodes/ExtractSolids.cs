@@ -154,8 +154,6 @@ namespace JoaosCustomNodes
          SaveAsOptions saveAsOpts = new SaveAsOptions();
          saveAsOpts.OverwriteExistingFile = true;
          WorksharingSaveAsOptions worksharingSaveAs = new WorksharingSaveAsOptions();
-         worksharingSaveAs.SaveAsCentral = true;
-         saveAsOpts.SetWorksharingOptions(worksharingSaveAs);
          Autodesk.Revit.UI.UISaveAsOptions saveOpts = new Autodesk.Revit.UI.UISaveAsOptions();
          saveOpts.ShowOverwriteWarning = false;
          openOpts.Audit = audit;
@@ -171,7 +169,6 @@ namespace JoaosCustomNodes
          //convert string to model path for open
          ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(filePath);
          string result;
-         bool tryApp = false;
          try
          {
             //docOpened = app.OpenDocumentFile(modelPath, openOpts); Autodesk.Revit.ApplicationServices.Application.OpenDocumentFile(modelPath, openOpts);
@@ -187,25 +184,35 @@ namespace JoaosCustomNodes
          {
             
             result = e.ToString();
-            tryApp = true;
-            //nothing
-         }
-         if (tryApp == true)
-         {
-
             try
             {
-               appDoc = app.OpenDocumentFile(modelPath, openOpts);
-               appDoc.SaveAs(filePath, saveAsOpts);
-               appDoc.Close();
+                appDoc = app.OpenDocumentFile(modelPath, openOpts);
+                appDoc.SaveAs(filePath, saveAsOpts);
+                appDoc.Close();
 
-               result = "appDoc Closed";
+                result = "appDoc Closed";
             }
-            catch (Exception e)
+            catch (Exception f)
             {
-               result = result + "\n" + e.ToString();
+                result = result + "\n" + f.ToString();
+                try
+                {
+                    worksharingSaveAs.SaveAsCentral = true;
+                    appDoc = app.OpenDocumentFile(modelPath, openOpts);
+                    appDoc.SaveAs(filePath, saveAsOpts);
+                    appDoc.Close();
 
-            }
+                    result = "appDoc Closed";
+                }
+                catch (Exception g)
+                {
+                    result = result + "\n" + g.ToString();
+
+                }
+
+                }
+
+            //nothing
          }
 
          return result;

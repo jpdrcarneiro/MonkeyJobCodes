@@ -319,3 +319,6 @@ C:\Users\CAR11899\Documents\GitHubRep\Dynamo-JoaosNodes\JoaosCostumNodes\obj\Deb
 C:\Users\CAR11899\Documents\GitHubRep\Dynamo-JoaosNodes\JoaosCostumNodes\obj\Debug\JoaosCostumNodes.csproj.CopyComplete
 C:\Users\CAR11899\Documents\GitHubRep\Dynamo-JoaosNodes\JoaosCostumNodes\obj\Debug\JoaosCostumNodes.dll
 C:\Users\CAR11899\Documents\GitHubRep\Dynamo-JoaosNodes\JoaosCostumNodes\obj\Debug\JoaosCostumNodes.pdb
+C:\Users\CAR11899\Documents\GitHubRep\Dynamo-JoaosNodes\JoaosCostumNodes\bin\Debug\RevitAPI.dll
+C:\Users\CAR11899\Documents\GitHubRep\Dynamo-JoaosNodes\JoaosCostumNodes\bin\Debug\RevitAPIUI.dll
+C:\Users\CAR11899\Documents\GitHubRep\Dynamo-JoaosNodes\JoaosCostumNodes\bin\Debug\ManagedMC3.dll
