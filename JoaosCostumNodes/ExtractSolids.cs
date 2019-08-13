@@ -142,7 +142,7 @@ namespace JoaosCustomNodes
 
       }
 
-      public string OpenDocumentFile(string filePath, bool audit = false, bool detachFromCentral = true)
+      public string OpenDocumentFile(string filePath, bool audit = false, bool detachFromCentral = true, bool deleteLinks = false)
       {
          Autodesk.Revit.UI.UIApplication uiapp = RevitServices.Persistence.DocumentManager.Instance.CurrentUIApplication;
          Autodesk.Revit.ApplicationServices.Application app = uiapp.Application;
@@ -175,59 +175,61 @@ namespace JoaosCustomNodes
          string result;
          try
          {
-            //docOpened = app.OpenDocumentFile(modelPath, openOpts); Autodesk.Revit.ApplicationServices.Application.OpenDocumentFile(modelPath, openOpts);
-            uiDoc = uiapp.OpenAndActivateDocument(modelPath, openOpts, false);
-            //docOpened.SaveAs(filePath, saveOpts);
-            uiDoc.SaveAs(saveOpts);
-            uiDoc.SaveAndClose();
-            //docOpened.Close(true);
-            result = "UIapp Closed";
+            appDoc = app.OpenDocumentFile(modelPath, openOpts);
+            if (deleteLinks == true)
+            {
+               DeleteRevitLinks(appDoc);
+            }
+            if (appDoc.IsWorkshared == true)
+            {
+               saveAsOpts.SetWorksharingOptions(worksharingSaveAs);
+               appDoc.SaveAs(filePath, saveAsOpts);
+               appDoc.Close();
+               result = "appDoc Closed - Workshare Save";
+            }
+            else
+            {
+               appDoc.SaveAs(filePath, saveAsOpts);
+               appDoc.Close();
+               result = "appDoc Closed - Regular Save";
+            }
+                
 
+                
          }
-         catch (Exception e)
+         catch (Exception f)
          {
-            
-            result = e.ToString();
+            result = f.ToString();
+
             try
             {
-                appDoc = app.OpenDocumentFile(modelPath, openOpts);
-               UnloadRevitLinks(appDoc);
-               if (appDoc.IsWorkshared == true) {
-                  saveAsOpts.SetWorksharingOptions(worksharingSaveAs);
-                  appDoc.SaveAs(filePath, saveAsOpts);
-                  appDoc.Close();
-                  result = "appDoc Closed - Workshare Save";
-               }
-               else
-               {
-                  appDoc.SaveAs(filePath, saveAsOpts);
-                  appDoc.Close();
-                  result = "appDoc Closed - Regular Save";
-               }
-                
-
-                
+               //docOpened = app.OpenDocumentFile(modelPath, openOpts); Autodesk.Revit.ApplicationServices.Application.OpenDocumentFile(modelPath, openOpts);
+               uiDoc = uiapp.OpenAndActivateDocument(modelPath, openOpts, false);
+               //docOpened.SaveAs(filePath, saveOpts);
+               uiDoc.SaveAs(saveOpts);
+               uiDoc.SaveAndClose();
+               //docOpened.Close(true);
+               result = "UIapp Closed";
             }
-            catch (Exception f)
-            {
-                result = result + "\n" + f.ToString();
-
+            catch (Exception e) {
+               result = result + "\n" + e.ToString();
             }
+
+         }
 
             //nothing
-         }
 
          return result;
       }
 
-      public void UnloadRevitLinks(Autodesk.Revit.DB.Document document)
+      public string DeleteRevitLinks(Autodesk.Revit.DB.Document document)
       {
-         string result;
+         string result = "None";
          Autodesk.Revit.DB.FilteredElementCollector elements = new Autodesk.Revit.DB.FilteredElementCollector(document).OfClass(typeof(Autodesk.Revit.DB.RevitLinkType));
          Autodesk.Revit.DB.Element[] revitLinks = elements.ToElements().ToArray<Autodesk.Revit.DB.Element>();
         if (revitLinks.Length > 0)
          {
-            for (int i = 0; i <= revitLinks.Length; i++)
+            for (int i = 0; i < revitLinks.Length; i++)
             {
             //revitLinks[i].Unload();
             Autodesk.Revit.DB.ElementId elemId = revitLinks[i].Id;
@@ -246,7 +248,7 @@ namespace JoaosCustomNodes
          {
                 result = "No link on the model";
          }
-         //return result;
+         return result;
 
 
       }
