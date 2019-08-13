@@ -191,6 +191,7 @@ namespace JoaosCustomNodes
             try
             {
                 appDoc = app.OpenDocumentFile(modelPath, openOpts);
+               UnloadRevitLinks(appDoc);
                if (appDoc.IsWorkshared == true) {
                   saveAsOpts.SetWorksharingOptions(worksharingSaveAs);
                   appDoc.SaveAs(filePath, saveAsOpts);
@@ -219,32 +220,33 @@ namespace JoaosCustomNodes
          return result;
       }
 
-      public string UnloadRevitLinks(Autodesk.Revit.DB.Document document)
+      public void UnloadRevitLinks(Autodesk.Revit.DB.Document document)
       {
+         string result;
          Autodesk.Revit.DB.FilteredElementCollector elements = new Autodesk.Revit.DB.FilteredElementCollector(document).OfClass(typeof(RevitLinkInstance));
          Autodesk.Revit.DB.Element[] revitLinks = elements.ToElements().ToArray<Autodesk.Revit.DB.Element>();
-        string result = new string();
-        if (revitLinks.Length > 0){
-            for (int i = 0; i <= revitLinks.Length; i++)
+        if (revitLinks.Length > 0)
          {
+            for (int i = 0; i <= revitLinks.Length; i++)
+            {
             //revitLinks[i].Unload();
             Autodesk.Revit.DB.ElementId elemId = revitLinks[i].Id;
-                    try{
-                        document.Delete(elemId);
+               try
+               {
+                   document.Delete(elemId);
                     result = "success";
-}
-                    catch (Exception e){
-                        result = e.ToString();
-}
-
-
-                    
-         }
+               }
+               catch (Exception e)
+               {
+                     result = e.ToString();
+               }
+            }   
         }
-        else{
+        else
+         {
                 result = "No link on the model";
-        }
-         return result;
+         }
+         //return result;
 
 
       }
