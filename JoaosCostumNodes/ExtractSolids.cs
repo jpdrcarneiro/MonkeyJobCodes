@@ -223,7 +223,7 @@ namespace JoaosCustomNodes
       public void UnloadRevitLinks(Autodesk.Revit.DB.Document document)
       {
          string result;
-         Autodesk.Revit.DB.FilteredElementCollector elements = new Autodesk.Revit.DB.FilteredElementCollector(document).OfClass(typeof(RevitLinkInstance));
+         Autodesk.Revit.DB.FilteredElementCollector elements = new Autodesk.Revit.DB.FilteredElementCollector(document).OfClass(typeof(Autodesk.Revit.DB.RevitLinkType));
          Autodesk.Revit.DB.Element[] revitLinks = elements.ToElements().ToArray<Autodesk.Revit.DB.Element>();
         if (revitLinks.Length > 0)
          {
