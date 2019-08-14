@@ -222,29 +222,31 @@ namespace JoaosCustomNodes
          return result;
       }
 
-      public string DeleteRevitLinks(Autodesk.Revit.DB.Document document)
+      public string DeleteRevitLinks(Autodesk.Revit.DB.Document document)//, Autodesk.Revit.UI.UIDocument uiDoc)
       {
          string result = "None";
-         Autodesk.Revit.DB.FilteredElementCollector elements = new Autodesk.Revit.DB.FilteredElementCollector(document).OfClass(typeof(Autodesk.Revit.DB.RevitLinkType));
-         Autodesk.Revit.DB.FilteredElementCollector elements2 = new Autodesk.Revit.DB.FilteredElementCollector(document).OfClass(typeof(Autodesk.Revit.DB.RevitLinkInstance));
-         Autodesk.Revit.DB.Element[] revitLinks = elements.ToElements().ToArray<Autodesk.Revit.DB.Element>();
-         revitLinks = revitLinks + elements2.ToElements().ToArray<Autodesk.Revit.DB.Element>();
+         Autodesk.Revit.DB.FilteredElementCollector elements = new Autodesk.Revit.DB.FilteredElementCollector(document);
+         Autodesk.Revit.DB.Element[] revitLinks = elements.OfCategory(BuiltInCategory.OST_RvtLinks).ToArray<Autodesk.Revit.DB.Element>();
+         Transaction transaction = new Transaction(document, "DeleteLinks");
         if (revitLinks.Length > 0)
          {
+            transaction.Start();
             for (int i = 0; i < revitLinks.Length; i++)
             {
-            //revitLinks[i].Unload();
-            Autodesk.Revit.DB.ElementId elemId = revitLinks[i].Id;
+               Autodesk.Revit.DB.ElementId elementId;
+               //revitLinks[i].Unload(); 
                try
                {
-                   document.Delete(elemId);
-                    result = "success";
+                  elementId = revitLinks[i].Id;
                }
-               catch (Exception e)
+               catch (Exception)
                {
-                     result = e.ToString();
+                  continue;
                }
-            }   
+            document.Delete(elementId);
+            result = "success";
+            }
+            transaction.Commit();
         }
         else
          {
