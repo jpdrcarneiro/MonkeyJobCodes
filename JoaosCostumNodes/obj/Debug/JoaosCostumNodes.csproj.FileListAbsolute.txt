@@ -191,9 +191,6 @@ C:\Users\jpdrc\Documents\Repos\Dynamo-JoaosNodes\JoaosCostumNodes\obj\Debug\Joao
 C:\Users\jpdrc\Documents\Repos\Dynamo-JoaosNodes\JoaosCostumNodes\obj\Debug\JoaosCostumNodes.csproj.CopyComplete
 C:\Users\jpdrc\Documents\Repos\Dynamo-JoaosNodes\JoaosCostumNodes\obj\Debug\JoaosCostumNodes.dll
 C:\Users\jpdrc\Documents\Repos\Dynamo-JoaosNodes\JoaosCostumNodes\obj\Debug\JoaosCostumNodes.pdb
-C:\Users\CAR11899\Documents\GitHubRep\Dynamo-JoaosNodes\JoaosCostumNodes\bin\Debug\JoaosCostumNodes.dll.config
-C:\Users\CAR11899\Documents\GitHubRep\Dynamo-JoaosNodes\JoaosCostumNodes\bin\Debug\JoaosCostumNodes.dll
-C:\Users\CAR11899\Documents\GitHubRep\Dynamo-JoaosNodes\JoaosCostumNodes\bin\Debug\JoaosCostumNodes.pdb
 C:\Users\CAR11899\Documents\GitHubRep\Dynamo-JoaosNodes\JoaosCostumNodes\bin\Debug\CommonServiceLocator.dll
 C:\Users\CAR11899\Documents\GitHubRep\Dynamo-JoaosNodes\JoaosCostumNodes\bin\Debug\DesignScriptBuiltin.dll
 C:\Users\CAR11899\Documents\GitHubRep\Dynamo-JoaosNodes\JoaosCostumNodes\bin\Debug\DSIronPython.dll
@@ -317,8 +314,6 @@ C:\Users\CAR11899\Documents\GitHubRep\Dynamo-JoaosNodes\JoaosCostumNodes\bin\Deb
 C:\Users\CAR11899\Documents\GitHubRep\Dynamo-JoaosNodes\JoaosCostumNodes\obj\Debug\JoaosCostumNodes.csprojAssemblyReference.cache
 C:\Users\CAR11899\Documents\GitHubRep\Dynamo-JoaosNodes\JoaosCostumNodes\obj\Debug\JoaosCostumNodes.csproj.CoreCompileInputs.cache
 C:\Users\CAR11899\Documents\GitHubRep\Dynamo-JoaosNodes\JoaosCostumNodes\obj\Debug\JoaosCostumNodes.csproj.CopyComplete
-C:\Users\CAR11899\Documents\GitHubRep\Dynamo-JoaosNodes\JoaosCostumNodes\obj\Debug\JoaosCostumNodes.dll
-C:\Users\CAR11899\Documents\GitHubRep\Dynamo-JoaosNodes\JoaosCostumNodes\obj\Debug\JoaosCostumNodes.pdb
 C:\Users\CAR11899\Documents\GitHubRep\Dynamo-JoaosNodes\JoaosCostumNodes\bin\Debug\RevitAPI.dll
 C:\Users\CAR11899\Documents\GitHubRep\Dynamo-JoaosNodes\JoaosCostumNodes\bin\Debug\RevitAPIUI.dll
 C:\Users\CAR11899\Documents\GitHubRep\Dynamo-JoaosNodes\JoaosCostumNodes\bin\Debug\ManagedMC3.dll
@@ -389,3 +384,8 @@ C:\Users\jpdrc\Documents\Repos\Dynamo-JoaosNodes\JoaosCostumNodes\bin\Debug\ru-R
 C:\Users\jpdrc\Documents\Repos\Dynamo-JoaosNodes\JoaosCostumNodes\bin\Debug\zh-CN\AdWindows.resources.dll
 C:\Users\jpdrc\Documents\Repos\Dynamo-JoaosNodes\JoaosCostumNodes\bin\Debug\zh-TW\AdWindows.resources.dll
 C:\Users\jpdrc\Documents\Repos\Dynamo-JoaosNodes\JoaosCostumNodes\obj\Debug\JoaosCostumNodes.csprojAssemblyReference.cache
+C:\Users\CAR11899\Documents\GitHubRep\Dynamo-JoaosNodes\JoaosCostumNodes\bin\Debug\MonkeyJobNodes.dll.config
+C:\Users\CAR11899\Documents\GitHubRep\Dynamo-JoaosNodes\JoaosCostumNodes\bin\Debug\MonkeyJobNodes.dll
+C:\Users\CAR11899\Documents\GitHubRep\Dynamo-JoaosNodes\JoaosCostumNodes\bin\Debug\MonkeyJobNodes.pdb
+C:\Users\CAR11899\Documents\GitHubRep\Dynamo-JoaosNodes\JoaosCostumNodes\obj\Debug\MonkeyJobNodes.dll
+C:\Users\CAR11899\Documents\GitHubRep\Dynamo-JoaosNodes\JoaosCostumNodes\obj\Debug\MonkeyJobNodes.pdb
