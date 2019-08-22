@@ -1,5 +1,4 @@
-
-# Enable Python support and load DesignScript library
+#Find all Revit Projects in a directory, including subfolders
 import sys 
 import clr
 import System

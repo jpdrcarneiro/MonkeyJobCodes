@@ -117,6 +117,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DocOperations.cs" />
     <Compile Include="MonkeyJobNodes.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

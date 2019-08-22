@@ -1,13 +1,14 @@
-# Enable Python support and load DesignScript library
+#Generate log.txt file with the results of the opening, save, and close node
+#Good for a big list of projects
 import clr
 clr.AddReference('ProtoGeometry')
 from Autodesk.DesignScript.Geometry import *
 
 # The inputs to this node will be stored as a list in the IN variables.
-dataEnteringNode = IN
 
 filePath = IN[0]
 
+#result of open, save, and close node from monkey job nodes
 result = IN[1]
 
 originalDirectory = IN[2]

@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
-VisualStudioVersion = 16.0.28803.452
+VisualStudioVersion = 16.0.29201.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonkeyJobNodes", "JoaosCostumNodes\MonkeyJobNodes.csproj", "{B026344E-AE25-4714-A84E-C672309FCF44}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MonkeyJobNodes", "MonkeyJobNodes\MonkeyJobNodes.csproj", "{B026344E-AE25-4714-A84E-C672309FCF44}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,6 +20,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {ECD85FF7-BAC9-4E56-98D1-91DBB9D27F16}
+		SolutionGuid = {F4655E58-51CA-4B5B-9315-BCF4C9FA2B2E}
 	EndGlobalSection
 EndGlobal
