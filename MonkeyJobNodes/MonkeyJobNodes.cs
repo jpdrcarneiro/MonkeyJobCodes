@@ -151,6 +151,22 @@ namespace MonkeyJobNodes
 
       }
 
+        /// <summary>
+        /// Check if a string is empty or not. Empty string == false; Use this to generate a boolean mask;
+        /// </summary>
+        /// <param name="stringCont"></param>
+        /// <returns></returns>
+        public static bool isStringEmpty(string stringCont) {
+            if (stringCont.Length > 1) {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+
+        }
+
    }
    /// <summary>
    /// This nodes are used to upgrade revit projects
