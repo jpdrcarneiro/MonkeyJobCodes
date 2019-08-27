@@ -4,7 +4,7 @@ This will be populated
 ### Nedded Pakages
 Most of the example files requires extra packages, provided below:
 
-1. Rhytm 
+1. Rhythm 
 2. BimmorphNodes
 3. Archi-lab.net
 4. Lunchbox

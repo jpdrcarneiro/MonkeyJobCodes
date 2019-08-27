@@ -2,6 +2,7 @@
 using Autodesk.DesignScript.Runtime;
 using Revit.GeometryConversion;
 using System.Collections.Generic;
+using System;
 
 
 namespace MonkeyJobNodes
@@ -150,11 +151,50 @@ namespace MonkeyJobNodes
          }
 
       }
+      public static Autodesk.Revit.DB.ParameterSet DoesProjectParameterExist(Revit.Elements.Element elemDynamo, string paramName)
+      {
+         Autodesk.Revit.DB.ParameterSet parameterSet = new Autodesk.Revit.DB.ParameterSet();
+         Autodesk.Revit.DB.Element elem = elemDynamo as Autodesk.Revit.DB.Element;
+         try
+         {
+            parameterSet = elem.Parameters;
+         }
+         catch (NullReferenceException error)
+         {
+            return null;
+         }
+
+
+
+         return parameterSet;
+      }
+
+      public static string[] GetAllPametersName(Autodesk.Revit.DB.ParameterSet parameterSet)
+      {
+         try
+         {
+            string[] allParametersName = new string[parameterSet.Size];
+            int counter = 0;
+            foreach (Autodesk.Revit.DB.Parameter param in parameterSet)
+            {
+               allParametersName[counter] = param.AsString();
+               counter++;
+            }
+
+            return allParametersName;
+         }
+         catch (NullReferenceException error)
+         {
+            string[] allParametersName = new string[1];
+            allParametersName[0] = error.ToString();
+            return allParametersName;
+         }
+         
+
+         
+      }
 
    }
-   /// <summary>
-   /// This nodes are used to upgrade revit projects
-   /// </summary>
 
 }
 
