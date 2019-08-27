@@ -13,77 +13,77 @@ namespace MonkeyJobNodes
 
    public static class UnderDevelopment
    {
-      //[MultiReturn(new[] { "RevitSolid", "DynamoSolid" })]
-      //public static Dictionary<Autodesk.Revit.DB.Solid[], Autodesk.DesignScript.Geometry.Solid[]> GetGeometry(Revit.Elements.DirectShape directShapes, bool removeEmptyVolumes = false)
-      //{
-      //   Autodesk.Revit.DB.Element elem;
+        [MultiReturn(new[] { "RevitSolid", "DynamoSolid" })]
+        public static Dictionary<Autodesk.Revit.DB.Solid[], Autodesk.DesignScript.Geometry.Solid[]> GetGeometry(Revit.Elements.DirectShape directShapes, bool removeEmptyVolumes = false)
+        {
+            Autodesk.Revit.DB.Element elem;
 
-      //   try
-      //   {
-      //      elem = directShapes.InternalElement;
-      //   }
-      //   catch
-      //   {
-      //      return null;
-      //   }
+            try
+            {
+                elem = directShapes.InternalElement;
+            }
+            catch
+            {
+                return null;
+            }
 
-      //   //Element[] selElements = elem as Element[];
-
-
-      //   List<Autodesk.Revit.DB.Solid> geomSolid = new List<Autodesk.Revit.DB.Solid>();
-      //   List<Autodesk.DesignScript.Geometry.Solid> dynSolids = new List<Autodesk.DesignScript.Geometry.Solid>();
-
-      //   GeometryElement temp = elem.get_Geometry(new Options());
-
-      //   IEnumerator<GeometryObject> enumeratorTemp = temp.GetEnumerator();
-      //   //temp.Dispose();
-      //   while (enumeratorTemp.MoveNext())
-      //   {
-      //      GeometryObject geometryObject = enumeratorTemp.Current;
-      //      Type type = geometryObject.GetType();
-      //      var propertyInfo = geometryObject.GetType().GetProperties(System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
-      //      var materialValue = propertyInfo.GetValue(0);
-      //      if (type.Name == "Solid")
-      //      {
-      //         Autodesk.Revit.DB.Solid tempSolid = geometryObject as Autodesk.Revit.DB.Solid;
-      //         Autodesk.DesignScript.Geometry.Solid dynamoTempSolid = tempSolid.ToProtoType();
-      //         //Autodesk.Revit.DB.Surface[] surfaces = new Autodesk.Revit.DB.Surface[tempFaces.Size];
-
-      //         if (tempSolid.Volume > 0 && removeEmptyVolumes == true)
-      //         {
-      //            geomSolid.Add(tempSolid);
-      //            dynSolids.Add(dynamoTempSolid);
-
-      //         }
-      //         else if (removeEmptyVolumes == false)
-      //         {
-      //            geomSolid.Add(tempSolid);
-      //            dynSolids.Add(dynamoTempSolid);
-      //         }
-      //         tempSolid.Dispose();
-      //         geometryObject.Dispose();
-      //      }
-      //   }
-      //   enumeratorTemp.Dispose();
-      //   Autodesk.Revit.DB.Solid[] geomSolids = geomSolid.ToArray();
-      //   Autodesk.DesignScript.Geometry.Solid[] dynSolids2 = dynSolids.ToArray();
-      //       Dictionary<Autodesk.Revit.DB.Solid[], Autodesk.DesignScript.Geometry.Solid[]> MultiOutPut = new Dictionary<Autodesk.Revit.DB.Solid[], Autodesk.DesignScript.Geometry.Solid[]>
-      //       {
-      //          { "RevitSolid", geomSolids },
-      //          {"DynamoSolid", dynSolids2 }
-      //       };
-
-      //      return MultiOutPut;
-
-      //}
+            //Element[] selElements = elem as Element[];
 
 
-      /// <summary>
-      /// Convert Revit API Solid into Dynamo Solid
-      /// </summary>
-      /// <param name="solid">Revit API solid</param>
-      /// <returns></returns>
-      public static Autodesk.DesignScript.Geometry.Solid ConvertToDynamoSolid(Autodesk.Revit.DB.Solid solid)
+            List<Autodesk.Revit.DB.Solid> geomSolid = new List<Autodesk.Revit.DB.Solid>();
+            List<Autodesk.DesignScript.Geometry.Solid> dynSolids = new List<Autodesk.DesignScript.Geometry.Solid>();
+
+            GeometryElement temp = elem.get_Geometry(new Options());
+
+            IEnumerator<GeometryObject> enumeratorTemp = temp.GetEnumerator();
+            //temp.Dispose();
+            while (enumeratorTemp.MoveNext())
+            {
+                GeometryObject geometryObject = enumeratorTemp.Current;
+                Type type = geometryObject.GetType();
+                var propertyInfo = geometryObject.GetType().GetProperties(System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+                var materialValue = propertyInfo.GetValue(0);
+                if (type.Name == "Solid")
+                {
+                    Autodesk.Revit.DB.Solid tempSolid = geometryObject as Autodesk.Revit.DB.Solid;
+                    Autodesk.DesignScript.Geometry.Solid dynamoTempSolid = tempSolid.ToProtoType();
+                    //Autodesk.Revit.DB.Surface[] surfaces = new Autodesk.Revit.DB.Surface[tempFaces.Size];
+
+                    if (tempSolid.Volume > 0 && removeEmptyVolumes == true)
+                    {
+                        geomSolid.Add(tempSolid);
+                        dynSolids.Add(dynamoTempSolid);
+
+                    }
+                    else if (removeEmptyVolumes == false)
+                    {
+                        geomSolid.Add(tempSolid);
+                        dynSolids.Add(dynamoTempSolid);
+                    }
+                    tempSolid.Dispose();
+                    geometryObject.Dispose();
+                }
+            }
+            enumeratorTemp.Dispose();
+            Autodesk.Revit.DB.Solid[] geomSolids = geomSolid.ToArray();
+            Autodesk.DesignScript.Geometry.Solid[] dynSolids2 = dynSolids.ToArray();
+            Dictionary<Autodesk.Revit.DB.Solid[], Autodesk.DesignScript.Geometry.Solid[]> MultiOutPut = new Dictionary<Autodesk.Revit.DB.Solid[], Autodesk.DesignScript.Geometry.Solid[]>
+             {
+                { "RevitSolid", geomSolids },
+                {"DynamoSolid", dynSolids2 }
+             };
+
+            return MultiOutPut;
+
+        }
+
+
+        /// <summary>
+        /// Convert Revit API Solid into Dynamo Solid
+        /// </summary>
+        /// <param name="solid">Revit API solid</param>
+        /// <returns></returns>
+        public static Autodesk.DesignScript.Geometry.Solid ConvertToDynamoSolid(Autodesk.Revit.DB.Solid solid)
       {
 
          Autodesk.DesignScript.Geometry.Solid tempSolid = solid.ToProtoType();
