@@ -13,8 +13,14 @@ namespace MonkeyJobNodes
 
    public static class UnderDevelopment
    {
+        /// <summary>
+        /// Get Input from SelectModelElement and covert into Revit Solid or Dynamo Solid
+        /// </summary>
+        /// <param name="directShapes"> Select Model Element or Select Model Elements</param>
+        /// <param name="removeEmptyVolumes"> Bollean true or false</param>
+        /// <returns></returns>
         [MultiReturn(new[] { "RevitSolid", "DynamoSolid" })]
-        public static Dictionary<Autodesk.Revit.DB.Solid[], Autodesk.DesignScript.Geometry.Solid[]> GetGeometry(Revit.Elements.DirectShape directShapes, bool removeEmptyVolumes = false)
+        public static Dictionary<string, object> GetSolids(Revit.Elements.DirectShape directShapes, bool removeEmptyVolumes = false)
         {
             Autodesk.Revit.DB.Element elem;
 
@@ -32,14 +38,14 @@ namespace MonkeyJobNodes
 
             List<Autodesk.Revit.DB.Solid> geomSolid = new List<Autodesk.Revit.DB.Solid>();
             List<Autodesk.DesignScript.Geometry.Solid> dynSolids = new List<Autodesk.DesignScript.Geometry.Solid>();
+            
+            Autodesk.Revit.DB.GeometryElement temp = elem.get_Geometry(new Autodesk.Revit.DB.Options());
 
-            GeometryElement temp = elem.get_Geometry(new Options());
-
-            IEnumerator<GeometryObject> enumeratorTemp = temp.GetEnumerator();
+            IEnumerator<Autodesk.Revit.DB.GeometryObject> enumeratorTemp = temp.GetEnumerator();
             //temp.Dispose();
             while (enumeratorTemp.MoveNext())
             {
-                GeometryObject geometryObject = enumeratorTemp.Current;
+            Autodesk.Revit.DB.GeometryObject geometryObject = enumeratorTemp.Current;
                 Type type = geometryObject.GetType();
                 var propertyInfo = geometryObject.GetType().GetProperties(System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
                 var materialValue = propertyInfo.GetValue(0);
@@ -67,10 +73,10 @@ namespace MonkeyJobNodes
             enumeratorTemp.Dispose();
             Autodesk.Revit.DB.Solid[] geomSolids = geomSolid.ToArray();
             Autodesk.DesignScript.Geometry.Solid[] dynSolids2 = dynSolids.ToArray();
-            Dictionary<Autodesk.Revit.DB.Solid[], Autodesk.DesignScript.Geometry.Solid[]> MultiOutPut = new Dictionary<Autodesk.Revit.DB.Solid[], Autodesk.DesignScript.Geometry.Solid[]>
+            Dictionary<string, object> MultiOutPut = new Dictionary<string, object>
              {
-                { "RevitSolid", geomSolids },
-                {"DynamoSolid", dynSolids2 }
+                {"RevitSolid", geomSolids},
+               {"DynamoSolid", dynSolids2}
              };
 
             return MultiOutPut;
@@ -151,48 +157,8 @@ namespace MonkeyJobNodes
          }
 
       }
-      public static Autodesk.Revit.DB.ParameterSet DoesProjectParameterExist(Revit.Elements.Element elemDynamo, string paramName)
-      {
-         Autodesk.Revit.DB.ParameterSet parameterSet = new Autodesk.Revit.DB.ParameterSet();
-         Autodesk.Revit.DB.Element elem = elemDynamo as Autodesk.Revit.DB.Element;
-         try
-         {
-            parameterSet = elem.Parameters;
-         }
-         catch (NullReferenceException error)
-         {
-            return null;
-         }
 
 
-
-         return parameterSet;
-      }
-
-      public static string[] GetAllPametersName(Autodesk.Revit.DB.ParameterSet parameterSet)
-      {
-         try
-         {
-            string[] allParametersName = new string[parameterSet.Size];
-            int counter = 0;
-            foreach (Autodesk.Revit.DB.Parameter param in parameterSet)
-            {
-               allParametersName[counter] = param.AsString();
-               counter++;
-            }
-
-            return allParametersName;
-         }
-         catch (NullReferenceException error)
-         {
-            string[] allParametersName = new string[1];
-            allParametersName[0] = error.ToString();
-            return allParametersName;
-         }
-         
-
-         
-      }
 
    }
 

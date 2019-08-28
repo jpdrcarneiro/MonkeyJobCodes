@@ -136,8 +136,36 @@ namespace MonkeyJobNodes
 
       }
 
-      
+      /// <summary>
+      /// Convert Dynamo Select Models Elements into Revit API elements
+      /// </summary>
+      /// <param name="directShape">Input from Select Model Elements</param>
+      /// <returns>Autodesk.Revit.DB.Element - Check Revit API documentation</returns>
+      public static Autodesk.Revit.DB.Element ConvertToAPIElement(Revit.Elements.DirectShape directShape)
+      {
+         if (directShape == null)
+         {
+            return null;
+         }
+
+         int ID = directShape.Id;
+
+
+         Autodesk.Revit.UI.UIApplication uiapp = RevitServices.Persistence.DocumentManager.Instance.CurrentUIApplication;
+         Autodesk.Revit.ApplicationServices.Application app = uiapp.Application;
+         Autodesk.Revit.DB.Document doc = RevitServices.Persistence.DocumentManager.Instance.CurrentDBDocument;
+
+         Autodesk.Revit.DB.ParameterSet parameterSet = new Autodesk.Revit.DB.ParameterSet();
+
+         Autodesk.Revit.DB.ElementId elemId = new Autodesk.Revit.DB.ElementId(ID);
+
+         Autodesk.Revit.DB.Element API_element = doc.GetElement(elemId);
+
+         return API_element;
+      }
 
 
    }
+
+   
 }
