@@ -2,11 +2,72 @@
 using System;
 using System.Linq;
 using System.Collections.Generic;
+using Autodesk.DesignScript.Geometry;
+using Autodesk.DesignScript.Runtime;
 
 namespace MonkeyJobNodes
 {
    public class DocOperations
    {
+      /// <summary>
+      /// Get Essential documents to run nodes
+      /// </summary>
+      /// <returns></returns>
+      [MultiReturn(new[] { "UiApplication", "Application", "UiDocument", "CurrentDocument" })]
+      public Dictionary<string, object> docOperationsNeeds()
+      {
+         Autodesk.Revit.UI.UIApplication uiapp = RevitServices.Persistence.DocumentManager.Instance.CurrentUIApplication;
+         Autodesk.Revit.ApplicationServices.Application app = uiapp.Application;
+         Autodesk.Revit.UI.UIDocument uiDoc = uiapp.ActiveUIDocument;
+         Autodesk.Revit.DB.Document currentDoc = RevitServices.Persistence.DocumentManager.Instance.CurrentDBDocument;
+
+
+         Dictionary<string, object> multiOutput = new Dictionary<string, object>();
+         multiOutput.Add("UiApplication", uiapp);
+         multiOutput.Add("Application", app);
+         multiOutput.Add("UiDocument", uiDoc);
+         multiOutput.Add("AppDocument", currentDoc);
+
+         return multiOutput;
+      }
+      /// <summary>
+      /// Open a Transaction
+      /// </summary>
+      /// <param name="currentDoc"></param>
+      /// <param name="transactionName"></param>
+      /// <returns></returns>
+      public Transaction openTransaction(Autodesk.Revit.DB.Document currentDoc, string transactionName) {
+         Transaction transaction = new Transaction(currentDoc, transactionName);
+         return transaction;
+      }
+      /// <summary>
+      /// Commit change to the document
+      /// </summary>
+      /// <param name="transaction">Output from openTransaction node</param>
+      /// <param name="runIt"> True to run commit action</param>
+      /// <returns></returns>
+      public string CommitTransaction(Transaction transaction, bool runIt = false)
+      {
+         if (runIt == true)
+         {
+            try
+            {
+               transaction.Commit();
+               return "Transaction Committed";
+            }
+            catch (Exception e)
+            {
+               string result = "Error: " + e.Message;
+               return result;
+            }
+         }
+         else
+         {
+            return "not set to run";
+         }
+         
+
+      }
       /// <summary>
       /// This node open, save, and close a project or list of projects.
       /// </summary>
@@ -140,28 +201,44 @@ namespace MonkeyJobNodes
       /// Convert Dynamo Select Models Elements into Revit API elements
       /// </summary>
       /// <param name="directShape">Input from Select Model Elements</param>
-      /// <returns>Autodesk.Revit.DB.Element - Check Revit API documentation</returns>
-      public static Autodesk.Revit.DB.Element ConvertToAPIElement(Revit.Elements.DirectShape directShape)
+      /// <returns name="ElementAPI">Autodesk.Revit.DB.Element - Check Revit API documentation</returns>
+      [MultiReturn(new[] { "RevitApiElement", "LocationObject", "ElementLocation"}) ]
+      public static Dictionary<string,object> ConvertToAPIElement(Revit.Elements.DirectShape directShape)
       {
          if (directShape == null)
          {
             return null;
          }
+         else
+         {
 
-         int ID = directShape.Id;
+            int ID = directShape.Id;
 
 
-         Autodesk.Revit.UI.UIApplication uiapp = RevitServices.Persistence.DocumentManager.Instance.CurrentUIApplication;
-         Autodesk.Revit.ApplicationServices.Application app = uiapp.Application;
-         Autodesk.Revit.DB.Document doc = RevitServices.Persistence.DocumentManager.Instance.CurrentDBDocument;
+            Autodesk.Revit.UI.UIApplication uiapp = RevitServices.Persistence.DocumentManager.Instance.CurrentUIApplication;
+            Autodesk.Revit.ApplicationServices.Application app = uiapp.Application;
+            Autodesk.Revit.DB.Document doc = RevitServices.Persistence.DocumentManager.Instance.CurrentDBDocument;
 
-         Autodesk.Revit.DB.ParameterSet parameterSet = new Autodesk.Revit.DB.ParameterSet();
+            //Autodesk.Revit.DB.ParameterSet parameterSet = new Autodesk.Revit.DB.ParameterSet();
 
-         Autodesk.Revit.DB.ElementId elemId = new Autodesk.Revit.DB.ElementId(ID);
+            Autodesk.Revit.DB.ElementId elemId = new Autodesk.Revit.DB.ElementId(ID);
 
-         Autodesk.Revit.DB.Element API_element = doc.GetElement(elemId);
+            Autodesk.Revit.DB.Element API_element = doc.GetElement(elemId);
 
-         return API_element;
+            Dictionary<string, Object> multiOut = new Dictionary<string, object>();
+
+            Autodesk.Revit.DB.Location elemLocation = API_element.Location;
+
+            
+
+            multiOut.Add("RevitApiElement", API_element);
+            multiOut.Add("LocationObject", elemLocation);
+            multiOut.Add("ElementLocation", elemLocation.ToString());
+
+            return multiOut;
+         }
+
+         
       }
 
 
