@@ -11,7 +11,7 @@ namespace MonkeyJobNodes
    /// Codes created to automize reptitive work that a monkey can do
    /// </summary>
 
-   public static class UnderDevelopment
+   public class UnderDevelopment
    {
       /// <summary>
       /// Get Input from SelectModelElement and covert into Revit Solid or Dynamo Solid
@@ -20,7 +20,7 @@ namespace MonkeyJobNodes
       /// <param name="removeEmptyVolumes"> Bollean true or false</param>
       /// <returns></returns>
       [MultiReturn(new[] { "RevitSolid", "DynamoSolid" })]
-      public static Dictionary<string, object> GetSolids(Revit.Elements.DirectShape directShapes, bool removeEmptyVolumes = false)
+      public Dictionary<string, object> GetSolids(Revit.Elements.DirectShape directShapes, bool removeEmptyVolumes = false)
       {
          Autodesk.Revit.DB.Element elem;
 
@@ -53,6 +53,7 @@ namespace MonkeyJobNodes
             {
                Autodesk.Revit.DB.Solid tempSolid = geometryObject as Autodesk.Revit.DB.Solid;
                Autodesk.DesignScript.Geometry.Solid dynamoTempSolid = tempSolid.ToProtoType();
+               //Revit.GeometryConversion.RevitToProtoSolid revitToProtoSolid = new RevitToProtoSolid(tempSolid);
                //Autodesk.Revit.DB.Surface[] surfaces = new Autodesk.Revit.DB.Surface[tempFaces.Size];
 
                if (tempSolid.Volume > 0 && removeEmptyVolumes == true)
@@ -184,6 +185,10 @@ namespace MonkeyJobNodes
             return category;
          }
 
+      }
+
+      public static Dictionary<string, object> EqualElementsDataSets() {
+         return null;
       }
 
 

@@ -202,7 +202,7 @@ namespace MonkeyJobNodes
       /// </summary>
       /// <param name="directShape">Input from Select Model Elements</param>
       /// <returns name="ElementAPI">Autodesk.Revit.DB.Element - Check Revit API documentation</returns>
-      [MultiReturn(new[] { "RevitApiElement", "LocationObject", "ElementLocation"}) ]
+      [MultiReturn(new[] { "ElementID", "RevitApiElement", "BoundingBox", "CenterBoundingBox" }) ]
       public static Dictionary<string,object> ConvertToAPIElement(Revit.Elements.DirectShape directShape)
       {
          if (directShape == null)
@@ -227,13 +227,15 @@ namespace MonkeyJobNodes
 
             Dictionary<string, Object> multiOut = new Dictionary<string, object>();
 
-            Autodesk.Revit.DB.Location elemLocation = API_element.Location;
+            Autodesk.Revit.DB.BoundingBoxXYZ bounding = API_element.get_BoundingBox(doc.ActiveView);
+            Autodesk.Revit.DB.XYZ centerPoint = (bounding.Max + bounding.Min) / 2;
 
-            
+            //Autodesk.Revit.DB.Location elemLocation = API_element.Location;
 
+            multiOut.Add("ElementID", ID);
             multiOut.Add("RevitApiElement", API_element);
-            multiOut.Add("LocationObject", elemLocation);
-            multiOut.Add("ElementLocation", elemLocation.ToString());
+            multiOut.Add("BoundingBox", bounding);
+            multiOut.Add("CenterBoundingBox", centerPoint);
 
             return multiOut;
          }
