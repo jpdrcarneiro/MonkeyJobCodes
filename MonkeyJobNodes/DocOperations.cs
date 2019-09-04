@@ -273,7 +273,7 @@ namespace MonkeyJobNodes
          data.Add(table.Rows.Count.ToString());
          return data.ToArray();
       }
-      public static DataTable MergedDataTables(DataTable table1, DataTable table2, bool preserveChanges, string primaryKey)
+      public static DataTable MergeDataTables(DataTable table1, DataTable table2, bool preserveChanges, string primaryKey)
       {
          table1.PrimaryKey = new DataColumn[] { table1.Columns[primaryKey] };
          table2.PrimaryKey = new DataColumn[] { table2.Columns[primaryKey] };
