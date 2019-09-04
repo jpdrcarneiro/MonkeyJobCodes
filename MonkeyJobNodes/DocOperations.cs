@@ -1,6 +1,7 @@
 ﻿using Autodesk.Revit.DB;
 using System;
 using System.Linq;
+using System.Data;
 using System.Collections.Generic;
 using Autodesk.DesignScript.Geometry;
 using Autodesk.DesignScript.Runtime;
@@ -240,7 +241,45 @@ namespace MonkeyJobNodes
             return multiOut;
          }
 
-         
+      }
+      public static DataTable GenerateDataTable(string[] Data, string Headers)
+      {
+         DataTable previousDataTable = new DataTable("previousData");
+         previousDataTable.Clear();
+         string[] oldHeaders = Headers.Split(',');
+         foreach (string header in oldHeaders)
+         {
+            previousDataTable.Columns.Add(header);
+         }
+         for (int i = 0; i < Data.Length; i++)
+         {
+            string[] temp = Data[i].Split(',');
+            DataRow _drow = previousDataTable.NewRow();
+            for (int j = 0; j < temp.Length; j++)
+            {
+               _drow[oldHeaders[j]] = temp[j];
+            }
+            previousDataTable.Rows.Add(_drow);
+         }
+         //Console.Write(previousDataTable.ToString());		
+         return previousDataTable;
+      }
+      public static string[] GetDataTableInfo(DataTable table)
+      {
+         List<string> data = new List<string>();
+         data.Add("Number of Columns: ");
+         data.Add(table.Columns.Count.ToString());
+         data.Add("Number of rows: ");
+         data.Add(table.Rows.Count.ToString());
+         return data.ToArray();
+      }
+      public static DataTable MergedDataTables(DataTable table1, DataTable table2, bool preserveChanges, string primaryKey)
+      {
+         table1.PrimaryKey = new DataColumn[] { table1.Columns[primaryKey] };
+         table2.PrimaryKey = new DataColumn[] { table2.Columns[primaryKey] };
+         //create primary key		
+         table1.Merge(table2, preserveChanges, MissingSchemaAction.Add);
+         return table1;
       }
 
 
