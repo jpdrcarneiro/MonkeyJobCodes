@@ -1866,6 +1866,15 @@
           "Level": 2,
           "UseLevels": false,
           "KeepListStructure": false
+        },
+        {
+          "Id": "75c2e05390584c15996d0c7b987ca604",
+          "Name": "TempID",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
         }
       ],
       "Replication": "Auto",
@@ -2097,47 +2106,8 @@
       "Description": "Visualize the output of node."
     },
     {
-      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "DSCore.IO.FileSystem.WriteText@string,string",
-      "Id": "87f0caa3ec7046b5925323bc141270ec",
-      "Inputs": [
-        {
-          "Id": "2f798c30a8bd4e40879ab5ca7aa82109",
-          "Name": "filePath",
-          "Description": "Path to write to\n\nstring",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "2229afbd98644f6dbb47a46bdb364b9d",
-          "Name": "text",
-          "Description": "Text content\n\nstring",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Outputs": [
-        {
-          "Id": "760b6dbde90548899f9cf5a3e8379df4",
-          "Name": "void",
-          "Description": "void",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Auto",
-      "Description": "Write the text content to a file specified by the path\n\nFileSystem.WriteText (filePath: string, text: string): void"
-    },
-    {
       "ConcreteType": "CoreNodeModels.Input.Filename, CoreNodeModels",
-      "HintPath": "C:\\Users\\jpdrc\\Documents\\Repos\\MonkeyJobNodes\\Examples\\No file selected",
+      "HintPath": "C:\\Users\\jpdrc\\Documents\\Repos\\MonkeyJobCodes\\Examples\\No file selected",
       "InputValue": "No file selected.",
       "NodeType": "ExtensionNode",
       "Id": "584802aca94a475089489f16f5ecab96",
@@ -2507,6 +2477,45 @@
       ],
       "Replication": "Disabled",
       "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "DSOffice.Data.ExportCSV@string,var[][]",
+      "Id": "583e7cdcbab747129ee26cbdad504ff6",
+      "Inputs": [
+        {
+          "Id": "977c006331b14e088b2e69507b2ae69f",
+          "Name": "filePath",
+          "Description": "Path to write to\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "779460540e244b41bb7b77c976e481e8",
+          "Name": "data",
+          "Description": "List of lists to write into CSV\n\nvar[][]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "d7756a5ff9484ebeb3d398adefacc21b",
+          "Name": "void",
+          "Description": "void",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Write a list of lists into a file using a comma-separated values format. Outer list represents rows, inner lists represent columns.\n\nData.ExportCSV (filePath: string, data: var[][]): void"
     }
   ],
   "Connectors": [
@@ -2534,6 +2543,11 @@
       "Start": "cd7bab1be16b4d32aeb522b3767e1d65",
       "End": "7362b50892224eec9933e44d1daeaed7",
       "Id": "1a8880aba8b04f27b307a92ab46dee2a"
+    },
+    {
+      "Start": "75c2e05390584c15996d0c7b987ca604",
+      "End": "8f89e7c9e6f64259949241d50a78f8da",
+      "Id": "cdbc25e0c1544aef9c7d94517726efd6"
     },
     {
       "Start": "fe11ff8b222c469a99afc52a0f078035",
@@ -2566,24 +2580,19 @@
       "Id": "67ff2042f1e846e1830a7d7f4298d4a0"
     },
     {
-      "Start": "80ea2773c5474c16a928c57a8c06bd97",
-      "End": "2229afbd98644f6dbb47a46bdb364b9d",
-      "Id": "de680ab0e70844dca69f51105c322ed3"
+      "Start": "b0c6112f7e9b405fa1fb19dad2ee7be3",
+      "End": "779460540e244b41bb7b77c976e481e8",
+      "Id": "cd56d26ebc4d45dca402b18f1018282b"
     },
     {
       "Start": "6b355934b3d0488296cde564c1cb6d94",
-      "End": "2f798c30a8bd4e40879ab5ca7aa82109",
-      "Id": "621da51992fd4ad98c8f4c156a0ea838"
+      "End": "977c006331b14e088b2e69507b2ae69f",
+      "Id": "29cc0e70cb0841a095f419a6d7a9ebe2"
     },
     {
       "Start": "3af14b9dd9c645e29ddb757fd5f5c80a",
       "End": "d575cf158eee416e8335001dc831c688",
       "Id": "3376641e265047c4b963b7c97882ace5"
-    },
-    {
-      "Start": "5e54b2e5fffb498f9a490456774fb1a7",
-      "End": "8f89e7c9e6f64259949241d50a78f8da",
-      "Id": "90687fd9ae944f4fbd268fa5be306f30"
     },
     {
       "Start": "f3462a9fcfe64fcaa1fe9a3fa975a968",
@@ -2722,16 +2731,6 @@
       },
       {
         "ShowGeometry": true,
-        "Name": "FileSystem.WriteText",
-        "Id": "87f0caa3ec7046b5925323bc141270ec",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": 1525.7363563821077,
-        "Y": 382.17475982441914
-      },
-      {
-        "ShowGeometry": true,
         "Name": "File Path",
         "Id": "584802aca94a475089489f16f5ecab96",
         "IsSetAsInput": false,
@@ -2849,11 +2848,21 @@
         "Excluded": false,
         "X": 1263.0,
         "Y": 1251.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Data.ExportCSV",
+        "Id": "583e7cdcbab747129ee26cbdad504ff6",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1495.6321962976926,
+        "Y": 330.37119806369606
       }
     ],
     "Annotations": [],
-    "X": -603.61503706126348,
-    "Y": -340.64599570705309,
+    "X": -530.61503706126348,
+    "Y": -38.645995707053089,
     "Zoom": 0.64317697278984109
   }
 }

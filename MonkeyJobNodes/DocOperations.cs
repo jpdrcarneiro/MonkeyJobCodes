@@ -3,6 +3,7 @@ using System;
 using System.Linq;
 using System.Data;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using Autodesk.DesignScript.Geometry;
 using Autodesk.DesignScript.Runtime;
 
@@ -203,7 +204,7 @@ namespace MonkeyJobNodes
       /// </summary>
       /// <param name="directShape">Input from Select Model Elements</param>
       /// <returns>Autodesk.Revit.DB.Element - Check Revit API documentation</returns>
-      [MultiReturn(new[] { "ElementID", "RevitApiElement", "BoundingBox", "CenterBoundingBox" }) ]
+      [MultiReturn(new[] { "ElementID", "RevitApiElement", "BoundingBox", "CenterBoundingBox", "TempID" }) ]
       public static Dictionary<string,object> ConvertToAPIElement(Revit.Elements.DirectShape directShape)
       {
          if (directShape == null)
@@ -230,6 +231,7 @@ namespace MonkeyJobNodes
 
             Autodesk.Revit.DB.BoundingBoxXYZ bounding = API_element.get_BoundingBox(doc.ActiveView);
             Autodesk.Revit.DB.XYZ centerPoint = (bounding.Max + bounding.Min) / 2;
+            string tempID = Regex.Match(centerPoint.ToString(), @"\d+").Value;
 
             //Autodesk.Revit.DB.Location elemLocation = API_element.Location;
 
@@ -237,6 +239,7 @@ namespace MonkeyJobNodes
             multiOut.Add("RevitApiElement", API_element);
             multiOut.Add("BoundingBox", bounding);
             multiOut.Add("CenterBoundingBox", centerPoint);
+            multiOut.Add("TempID", tempID);
 
             return multiOut;
          }
