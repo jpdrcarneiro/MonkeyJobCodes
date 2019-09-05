@@ -3863,15 +3863,6 @@
           "Level": 2,
           "UseLevels": false,
           "KeepListStructure": false
-        },
-        {
-          "Id": "75c2e05390584c15996d0c7b987ca604",
-          "Name": "TempID",
-          "Description": "var",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
         }
       ],
       "Replication": "Auto",
@@ -4104,8 +4095,8 @@
     },
     {
       "ConcreteType": "CoreNodeModels.Input.Filename, CoreNodeModels",
-      "HintPath": "C:\\Users\\jpdrc\\Documents\\Repos\\MonkeyJobCodes\\Examples\\No file selected",
-      "InputValue": "No file selected.",
+      "HintPath": "C:\\Users\\CAR11899\\Documents\\Scripts\\TestFiles\\Logs\\Location_2019_Test.CSV",
+      "InputValue": "..\\..\\..\\Scripts\\TestFiles\\Logs\\Location_2019_Test.CSV",
       "NodeType": "ExtensionNode",
       "Id": "584802aca94a475089489f16f5ecab96",
       "Inputs": [],
@@ -4469,11 +4460,6 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "DSOffice.Data.ExportCSV@string,var[][]",
-      "Id": "583e7cdcbab747129ee26cbdad504ff6",
-      "Inputs": [
-        {
-          "Id": "977c006331b14e088b2e69507b2ae69f",
       "FunctionSignature": "MonkeyJobNodes.DocOperations.DataTableContent@var",
       "Id": "0bc17a8caba74bd6a78fb865644c729b",
       "Inputs": [
@@ -4537,11 +4523,16 @@
       "Id": "f1577aee325d42dbba1e0c68f542458e",
       "Inputs": [
         {
-          "Id": "dbc3f69967174f11a156d1161b026810"
+          "Id": "dbc3f69967174f11a156d1161b026810",
+          "Name": "filePath",
+          "Description": "Path to write to\n\nstring",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
         },
         {
-
-          "Id": "779460540e244b41bb7b77c976e481e8",
+          "Id": "6541de1f16b2457ca0a68678119ae74b",
           "Name": "data",
           "Description": "List of lists to write into CSV\n\nvar[][]",
           "UsingDefaultValue": false,
@@ -4552,7 +4543,7 @@
       ],
       "Outputs": [
         {
-          "Id": "d7756a5ff9484ebeb3d398adefacc21b",
+          "Id": "d0c902c88b0e4743ad6ef83030c77d88",
           "Name": "void",
           "Description": "void",
           "UsingDefaultValue": false,
@@ -4592,11 +4583,6 @@
       "Id": "1a8880aba8b04f27b307a92ab46dee2a"
     },
     {
-      "Start": "75c2e05390584c15996d0c7b987ca604",
-      "End": "8f89e7c9e6f64259949241d50a78f8da",
-      "Id": "cdbc25e0c1544aef9c7d94517726efd6"
-    },
-    {
       "Start": "fe11ff8b222c469a99afc52a0f078035",
       "End": "eaa2808c6780480e999d14996d5ad7f7",
       "Id": "d24635c9951342acb66c096cdbbb03f3"
@@ -4627,7 +4613,6 @@
       "Id": "67ff2042f1e846e1830a7d7f4298d4a0"
     },
     {
-
       "Start": "80ea2773c5474c16a928c57a8c06bd97",
       "End": "6541de1f16b2457ca0a68678119ae74b",
       "Id": "558756f487d14e1aba0a7f3bf2bedd28"
@@ -4641,6 +4626,11 @@
       "Start": "3af14b9dd9c645e29ddb757fd5f5c80a",
       "End": "d575cf158eee416e8335001dc831c688",
       "Id": "3376641e265047c4b963b7c97882ace5"
+    },
+    {
+      "Start": "5e54b2e5fffb498f9a490456774fb1a7",
+      "End": "8f89e7c9e6f64259949241d50a78f8da",
+      "Id": "90687fd9ae944f4fbd268fa5be306f30"
     },
     {
       "Start": "f3462a9fcfe64fcaa1fe9a3fa975a968",
@@ -4799,9 +4789,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 1119.8293997026653,
-        "Y": 548.31935522401443
-
+        "X": 1183.8868296424696,
+        "Y": 466.59091012840213
       },
       {
         "ShowGeometry": true,
