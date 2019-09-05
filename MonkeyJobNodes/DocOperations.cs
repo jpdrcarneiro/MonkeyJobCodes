@@ -202,7 +202,7 @@ namespace MonkeyJobNodes
       /// Convert Dynamo Select Models Elements into Revit API elements
       /// </summary>
       /// <param name="directShape">Input from Select Model Elements</param>
-      /// <returns name="ElementAPI">Autodesk.Revit.DB.Element - Check Revit API documentation</returns>
+      /// <returns>Autodesk.Revit.DB.Element - Check Revit API documentation</returns>
       [MultiReturn(new[] { "ElementID", "RevitApiElement", "BoundingBox", "CenterBoundingBox" }) ]
       public static Dictionary<string,object> ConvertToAPIElement(Revit.Elements.DirectShape directShape)
       {
@@ -242,41 +242,57 @@ namespace MonkeyJobNodes
          }
 
       }
-      public static DataTable GenerateDataTable(string[] Data, string Headers)
+      /// <summary>
+      /// Convert a string data into dataTable; 
+      /// </summary>
+      /// <param name="Data"></param>
+      /// <param name="Headers"></param>
+      /// <param name="primaryKey"></param>
+      /// <returns name="DataTable">Returns a data table</returns>
+      public static DataTable GenerateDataTable(string[] Data, string Headers, string primaryKey)
       {
-         DataTable previousDataTable = new DataTable("previousData");
-         previousDataTable.Clear();
-         string[] oldHeaders = Headers.Split(',');
-         foreach (string header in oldHeaders)
+         DataTable DataTable = new DataTable("previousData");
+         DataTable.Clear();
+         string[] HeadersArray = Headers.Split(',');
+         foreach (string header in HeadersArray)
          {
-            previousDataTable.Columns.Add(header);
+            DataTable.Columns.Add(header);
          }
          for (int i = 0; i < Data.Length; i++)
          {
             string[] temp = Data[i].Split(',');
-            DataRow _drow = previousDataTable.NewRow();
+            DataRow _drow = DataTable.NewRow();
             for (int j = 0; j < temp.Length; j++)
             {
-               _drow[oldHeaders[j]] = temp[j];
+               _drow[HeadersArray[j]] = temp[j];
             }
-            previousDataTable.Rows.Add(_drow);
+            DataTable.Rows.Add(_drow);
+         }
+         if (HeadersArray.Any(primaryKey.Contains))
+         {
+            DataTable.PrimaryKey = new DataColumn[] { DataTable.Columns[primaryKey] };
          }
          //Console.Write(previousDataTable.ToString());		
-         return previousDataTable;
+         return DataTable;
       }
-      public static string[] GetDataTableInfo(DataTable table)
+      /// <summary>
+      /// Output the number of rows and columns to check the dataTable
+      /// </summary>
+      /// <param name="dataTable">Input from a C# DataTable</param>
+      /// <returns name="dataTableInformation">Data table number of rows and columns </returns>
+      public static string[] GetDataTableInfo(DataTable dataTable)
       {
          List<string> data = new List<string>();
          data.Add("Number of Columns: ");
-         data.Add(table.Columns.Count.ToString());
+         data.Add(dataTable.Columns.Count.ToString());
          data.Add("Number of rows: ");
-         data.Add(table.Rows.Count.ToString());
+         data.Add(dataTable.Rows.Count.ToString());
          return data.ToArray();
       }
-      public static DataTable MergeDataTables(DataTable table1, DataTable table2, bool preserveChanges, string primaryKey)
+
+      public static DataTable MergeDataTables(DataTable table1, DataTable table2, bool preserveChanges)
       {
-         table1.PrimaryKey = new DataColumn[] { table1.Columns[primaryKey] };
-         table2.PrimaryKey = new DataColumn[] { table2.Columns[primaryKey] };
+         //table1.PrimaryKey = new DataColumn[] { table1.Columns[primaryKey] };
          //create primary key		
          table1.Merge(table2, preserveChanges, MissingSchemaAction.Add);
          return table1;

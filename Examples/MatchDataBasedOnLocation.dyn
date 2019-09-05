@@ -2137,7 +2137,7 @@
     },
     {
       "ConcreteType": "CoreNodeModels.Input.Filename, CoreNodeModels",
-      "HintPath": "",
+      "HintPath": "C:\\Users\\jpdrc\\Documents\\Repos\\MonkeyJobNodes\\Examples\\No file selected",
       "InputValue": "No file selected.",
       "NodeType": "ExtensionNode",
       "Id": "584802aca94a475089489f16f5ecab96",
@@ -2155,6 +2155,358 @@
       ],
       "Replication": "Disabled",
       "Description": "Allows you to select a file on the system to get its filename"
+    },
+    {
+      "ConcreteType": "PythonNodeModels.PythonNode, PythonNodeModels",
+      "NodeType": "PythonScriptNode",
+      "Code": "# Enable Python support and load DesignScript library\r\nimport clr\r\nclr.AddReference('ProtoGeometry')\r\nfrom Autodesk.DesignScript.Geometry import *\r\n\r\n# The inputs to this node will be stored as a list in the IN variables.\r\ndataEnteringNode = IN\r\n\r\n# Place your code below this line\r\npoints = IN[0]\r\n\r\nOUT = []\r\n\r\nfor point in points:\r\n\ttemp = str(point).replace(\"(\", \"\").replace(\")\",\"\")\r\n\ttemp = temp.replace(\", \", \"_\")\r\n\tOUT.append(temp)\r\n# Assign your output to the OUT variable.\r\n",
+      "VariableInputPorts": true,
+      "Id": "a79aced9871f4ecbb115abdb5ff33874",
+      "Inputs": [
+        {
+          "Id": "2c727655d57c4dca8229519fccf9eac5",
+          "Name": "IN[0]",
+          "Description": "Input #0",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "3af14b9dd9c645e29ddb757fd5f5c80a",
+          "Name": "OUT",
+          "Description": "Result of the python script",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Runs an embedded IronPython script."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "NodeType": "ExtensionNode",
+      "Id": "6cb99fb13d9c4fe197afe24753c4806e",
+      "Inputs": [
+        {
+          "Id": "d575cf158eee416e8335001dc831c688",
+          "Name": "",
+          "Description": "Node to evaluate.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "5e54b2e5fffb498f9a490456774fb1a7",
+          "Name": "",
+          "Description": "Watch contents.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Visualize the output of node."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "\"ElementID,Location\";",
+      "Id": "663337e92d5f497a9cbc47b322b8781d",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "f3462a9fcfe64fcaa1fe9a3fa975a968",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "\"Null,Null\";",
+      "Id": "c2036c113f284a03adc1b1f3f75fcb7b",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "b9ed409cab964a13becdf622164abee4",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
+      "NodeType": "ExtensionNode",
+      "Id": "dbb5a70d53a447548635a43fc1b6692a",
+      "Inputs": [
+        {
+          "Id": "11ba866a26764ff88de2febdb75ae922",
+          "Name": "",
+          "Description": "Node to evaluate.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "eb47981960d14bfeaf4435e38e254525",
+          "Name": "",
+          "Description": "Watch contents.",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Visualize the output of node."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "MonkeyJobNodes.DocOperations.GetDataTableInfo@var",
+      "Id": "0b9d22cfc3d0466a843e1f9c37c96caa",
+      "Inputs": [
+        {
+          "Id": "d0636bae52f948bbbe096adb1698a18e",
+          "Name": "dataTable",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "678371b844f040ccbe4eb2918d2185a0",
+          "Name": "string[]",
+          "Description": "string[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "DocOperations.GetDataTableInfo (dataTable: var): string[]"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "MonkeyJobNodes.DocOperations.GenerateDataTable@string[],string,string",
+      "Id": "41145d3259084ab6b8af964b88a28e37",
+      "Inputs": [
+        {
+          "Id": "ae58f42da6ad4be4a07645817e071b5e",
+          "Name": "Data",
+          "Description": "string[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "834d01d9d6c64da3adcb6fcc1480c5b7",
+          "Name": "Headers",
+          "Description": "string",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "9c48ad6d9387494daadef77b315ff34f",
+          "Name": "primaryKey",
+          "Description": "string",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "cb2e1b147723419289a152fc42a41ce7",
+          "Name": "var",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "DocOperations.GenerateDataTable (Data: string[], Headers: string, primaryKey: string): var"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "MonkeyJobNodes.DocOperations.GenerateDataTable@string[],string,string",
+      "Id": "a4f47ddc36514c0898e208c455af2b4e",
+      "Inputs": [
+        {
+          "Id": "858b43c0cefc49e58cf7afd85e0b0c6b",
+          "Name": "Data",
+          "Description": "string[]",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "cb726c99ca7448b083f2e0ab9a6dc846",
+          "Name": "Headers",
+          "Description": "string",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "e0f6699e3f5e4c75999837b8a736ceb0",
+          "Name": "primaryKey",
+          "Description": "string",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "82196cea7c2843b390b3bf0bf352c180",
+          "Name": "var",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "DocOperations.GenerateDataTable (Data: string[], Headers: string, primaryKey: string): var"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "true;\n\"Location\";",
+      "Id": "4e2978b538c14cf6a45a466f1a868561",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "864795a823e5435789ec1272c9ecfde0",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "dcb61fe9c9974b6dab2d826f267091b3",
+          "Name": "",
+          "Description": "Value of expression at line 2",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "MonkeyJobNodes.DocOperations.MergeDataTables@var,var,bool",
+      "Id": "11f5c6c7a7b54a2094162950fa846f25",
+      "Inputs": [
+        {
+          "Id": "8aff806312974d03a613b99aa6f121d4",
+          "Name": "table1",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "d16a17d4fa764dcab18a8061e75c7329",
+          "Name": "table2",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "d90e36f4a32049c4b9af56c0ae32a72e",
+          "Name": "preserveChanges",
+          "Description": "bool",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "499cc1b292af402b9f2045743e5ce8a8",
+          "Name": "var",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "DocOperations.MergeDataTables (table1: var, table2: var, preserveChanges: bool): var"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
+      "NodeType": "CodeBlockNode",
+      "Code": "true;",
+      "Id": "b4ed68b973c346f580d95cd676144059",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "1c49ad25accd4104810b0f5fb01d2d98",
+          "Name": "",
+          "Description": "Value of expression at line 1",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Allows for DesignScript code to be authored directly"
     }
   ],
   "Connectors": [
@@ -2190,8 +2542,8 @@
     },
     {
       "Start": "0afe8dbdadb24ea2b605193f68568112",
-      "End": "8f89e7c9e6f64259949241d50a78f8da",
-      "Id": "a9a18f8578094925a89f59e178c713a5"
+      "End": "2c727655d57c4dca8229519fccf9eac5",
+      "Id": "ae254119538c4763b41ef53acc28ad3e"
     },
     {
       "Start": "29b58feda26b41bab0ce0687771bb4a5",
@@ -2204,6 +2556,16 @@
       "Id": "a5e8e4fe71034389ad210a159304e9d0"
     },
     {
+      "Start": "b0c6112f7e9b405fa1fb19dad2ee7be3",
+      "End": "ae58f42da6ad4be4a07645817e071b5e",
+      "Id": "0cba3cef737b42939e1a088e8d4bbad0"
+    },
+    {
+      "Start": "b0c6112f7e9b405fa1fb19dad2ee7be3",
+      "End": "858b43c0cefc49e58cf7afd85e0b0c6b",
+      "Id": "67ff2042f1e846e1830a7d7f4298d4a0"
+    },
+    {
       "Start": "80ea2773c5474c16a928c57a8c06bd97",
       "End": "2229afbd98644f6dbb47a46bdb364b9d",
       "Id": "de680ab0e70844dca69f51105c322ed3"
@@ -2212,6 +2574,46 @@
       "Start": "6b355934b3d0488296cde564c1cb6d94",
       "End": "2f798c30a8bd4e40879ab5ca7aa82109",
       "Id": "621da51992fd4ad98c8f4c156a0ea838"
+    },
+    {
+      "Start": "3af14b9dd9c645e29ddb757fd5f5c80a",
+      "End": "d575cf158eee416e8335001dc831c688",
+      "Id": "3376641e265047c4b963b7c97882ace5"
+    },
+    {
+      "Start": "5e54b2e5fffb498f9a490456774fb1a7",
+      "End": "8f89e7c9e6f64259949241d50a78f8da",
+      "Id": "90687fd9ae944f4fbd268fa5be306f30"
+    },
+    {
+      "Start": "f3462a9fcfe64fcaa1fe9a3fa975a968",
+      "End": "834d01d9d6c64da3adcb6fcc1480c5b7",
+      "Id": "9684f5df7ca84967907c62bc803e1dd4"
+    },
+    {
+      "Start": "f3462a9fcfe64fcaa1fe9a3fa975a968",
+      "End": "cb726c99ca7448b083f2e0ab9a6dc846",
+      "Id": "87f0f68e1bb847efa2d437d1e696f0a6"
+    },
+    {
+      "Start": "678371b844f040ccbe4eb2918d2185a0",
+      "End": "11ba866a26764ff88de2febdb75ae922",
+      "Id": "f21f4fa2b6a244c987b95e1b427042a5"
+    },
+    {
+      "Start": "cb2e1b147723419289a152fc42a41ce7",
+      "End": "8aff806312974d03a613b99aa6f121d4",
+      "Id": "504049c73151415f8916d96688c866a0"
+    },
+    {
+      "Start": "82196cea7c2843b390b3bf0bf352c180",
+      "End": "d16a17d4fa764dcab18a8061e75c7329",
+      "Id": "f9bf11cce9074d239b20411ca9e1de4a"
+    },
+    {
+      "Start": "1c49ad25accd4104810b0f5fb01d2d98",
+      "End": "d90e36f4a32049c4b9af56c0ae32a72e",
+      "Id": "73fa1a5741204d519cf31da4fb9ca389"
     }
   ],
   "Dependencies": [],
@@ -2337,11 +2739,121 @@
         "Excluded": false,
         "X": 1349.2362042320069,
         "Y": 308.63302976187691
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Python Script",
+        "Id": "a79aced9871f4ecbb115abdb5ff33874",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 596.1009782629867,
+        "Y": 958.70632100250066
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Watch",
+        "Id": "6cb99fb13d9c4fe197afe24753c4806e",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 754.45078405738866,
+        "Y": 730.30281756998511
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "663337e92d5f497a9cbc47b322b8781d",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 749.32656511932521,
+        "Y": 858.88822543312858
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "c2036c113f284a03adc1b1f3f75fcb7b",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 776.09724295521482,
+        "Y": 955.66616907484649
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Watch",
+        "Id": "dbb5a70d53a447548635a43fc1b6692a",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1671.9486788713164,
+        "Y": 930.4580065228231
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "DocOperations.GetDataTableInfo",
+        "Id": "0b9d22cfc3d0466a843e1f9c37c96caa",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1589.2099565468932,
+        "Y": 837.69238398774576
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "DocOperations.GenerateDataTable",
+        "Id": "41145d3259084ab6b8af964b88a28e37",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1073.6443175188938,
+        "Y": 887.28089651732716
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "DocOperations.GenerateDataTable",
+        "Id": "a4f47ddc36514c0898e208c455af2b4e",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1009.3129318181254,
+        "Y": 1149.5510506363971
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "4e2978b538c14cf6a45a466f1a868561",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1037.0,
+        "Y": 1014.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "DocOperations.MergeDataTables",
+        "Id": "11f5c6c7a7b54a2094162950fa846f25",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1375.913979916274,
+        "Y": 1072.0022268161204
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Code Block",
+        "Id": "b4ed68b973c346f580d95cd676144059",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 1263.0,
+        "Y": 1251.0
       }
     ],
     "Annotations": [],
-    "X": -162.52502219484552,
-    "Y": -128.78589880142039,
-    "Zoom": 0.883851929302207
+    "X": -603.61503706126348,
+    "Y": -340.64599570705309,
+    "Zoom": 0.64317697278984109
   }
 }
