@@ -251,6 +251,10 @@ namespace MonkeyJobNodes
       /// <returns name="DataTable">Returns a data table</returns>
       public static DataTable GenerateDataTable(string[] Data, string Headers, string primaryKey)
       {
+            if (Data == null)
+            {
+                return null;
+            }
          DataTable DataTable = new DataTable("previousData");
          DataTable.Clear();
          string[] HeadersArray = Headers.Split(',');
@@ -282,6 +286,10 @@ namespace MonkeyJobNodes
       /// <returns name="dataTableInformation">Data table number of rows and columns </returns>
       public static string[] GetDataTableInfo(DataTable dataTable)
       {
+         if (dataTable == null)
+            {
+                return null;
+            }
          List<string> data = new List<string>();
          data.Add("Number of Columns: ");
          data.Add(dataTable.Columns.Count.ToString());
@@ -292,12 +300,42 @@ namespace MonkeyJobNodes
 
       public static DataTable MergeDataTables(DataTable table1, DataTable table2, bool preserveChanges)
       {
+         if (table1 == null || table2 == null)
+            {
+                return null;
+            }
          //table1.PrimaryKey = new DataColumn[] { table1.Columns[primaryKey] };
          //create primary key		
-         table1.Merge(table2, preserveChanges, MissingSchemaAction.Add);
+         table1.Merge(table2, preserveChanges, MissingSchemaAction.AddWithKey);
          return table1;
       }
-
+        public static string[] DataTableContent(DataTable dataTable)
+        {
+            if(dataTable == null)
+            {
+                return null;
+            }
+            List<string> content = new List<string>();
+            foreach(DataRow row in dataTable.Rows)
+            {
+                object[] data = row.ItemArray;
+                string temp = string.Empty;
+                for(int i = 0; i < data.Length; i++)
+                {
+                    if (i == data.Length - 1)
+                    {
+                        temp = temp + data[i].ToString();
+                    }
+                    else
+                    {
+                        temp = temp + data[i].ToString() + ",";
+                    }
+                }
+                content.Add(temp);
+            }
+            return content.ToArray();
+        }
+        
 
    }
 
