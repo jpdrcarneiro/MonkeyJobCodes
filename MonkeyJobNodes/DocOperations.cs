@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Autodesk.DesignScript.Geometry;
 using Autodesk.DesignScript.Runtime;
+using Autodesk.Revit.UI;
 
 namespace MonkeyJobNodes
 {
@@ -231,7 +232,12 @@ namespace MonkeyJobNodes
 
             Autodesk.Revit.DB.BoundingBoxXYZ bounding = API_element.get_BoundingBox(doc.ActiveView);
             Autodesk.Revit.DB.XYZ centerPoint = (bounding.Max + bounding.Min) / 2;
-            string tempID = Regex.Match(centerPoint.ToString(), @"\d+").Value;
+            string[] values = Regex.Split(centerPoint.ToString(), @"\D+");
+                string tempID = string.Empty;
+                foreach(string value in values)
+                {
+                    tempID = tempID + value;
+                }
 
             //Autodesk.Revit.DB.Location elemLocation = API_element.Location;
 
@@ -261,9 +267,25 @@ namespace MonkeyJobNodes
          DataTable DataTable = new DataTable("previousData");
          DataTable.Clear();
          string[] HeadersArray = Headers.Split(',');
+            DataColumn[] keys = new DataColumn[HeadersArray.Length];
          foreach (string header in HeadersArray)
          {
-            DataTable.Columns.Add(header);
+                DataColumn column = new DataColumn();
+                column.DataType = System.Type.GetType("System.String");
+                column.ColumnName = header;
+                DataTable.Columns.Add(column);
+                try
+                {
+                    if (HeadersArray.Any(primaryKey.Contains))
+                    {
+                        DataTable.PrimaryKey = new DataColumn[] { DataTable.Columns[primaryKey] };
+                    }
+                }
+                catch (Exception e)
+                {
+                    showExceptionOnScreen(e);
+                }
+
          }
          for (int i = 0; i < Data.Length; i++)
          {
@@ -273,14 +295,18 @@ namespace MonkeyJobNodes
             {
                _drow[HeadersArray[j]] = temp[j];
             }
-            DataTable.Rows.Add(_drow);
+                try
+                {
+                    DataTable.Rows.Add(_drow);
+                }
+                catch (Exception e)
+                {
+                    showExceptionOnScreen(e);
+                    continue;
+                }
          }
-         if (HeadersArray.Any(primaryKey.Contains))
-         {
-            DataTable.PrimaryKey = new DataColumn[] { DataTable.Columns[primaryKey] };
-         }
-         //Console.Write(previousDataTable.ToString());		
-         return DataTable;
+            return DataTable;
+         
       }
       /// <summary>
       /// Output the number of rows and columns to check the dataTable
@@ -337,6 +363,19 @@ namespace MonkeyJobNodes
                 content.Add(temp);
             }
             return content.ToArray();
+        }
+
+        private static void showExceptionOnScreen(Exception e) {
+            string dialogTitle = e.GetType().ToString();
+            string exceptionDetails = e.ToString();
+            TaskDialog exception = new TaskDialog(dialogTitle);
+            exception.MainInstruction = dialogTitle;
+            exception.MainContent = exceptionDetails;
+            exception.CommonButtons = TaskDialogCommonButtons.Close;
+            exception.DefaultButton = TaskDialogResult.Close;
+            TaskDialogResult tResult = exception.Show();
+
+
         }
         
 
