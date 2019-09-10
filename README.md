@@ -2,7 +2,7 @@
 Readme Markdown file for GitHub
 -->
 # MonkeyJobCodes
- By the [Urban Dictironary](https://www.urbandictionary.com/define.php?term=Monkey%20job) a Monkey Job is a repetitive task that requires little or zero thinking. Within this in mind, this set of python codes and/or Dynamo codes were created.
+ By the [Urban Dictironary](https://www.urbandictionary.com/define.php?term=Monkey%20job) a Monkey Job is a repetitive task that requires little or zero thinking. Within this in mind, this set of python codes, Dynamo codes, and/or C# Dynamo Custom Nodes were created.
 
 
 ### Revit Dynamo - Integration
@@ -13,7 +13,7 @@ Go to the downloaded Repository and import the file:
 
 
 ### Development
-As for now, I develop based on my needs. However, feel free to develop new codes, suggest ideas. This is a fully open source Repository. Therefore, you are more than welcome to contribute.
+As for now, I develop based on my needs and on available time. However, feel free to develop new codes, suggest ideas. This is a fully open source Repository. Therefore, you are more than welcome to contribute.
 Suggestions please send me a message.
 
 
