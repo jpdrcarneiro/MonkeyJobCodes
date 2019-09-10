@@ -2,7 +2,7 @@
   "Uuid": "aca8aadd-0277-44d3-a13b-b52407356a89",
   "IsCustomNode": false,
   "Description": null,
-  "Name": "InputDataFromOldRevit",
+  "Name": "InputDataFromOldRevit-MonkeyJobNodes",
   "ElementResolver": {
     "ResolutionMap": {}
   },
@@ -47,7 +47,7 @@
         {
           "Id": "3bb61734f6574a13a9422284219f1f40",
           "Name": "document",
-          "Description": "The document object. Primarily for use with other Rhythm nodes.",
+          "Description": "The document object. If the file path is blank this returns the current document.",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -55,7 +55,7 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "This node will open the given file in the background.\n\nApplications.OpenDocumentFile (filePath: string, audit: bool = false, detachFromCentral: bool = false): string"
+      "Description": "This node will open the given file in the background.\n\nApplications.OpenDocumentFile (filePath: string, audit: bool = false, detachFromCentral: bool = false): var[]..[]"
     },
     {
       "ConcreteType": "CoreNodeModels.Input.Filename, CoreNodeModels",
@@ -1893,7 +1893,7 @@
       "ScaleFactor": 1.0,
       "HasRunWithoutCrash": true,
       "IsVisibleInDynamoLibrary": true,
-      "Version": "2.0.2.6826",
+      "Version": "2.0.3.8810",
       "RunType": "Manual",
       "RunPeriod": "1000"
     },
@@ -1977,7 +1977,7 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 2280.8142013792112,
+        "X": 2284.585611965822,
         "Y": -298.07276527429292
       },
       {
@@ -2007,7 +2007,7 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 2621.6910068102084,
+        "X": 2625.4624173968191,
         "Y": -296.5247335656195
       },
       {
@@ -2017,7 +2017,7 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 2390.0450381827259,
+        "X": 2393.8164487693366,
         "Y": -181.9325515167958
       },
       {
@@ -2037,7 +2037,7 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 2836.4134622530041,
+        "X": 2840.1848728396149,
         "Y": -157.97478877229898
       },
       {
@@ -2137,7 +2137,7 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 2937.0871737952493,
+        "X": 2940.85858438186,
         "Y": -297.76212302314843
       },
       {
@@ -2258,7 +2258,7 @@
         "IsSetAsOutput": false,
         "Excluded": false,
         "X": 6580.736021239014,
-        "Y": -283.32719530342547
+        "Y": -279.55578471681497
       },
       {
         "ShowGeometry": true,
@@ -2268,7 +2268,7 @@
         "IsSetAsOutput": false,
         "Excluded": false,
         "X": 6357.1818450827277,
-        "Y": -637.04216058864188
+        "Y": -633.27075000203138
       },
       {
         "ShowGeometry": true,
@@ -2288,7 +2288,7 @@
         "IsSetAsOutput": false,
         "Excluded": false,
         "X": 6339.41811492902,
-        "Y": -732.95203810616761
+        "Y": -729.18062751955711
       },
       {
         "ShowGeometry": true,
@@ -2298,7 +2298,7 @@
         "IsSetAsOutput": false,
         "Excluded": false,
         "X": 6878.5670332323634,
-        "Y": -594.93136235717873
+        "Y": -591.15995177056823
       },
       {
         "ShowGeometry": true,
@@ -2318,7 +2318,7 @@
         "IsSetAsOutput": false,
         "Excluded": false,
         "X": 6063.3775238054714,
-        "Y": -567.35925369956124
+        "Y": -563.58784311295074
       },
       {
         "ShowGeometry": true,
@@ -2328,7 +2328,7 @@
         "IsSetAsOutput": false,
         "Excluded": false,
         "X": 6357.34892394166,
-        "Y": -567.35925369956158
+        "Y": -563.58784311295108
       },
       {
         "ShowGeometry": true,
@@ -2338,7 +2338,7 @@
         "IsSetAsOutput": false,
         "Excluded": false,
         "X": 6546.5539208378232,
-        "Y": -557.97718773776774
+        "Y": -554.20577715115724
       },
       {
         "ShowGeometry": true,
@@ -2348,7 +2348,7 @@
         "IsSetAsOutput": false,
         "Excluded": false,
         "X": 6412.07764205212,
-        "Y": -479.79330472282447
+        "Y": -476.021894136214
       },
       {
         "ShowGeometry": true,
@@ -2358,7 +2358,7 @@
         "IsSetAsOutput": false,
         "Excluded": false,
         "X": 6063.3775238054714,
-        "Y": -418.80987597116871
+        "Y": -415.03846538455821
       },
       {
         "ShowGeometry": true,
@@ -2368,7 +2368,7 @@
         "IsSetAsOutput": false,
         "Excluded": false,
         "X": 6324.924630217427,
-        "Y": -422.26504087565206
+        "Y": -418.49363028904156
       },
       {
         "ShowGeometry": true,
@@ -2378,7 +2378,7 @@
         "IsSetAsOutput": false,
         "Excluded": false,
         "X": 6338.9977291601208,
-        "Y": -326.88070359742073
+        "Y": -323.10929301081023
       },
       {
         "ShowGeometry": true,
@@ -2388,26 +2388,10 @@
         "IsSetAsOutput": false,
         "Excluded": false,
         "X": 6534.4574366974775,
-        "Y": -430.08342917714583
+        "Y": -426.31201859053533
       }
     ],
     "Annotations": [
-      {
-        "Id": "af02ce38fee9418fa83bbc502dbe70c5",
-        "Title": "1. Select Previous Revit Project Version",
-        "Nodes": [
-          "01097d8ac18b45fba930837cfeee4fe9"
-        ],
-        "Left": 816.95913839803143,
-        "Top": -856.8793005923136,
-        "Width": 205.0,
-        "Height": 277.0,
-        "FontSize": 36.0,
-        "InitialTop": -673.8793005923136,
-        "InitialHeight": 145.0,
-        "TextblockHeight": 173.0,
-        "Background": "#FF48B9FF"
-      },
       {
         "Id": "93c5548f225d4a31aa9b2fa7b2b9829d",
         "Title": "Open file",
@@ -2423,7 +2407,7 @@
         "InitialTop": -261.138107213242,
         "InitialHeight": 218.83113537280809,
         "TextblockHeight": 43.0,
-        "Background": "#FFC1D676"
+        "Background": "#FF48B9FF"
       },
       {
         "Id": "a0073c4019fe4d7f9dad9503634ae499",
@@ -2438,12 +2422,12 @@
         "Left": 1211.7396803582167,
         "Top": -112.01606186733994,
         "Width": 952.34005247399546,
-        "Height": 548.09871023814969,
+        "Height": 269.22089765520008,
         "FontSize": 36.0,
         "InitialTop": -59.016061867339943,
         "InitialHeight": 293.22089765520008,
         "TextblockHeight": 43.0,
-        "Background": "#FFC1D676"
+        "Background": "#FF48B9FF"
       },
       {
         "Id": "fc55ad09e78140f2b9d7c1d34e65a632",
@@ -2455,7 +2439,7 @@
           "24d7ce6274744235afffc513e75f531d",
           "2e073024673a4714ae4df7229a7f10fd"
         ],
-        "Left": 2270.8142013792112,
+        "Left": 2274.585611965822,
         "Top": -351.07276527429292,
         "Width": 862.2729724160381,
         "Height": 286.09797650199391,
@@ -2463,7 +2447,7 @@
         "InitialTop": -298.07276527429292,
         "InitialHeight": 285.09797650199391,
         "TextblockHeight": 43.0,
-        "Background": "#FFC1D676"
+        "Background": "#FF48B9FF"
       },
       {
         "Id": "5a315e276a754cfc9955c2f0257f0490",
@@ -2490,12 +2474,12 @@
         "Left": 3339.6128292822968,
         "Top": -458.07405465748525,
         "Width": 2113.2485064662678,
-        "Height": 906.2659595383958,
+        "Height": 622.2659595383958,
         "FontSize": 36.0,
         "InitialTop": -405.07405465748525,
         "InitialHeight": 620.2659595383958,
         "TextblockHeight": 43.0,
-        "Background": "#FFC1D676"
+        "Background": "#FF48B9FF"
       },
       {
         "Id": "255765e9e15a48648b85e4a8ba2e2a5f",
@@ -2515,14 +2499,14 @@
           "b2c6049189944c418a760efd93d0f2bd"
         ],
         "Left": 6053.3775238054714,
-        "Top": -785.95203810616761,
+        "Top": -782.18062751955711,
         "Width": 1171.1895094268921,
         "Height": 570.62484280274214,
         "FontSize": 36.0,
-        "InitialTop": -732.95203810616761,
+        "InitialTop": -729.18062751955711,
         "InitialHeight": 594.62484280274214,
         "TextblockHeight": 43.0,
-        "Background": "#FFC1D676"
+        "Background": "#FF48B9FF"
       },
       {
         "Id": "a9c012058ca64d9ba7fca3b15c0defe2",
@@ -2538,16 +2522,32 @@
         "Left": 6087.9191042185448,
         "Top": 71.078766056523136,
         "Width": 1008.8215189220446,
-        "Height": 780.17747509283413,
+        "Height": 496.17747509283413,
         "FontSize": 36.0,
         "InitialTop": 124.07876605652314,
         "InitialHeight": 494.17747509283413,
         "TextblockHeight": 43.0,
+        "Background": "#FF48B9FF"
+      },
+      {
+        "Id": "d67d6a4019564696b1af66373e4fe5c1",
+        "Title": "1. Select Previous Revit Project Version",
+        "Nodes": [
+          "01097d8ac18b45fba930837cfeee4fe9"
+        ],
+        "Left": 816.95913839803143,
+        "Top": -856.8793005923136,
+        "Width": 205.0,
+        "Height": 277.0,
+        "FontSize": 36.0,
+        "InitialTop": -673.8793005923136,
+        "InitialHeight": 124.0,
+        "TextblockHeight": 173.0,
         "Background": "#FFC1D676"
       }
     ],
-    "X": -57.824122443198235,
-    "Y": 524.1466671727228,
-    "Zoom": 0.1850591402820784
+    "X": -21.409135354005116,
+    "Y": 387.0402452469109,
+    "Zoom": 0.26515277958605349
   }
 }

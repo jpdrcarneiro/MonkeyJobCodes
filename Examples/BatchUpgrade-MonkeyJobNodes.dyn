@@ -2,7 +2,7 @@
   "Uuid": "0d40e1f8-8cad-4f78-9b76-94c752895bc4",
   "IsCustomNode": false,
   "Description": null,
-  "Name": "BatchUpgrade2",
+  "Name": "BatchUpgrade-MonkeyJobNodes",
   "ElementResolver": {
     "ResolutionMap": {
       "Applications": {
@@ -118,92 +118,6 @@
       "Description": "Flattens a nested list of lists by a certain amount.\n\nList.Flatten (list: var[]..[], amt: int = -1): var[]..[]"
     },
     {
-      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "JoaosCustomNodes.ExtractSolids.ExtractSolids",
-      "Id": "90a98e3fad5847f99cf0f3b53ef373e1",
-      "Inputs": [],
-      "Outputs": [
-        {
-          "Id": "d0df9866d1094619aeb5fe5df71f2dca",
-          "Name": "ExtractSolids",
-          "Description": "ExtractSolids",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Auto",
-      "Description": "ExtractSolids.ExtractSolids ( ): ExtractSolids"
-    },
-    {
-      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
-      "FunctionSignature": "JoaosCustomNodes.ExtractSolids.OpenDocumentFile@string,bool,bool,bool",
-      "Id": "4634b48283134a648b66a8d218250a54",
-      "Inputs": [
-        {
-          "Id": "e6456bc4868f4354b6efe6e4b3588bea",
-          "Name": "extractSolids",
-          "Description": "JoaosCustomNodes.ExtractSolids",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "c5f75ffcde314940a2258dd31d3d612c",
-          "Name": "filePath",
-          "Description": "string",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "5fabd1f9a4244b7da4d9a6de08f98e90",
-          "Name": "audit",
-          "Description": "bool\nDefault value : false",
-          "UsingDefaultValue": true,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "da121d9c9e424b0497352e0af882cb32",
-          "Name": "detachFromCentral",
-          "Description": "bool\nDefault value : true",
-          "UsingDefaultValue": true,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "88d2fbc31ef94e22a220398c50169511",
-          "Name": "deleteLinks",
-          "Description": "bool\nDefault value : false",
-          "UsingDefaultValue": true,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Outputs": [
-        {
-          "Id": "c7aa881c1e2747fb9dccea88855581bb",
-          "Name": "string",
-          "Description": "string",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Auto",
-      "Description": "ExtractSolids.OpenDocumentFile (filePath: string, audit: bool = false, detachFromCentral: bool = true, deleteLinks: bool = false): string"
-    },
-    {
       "ConcreteType": "CoreNodeModels.Watch, CoreNodeModels",
       "NodeType": "ExtensionNode",
       "Id": "09fdc3e6caba4677937a3f254db0894f",
@@ -284,23 +198,50 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "DSCore.List.GetItemAtIndex@var[]..[],int",
-      "Id": "e71f6ceff6b3498ea410b5e4694d0415",
+      "FunctionSignature": "MonkeyJobNodes.DocOperations.OpenSaveCloseDocumentFile@string,bool,bool,bool",
+      "Id": "c7388cf572974643b6c07f11e71e6529",
       "Inputs": [
         {
-          "Id": "c9449c2fdf7c48fb887e58d612bb5e2f",
-          "Name": "list",
-          "Description": "List to fetch an item from.\n\nvar[]..[]",
+          "Id": "950d474e69d44f0ea0bc127bcf35a3ed",
+          "Name": "docOperations",
+          "Description": "MonkeyJobNodes.DocOperations",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
           "KeepListStructure": false
         },
         {
-          "Id": "8e68949a37b2474b92f9d4647250b361",
-          "Name": "index",
-          "Description": "Index of the item to be fetched.\n\nint",
+          "Id": "e553353b6a984b87b05bab652771450c",
+          "Name": "filePath",
+          "Description": "string",
           "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "60f58807deb04cb8873d27fd11b8e2f7",
+          "Name": "audit",
+          "Description": "bool\nDefault value : false",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "fd5a4ac45f694f7fb59aab5c4ec2ec33",
+          "Name": "detachFromCentral",
+          "Description": "bool\nDefault value : true",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "9fbc3da1ea8744ceac2f9bf167279d3e",
+          "Name": "deleteLinks",
+          "Description": "bool\nDefault value : false",
+          "UsingDefaultValue": true,
           "Level": 2,
           "UseLevels": false,
           "KeepListStructure": false
@@ -308,9 +249,9 @@
       ],
       "Outputs": [
         {
-          "Id": "1d3c5ef706e24237a8b0f81a5eaa3efa",
-          "Name": "item",
-          "Description": "Item in the list at the given index.",
+          "Id": "82849687168c42babed9344ce5d35d21",
+          "Name": "string",
+          "Description": "string",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -318,19 +259,39 @@
         }
       ],
       "Replication": "Auto",
-      "Description": "Returns an item from the given list that's located at the specified index.\n\nList.GetItemAtIndex (list: var[]..[], index: int): var[]..[]"
+      "Description": "DocOperations.OpenSaveCloseDocumentFile (filePath: string, audit: bool = false, detachFromCentral: bool = true, deleteLinks: bool = false): string"
     },
     {
-      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
-      "NodeType": "CodeBlockNode",
-      "Code": "0..1;",
-      "Id": "bcef2b55fc734b86ad0729c7146465a4",
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "MonkeyJobNodes.DocOperations.DocOperations",
+      "Id": "1265808924074637a46e8c2b9fb040ef",
       "Inputs": [],
       "Outputs": [
         {
-          "Id": "e5fa0c10d0864bcc8cdee2b3a7487bff",
+          "Id": "b493ae6328a3439e97eedc75f2e7fdc3",
+          "Name": "DocOperations",
+          "Description": "DocOperations",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "DocOperations.DocOperations ( ): DocOperations"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "NodeType": "BooleanInputNode",
+      "InputValue": false,
+      "Id": "15cf9f6400354c7b8cf7efb4e20b76e4",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "ba6063bfdd984a858851e5fc272b4735",
           "Name": "",
-          "Description": "Value of expression at line 1",
+          "Description": "Boolean",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -338,37 +299,19 @@
         }
       ],
       "Replication": "Disabled",
-      "Description": "Allows for DesignScript code to be authored directly"
+      "Description": "Selection between a true and false."
     },
     {
-      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
-      "NodeType": "CodeBlockNode",
-      "Code": "false;\ntrue;\nfalse;",
-      "Id": "d5768c97e7a0425ebf5b5e451f9b5d25",
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "NodeType": "BooleanInputNode",
+      "InputValue": true,
+      "Id": "1cfd5ce7fd3a4e5e9423df6734900676",
       "Inputs": [],
       "Outputs": [
         {
-          "Id": "753d9b998f2644f2805ff0ce2b35ba77",
+          "Id": "fe42da0cc9e447888ed12d8acedb19a1",
           "Name": "",
-          "Description": "Value of expression at line 1",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "ff57e35b02a64d22af465039846955db",
-          "Name": "",
-          "Description": "Value of expression at line 2",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        },
-        {
-          "Id": "89cd14f6da5645ada3cf639fd528f17a",
-          "Name": "",
-          "Description": "Value of expression at line 3",
+          "Description": "Boolean",
           "UsingDefaultValue": false,
           "Level": 2,
           "UseLevels": false,
@@ -376,7 +319,27 @@
         }
       ],
       "Replication": "Disabled",
-      "Description": "Allows for DesignScript code to be authored directly"
+      "Description": "Selection between a true and false."
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "NodeType": "BooleanInputNode",
+      "InputValue": false,
+      "Id": "ee014d96df9e42e6b77dba2da411e3ab",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "65928a2e04d3403da6e8bab7f9b680dc",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Selection between a true and false."
     }
   ],
   "Connectors": [
@@ -397,28 +360,13 @@
     },
     {
       "Start": "56ceb76083374312af935db13f97c749",
-      "End": "c9449c2fdf7c48fb887e58d612bb5e2f",
-      "Id": "2e5aa8d0fa2c4aeba1e81853491bb88c"
-    },
-    {
-      "Start": "56ceb76083374312af935db13f97c749",
-      "End": "c5f75ffcde314940a2258dd31d3d612c",
-      "Id": "be8fafd9447d4719978891144b45088b"
-    },
-    {
-      "Start": "56ceb76083374312af935db13f97c749",
       "End": "d3918ee464f646cfbf83c7a3a6765893",
       "Id": "ad54f0e5265c45148a7ffea344c1f047"
     },
     {
-      "Start": "d0df9866d1094619aeb5fe5df71f2dca",
-      "End": "e6456bc4868f4354b6efe6e4b3588bea",
-      "Id": "437960e312b745b685394691cf98a21d"
-    },
-    {
-      "Start": "c7aa881c1e2747fb9dccea88855581bb",
-      "End": "e8768eb3540c4e28ad17fae480f5ed48",
-      "Id": "3fdfe40931854ad380e764e2df9690b2"
+      "Start": "56ceb76083374312af935db13f97c749",
+      "End": "e553353b6a984b87b05bab652771450c",
+      "Id": "515d6d21861f421dbe55da56ae5eeb6f"
     },
     {
       "Start": "3511f588c5cb4a6f978f51e917c64fdc",
@@ -426,24 +374,29 @@
       "Id": "31b313cae01d4335a4305db4ccbf0c67"
     },
     {
-      "Start": "e5fa0c10d0864bcc8cdee2b3a7487bff",
-      "End": "8e68949a37b2474b92f9d4647250b361",
-      "Id": "17b44b144f4f46fa9fa251f2857ab7a8"
+      "Start": "82849687168c42babed9344ce5d35d21",
+      "End": "e8768eb3540c4e28ad17fae480f5ed48",
+      "Id": "4af0f2b3cf3b47f88def5301d40f56f6"
     },
     {
-      "Start": "753d9b998f2644f2805ff0ce2b35ba77",
-      "End": "5fabd1f9a4244b7da4d9a6de08f98e90",
-      "Id": "dbf18f5fcffe4b059db8aa353521da60"
+      "Start": "b493ae6328a3439e97eedc75f2e7fdc3",
+      "End": "950d474e69d44f0ea0bc127bcf35a3ed",
+      "Id": "3701f53bdd74411eb2d1dae8f23de00b"
     },
     {
-      "Start": "ff57e35b02a64d22af465039846955db",
-      "End": "da121d9c9e424b0497352e0af882cb32",
-      "Id": "77a69e95c6954edbbc139bbea0a0e2fc"
+      "Start": "ba6063bfdd984a858851e5fc272b4735",
+      "End": "60f58807deb04cb8873d27fd11b8e2f7",
+      "Id": "395542fa7c9647a687c62f80c8282279"
     },
     {
-      "Start": "89cd14f6da5645ada3cf639fd528f17a",
-      "End": "88d2fbc31ef94e22a220398c50169511",
-      "Id": "f79b746940f74696a265b00d1ad39fc8"
+      "Start": "fe42da0cc9e447888ed12d8acedb19a1",
+      "End": "fd5a4ac45f694f7fb59aab5c4ec2ec33",
+      "Id": "db1e7617d1814c00853f802782b02a1e"
+    },
+    {
+      "Start": "65928a2e04d3403da6e8bab7f9b680dc",
+      "End": "9fbc3da1ea8744ceac2f9bf167279d3e",
+      "Id": "62a1b0584af64f50ae4010244326ff10"
     }
   ],
   "Dependencies": [],
@@ -453,7 +406,7 @@
       "ScaleFactor": 1.0,
       "HasRunWithoutCrash": true,
       "IsVisibleInDynamoLibrary": true,
-      "Version": "2.0.2.6826",
+      "Version": "2.0.3.8810",
       "RunType": "Manual",
       "RunPeriod": "1000"
     },
@@ -472,13 +425,13 @@
     "NodeViews": [
       {
         "ShowGeometry": true,
-        "Name": "Python Script",
+        "Name": "Find all .rvt in directory",
         "Id": "3fc4b9fde7de4b9a96ecf4175bf392bb",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 120.787533604862,
-        "Y": 417.57506720972418
+        "X": 155.47010110692452,
+        "Y": 474.201095824445
       },
       {
         "ShowGeometry": true,
@@ -487,8 +440,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": -1.0,
-        "Y": 279.0
+        "X": -235.19642240034045,
+        "Y": 212.90775809560941
       },
       {
         "ShowGeometry": true,
@@ -497,28 +450,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 129.56264217441651,
-        "Y": 588.86249741501058
-      },
-      {
-        "ShowGeometry": true,
-        "Name": "ExtractSolids.ExtractSolids",
-        "Id": "90a98e3fad5847f99cf0f3b53ef373e1",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": 283.15041542887082,
-        "Y": 293.20976503942268
-      },
-      {
-        "ShowGeometry": true,
-        "Name": "ExtractSolids.OpenDocumentFile",
-        "Id": "4634b48283134a648b66a8d218250a54",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": 481.50639012750071,
-        "Y": 462.69702980538824
+        "X": 353.89276010349226,
+        "Y": 484.88083192506042
       },
       {
         "ShowGeometry": true,
@@ -527,53 +460,144 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 806.704026829811,
-        "Y": 491.51765321338922
+        "X": 1568.0303454744912,
+        "Y": 82.45009832373654
       },
       {
         "ShowGeometry": true,
-        "Name": "Python Script",
+        "Name": "GenerateLog",
         "Id": "70dfe2b011ba4df992df35599272da55",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 795.98102305900738,
-        "Y": 306.8910654467158
+        "X": 1369.8084435627679,
+        "Y": 82.344392672783215
       },
       {
         "ShowGeometry": true,
-        "Name": "List.GetItemAtIndex",
-        "Id": "e71f6ceff6b3498ea410b5e4694d0415",
+        "Name": "DocOperations.OpenSaveCloseDocumentFile",
+        "Id": "c7388cf572974643b6c07f11e71e6529",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 234.72548263859505,
-        "Y": 752.31537783953786
+        "X": 1023.4896295710596,
+        "Y": 190.3308843468925
       },
       {
         "ShowGeometry": true,
-        "Name": "Code Block",
-        "Id": "bcef2b55fc734b86ad0729c7146465a4",
+        "Name": "DocOperations.DocOperations",
+        "Id": "1265808924074637a46e8c2b9fb040ef",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 60.0,
-        "Y": 835.0
+        "X": 759.58295301912813,
+        "Y": 135.59932371625325
       },
       {
         "ShowGeometry": true,
-        "Name": "Code Block",
-        "Id": "d5768c97e7a0425ebf5b5e451f9b5d25",
+        "Name": "Audit Mode",
+        "Id": "15cf9f6400354c7b8cf7efb4e20b76e4",
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 330.70615047790852,
-        "Y": 469.85007237970297
+        "X": 128.5160232364583,
+        "Y": 37.2027276937003
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Detach From Central",
+        "Id": "1cfd5ce7fd3a4e5e9423df6734900676",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 125.91936366510595,
+        "Y": 105.09975168107206
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Remove Revit Linked Projects",
+        "Id": "ee014d96df9e42e6b77dba2da411e3ab",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 129.73910250544509,
+        "Y": 166.08690624827426
       }
     ],
-    "Annotations": [],
-    "X": 30.695996968396742,
-    "Y": -114.8141931644588,
-    "Zoom": 0.695996968396743
+    "Annotations": [
+      {
+        "Id": "3b7a6a90a49b4d0aa3a23103fe06bc68",
+        "Title": "Input File Directory",
+        "Nodes": [
+          "490b72763c6747dbadff1f2849e8c9fb"
+        ],
+        "Left": -245.19642240034045,
+        "Top": 116.90775809560941,
+        "Width": 284.0,
+        "Height": 190.0,
+        "FontSize": 36.0,
+        "InitialTop": 212.90775809560941,
+        "InitialHeight": 145.0,
+        "TextblockHeight": 86.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "5fb304c3741e4fb398dca0c7642be0c0",
+        "Title": "Generate file paths for all rvt in directory",
+        "Nodes": [
+          "3fc4b9fde7de4b9a96ecf4175bf392bb",
+          "fa55099836cf4d2b9e10a89e2204db86"
+        ],
+        "Left": 145.47010110692452,
+        "Top": 378.201095824445,
+        "Width": 404.42265899656775,
+        "Height": 225.6797361006154,
+        "FontSize": 36.0,
+        "InitialTop": 474.201095824445,
+        "InitialHeight": 159.6797361006154,
+        "TextblockHeight": 86.0,
+        "Background": "#FF48B9FF"
+      },
+      {
+        "Id": "63dfc03a1d044f99b18ce86913a9d655",
+        "Title": "Set Open Options",
+        "Nodes": [
+          "15cf9f6400354c7b8cf7efb4e20b76e4",
+          "1cfd5ce7fd3a4e5e9423df6734900676",
+          "ee014d96df9e42e6b77dba2da411e3ab"
+        ],
+        "Left": 115.91936366510595,
+        "Top": -58.7972723062997,
+        "Width": 218.81973884033914,
+        "Height": 292.88417855457396,
+        "FontSize": 36.0,
+        "InitialTop": 37.2027276937003,
+        "InitialHeight": 226.88417855457396,
+        "TextblockHeight": 86.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "277b5c070f6947dc9c492b7440a03e8e",
+        "Title": "File Opening Operation & Generate Log",
+        "Nodes": [
+          "c7388cf572974643b6c07f11e71e6529",
+          "1265808924074637a46e8c2b9fb040ef",
+          "09fdc3e6caba4677937a3f254db0894f",
+          "70dfe2b011ba4df992df35599272da55"
+        ],
+        "Left": 749.58295301912813,
+        "Top": 29.344392672783215,
+        "Width": 906.44739245536312,
+        "Height": 357.98649167410929,
+        "FontSize": 36.0,
+        "InitialTop": 82.344392672783215,
+        "InitialHeight": 281.73156063063936,
+        "TextblockHeight": 43.0,
+        "Background": "#FF48B9FF"
+      }
+    ],
+    "X": 346.82162295969374,
+    "Y": 73.921582125670938,
+    "Zoom": 0.647221840091218
   }
 }

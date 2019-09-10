@@ -2,7 +2,7 @@
   "Uuid": "87aa0d97-7c0a-42fa-9563-593e8c18a834",
   "IsCustomNode": false,
   "Description": null,
-  "Name": "OverrideColorInView",
+  "Name": "OverrideColorInView-MonkeyJobNodes",
   "ElementResolver": {
     "ResolutionMap": {}
   },
@@ -47,26 +47,6 @@
       ],
       "Replication": "Auto",
       "Description": "Override the element's color in the active view.\n\nElement.OverrideColorInView (color: Color): Element"
-    },
-    {
-      "ConcreteType": "Dynamo.Graph.Nodes.CodeBlockNodeModel, DynamoCore",
-      "NodeType": "CodeBlockNode",
-      "Code": "\"4D Schedule Code\";",
-      "Id": "83d6a49d83a5459385559f4bf1861477",
-      "Inputs": [],
-      "Outputs": [
-        {
-          "Id": "6be8b63d4a564fd4b3f2c4e939c78253",
-          "Name": "",
-          "Description": "Value of expression at line 1",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Disabled",
-      "Description": "Allows for DesignScript code to be authored directly"
     },
     {
       "ConcreteType": "Dynamo.Nodes.DSModelElementsSelection, DSRevitNodesUI",
@@ -4012,36 +3992,6 @@
     {
       "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
       "NodeType": "FunctionNode",
-      "FunctionSignature": "MonkeyJobNodes.UnderDevelopment.isStringEmpty@string",
-      "Id": "c432be9e6966430eb8d033f122da94ab",
-      "Inputs": [
-        {
-          "Id": "f611b1d69ed9463fa76dbc26f5a59f93",
-          "Name": "stringCont",
-          "Description": "string",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Outputs": [
-        {
-          "Id": "e84e4024d796422e843dbfefdad53959",
-          "Name": "bool",
-          "Description": "bool",
-          "UsingDefaultValue": false,
-          "Level": 2,
-          "UseLevels": false,
-          "KeepListStructure": false
-        }
-      ],
-      "Replication": "Auto",
-      "Description": "UnderDevelopment.isStringEmpty (stringCont: string): bool"
-    },
-    {
-      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
-      "NodeType": "FunctionNode",
       "FunctionSignature": "DSCore.List.FilterByBoolMask@var[]..[],var[]..[]",
       "Id": "8c8aaf034c134fa78d7db037d3e59291",
       "Inputs": [
@@ -4175,14 +4125,59 @@
       ],
       "Replication": "Disabled",
       "Description": "Select a Color from the palette"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.StringInput, CoreNodeModels",
+      "NodeType": "StringInputNode",
+      "InputValue": "",
+      "Id": "8d9e2d4ab4de432c84fd5bced9830a5b",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "58e97733c9504a6f8e184a50eb647994",
+          "Name": "",
+          "Description": "String",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Creates a string."
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "MonkeyJobNodes.Miscellaneous.isStringEmpty@string",
+      "Id": "b20882d7063749c185c1b5720c2d4e84",
+      "Inputs": [
+        {
+          "Id": "c5a176502d014493989f43ace4e5970f",
+          "Name": "stringCont",
+          "Description": "string",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "e5f22e80b837478189daf4d068dcdf28",
+          "Name": "bool",
+          "Description": "bool",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Miscellaneous.isStringEmpty (stringCont: string): bool"
     }
   ],
   "Connectors": [
-    {
-      "Start": "6be8b63d4a564fd4b3f2c4e939c78253",
-      "End": "0e1ab351d9da40abb066a0c9588bc8dc",
-      "Id": "76f053acb4724b409e76d9f690ddd075"
-    },
     {
       "Start": "ba237d075f9e432a885cc172c6e0ef5d",
       "End": "2d8d5ab049374ac298a8b4c5ad900f7b",
@@ -4195,13 +4190,8 @@
     },
     {
       "Start": "da6a3d9237f54c30a99986c46c9c4f5f",
-      "End": "f611b1d69ed9463fa76dbc26f5a59f93",
-      "Id": "83b0a3c8070c43e192be39b59a2a052a"
-    },
-    {
-      "Start": "e84e4024d796422e843dbfefdad53959",
-      "End": "8e0fb3a4d1b44945bcef48fcb585dc09",
-      "Id": "2768ef2937be42328e32b000579191b0"
+      "End": "c5a176502d014493989f43ace4e5970f",
+      "Id": "7c41ce7095114c69a425277d094a523c"
     },
     {
       "Start": "756d0c81796b476db3969f45c0001d00",
@@ -4222,6 +4212,16 @@
       "Start": "84901ed27bd74af1b04f753e45377fac",
       "End": "6dcb3997dc024ec7af036f0882c53f6b",
       "Id": "01419fcb778b4395a0ee4f16dd7f68f5"
+    },
+    {
+      "Start": "58e97733c9504a6f8e184a50eb647994",
+      "End": "0e1ab351d9da40abb066a0c9588bc8dc",
+      "Id": "29c4384e8835400dad4b0354ab507ec2"
+    },
+    {
+      "Start": "e5f22e80b837478189daf4d068dcdf28",
+      "End": "8e0fb3a4d1b44945bcef48fcb585dc09",
+      "Id": "74f45b8a8b0b45a6a1140158d321afb2"
     }
   ],
   "Dependencies": [],
@@ -4231,7 +4231,7 @@
       "ScaleFactor": 1.0,
       "HasRunWithoutCrash": true,
       "IsVisibleInDynamoLibrary": true,
-      "Version": "2.0.2.6826",
+      "Version": "2.0.3.8810",
       "RunType": "Manual",
       "RunPeriod": "1000"
     },
@@ -4255,18 +4255,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 1216.5,
-        "Y": 61.0
-      },
-      {
-        "ShowGeometry": true,
-        "Name": "Code Block",
-        "Id": "83d6a49d83a5459385559f4bf1861477",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": 120.0,
-        "Y": 430.0
+        "X": 1401.4678335995482,
+        "Y": -16.658250747902002
       },
       {
         "ShowGeometry": true,
@@ -4275,8 +4265,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 53.0,
-        "Y": 205.0
+        "X": -26.0,
+        "Y": 100.0
       },
       {
         "ShowGeometry": true,
@@ -4285,18 +4275,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 378.5,
-        "Y": 316.0
-      },
-      {
-        "ShowGeometry": true,
-        "Name": "UnderDevelopment.isStringEmpty",
-        "Id": "c432be9e6966430eb8d033f122da94ab",
-        "IsSetAsInput": false,
-        "IsSetAsOutput": false,
-        "Excluded": false,
-        "X": 711.5,
-        "Y": 364.0
+        "X": 443.45053698915444,
+        "Y": 224.22206729793402
       },
       {
         "ShowGeometry": true,
@@ -4305,8 +4285,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 954.5,
-        "Y": 259.0
+        "X": 1139.4678335995482,
+        "Y": 181.341749252098
       },
       {
         "ShowGeometry": true,
@@ -4315,8 +4295,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 1240.5,
-        "Y": 438.0
+        "X": 1425.4678335995482,
+        "Y": 360.341749252098
       },
       {
         "ShowGeometry": true,
@@ -4325,8 +4305,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 1018.5,
-        "Y": 457.0
+        "X": 1203.4678335995482,
+        "Y": 379.341749252098
       },
       {
         "ShowGeometry": true,
@@ -4335,13 +4315,88 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 964.5,
-        "Y": 92.0
+        "X": 1149.4678335995482,
+        "Y": 14.341749252097998
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Project Parameter Name",
+        "Id": "8d9e2d4ab4de432c84fd5bced9830a5b",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 135.0,
+        "Y": 217.0
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Miscellaneous.isStringEmpty",
+        "Id": "b20882d7063749c185c1b5720c2d4e84",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 847.95324416059339,
+        "Y": 247.35904586249205
       }
     ],
-    "Annotations": [],
-    "X": 0.0,
-    "Y": 0.0,
-    "Zoom": 1.0
+    "Annotations": [
+      {
+        "Id": "82ddb2f435a646ed9c7deae6f7964ebb",
+        "Title": "Select Model Elements and Project Parameter Name",
+        "Nodes": [
+          "90d7e0f218f94d069d84d2ea76a062c1",
+          "8d9e2d4ab4de432c84fd5bced9830a5b"
+        ],
+        "Left": -36.0,
+        "Top": -40.0,
+        "Width": 346.0,
+        "Height": 325.0,
+        "FontSize": 36.0,
+        "InitialTop": 100.0,
+        "InitialHeight": 238.0,
+        "TextblockHeight": 130.0,
+        "Background": "#FFC1D676"
+      },
+      {
+        "Id": "0beff076186f4db49342c881d53e2886",
+        "Title": "Override Color in Current View",
+        "Nodes": [
+          "239d92bb0b1343cb8899c85f51ab6b9a",
+          "8c8aaf034c134fa78d7db037d3e59291",
+          "9a7c62a67d9848c7bd4015e5843f3dc0",
+          "0ac3d3db69084dcd9eaf155f52c0f100",
+          "e587f8644194409bbe113373e4753d0a"
+        ],
+        "Left": 1129.4678335995482,
+        "Top": -69.658250747902,
+        "Width": 525.0,
+        "Height": 542.0,
+        "FontSize": 36.0,
+        "InitialTop": -16.658250747902002,
+        "InitialHeight": 519.0,
+        "TextblockHeight": 43.0,
+        "Background": "#FF48B9FF"
+      },
+      {
+        "Id": "01b85453a5bd47509dbba320cac101e6",
+        "Title": "Find Project Parameter and Check Value",
+        "Nodes": [
+          "50532c01ef4246ddab160fb3e3c7f332",
+          "b20882d7063749c185c1b5720c2d4e84"
+        ],
+        "Left": 433.45053698915444,
+        "Top": 171.22206729793402,
+        "Width": 633.50270717143894,
+        "Height": 169.13697856455804,
+        "FontSize": 36.0,
+        "InitialTop": 224.22206729793402,
+        "InitialHeight": 147.54894675997434,
+        "TextblockHeight": 43.0,
+        "Background": "#FF48B9FF"
+      }
+    ],
+    "X": 27.541451446587473,
+    "Y": 151.40103125,
+    "Zoom": 0.70823125000000009
   }
 }
