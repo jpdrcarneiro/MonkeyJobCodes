@@ -29,7 +29,7 @@ namespace MonkeyJobNodes
          multiOutput.Add("UiApplication", uiapp);
          multiOutput.Add("Application", app);
          multiOutput.Add("UiDocument", uiDoc);
-         multiOutput.Add("AppDocument", currentDoc);
+         multiOutput.Add("CurrentDocument", currentDoc);
 
          return multiOutput;
       }
@@ -170,6 +170,7 @@ namespace MonkeyJobNodes
          string result = "None";
          Autodesk.Revit.DB.FilteredElementCollector elements = new Autodesk.Revit.DB.FilteredElementCollector(document);
          Autodesk.Revit.DB.Element[] revitLinks = elements.OfCategory(BuiltInCategory.OST_RvtLinks).ToArray<Autodesk.Revit.DB.Element>();
+           // Autodesk.Revit.DB.Element[] dwgLinks = elements.OfCategory(CADL).ToArray<Autodesk.Revit.DB.Element>();
          Transaction transaction = new Transaction(document, "DeleteLinks");
          if (revitLinks.Length > 0)
          {
