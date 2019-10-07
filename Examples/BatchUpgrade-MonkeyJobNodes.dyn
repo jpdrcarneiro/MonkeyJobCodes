@@ -59,8 +59,8 @@
     },
     {
       "ConcreteType": "CoreNodeModels.Input.Directory, CoreNodeModels",
-      "HintPath": "C:\\Users\\car11899\\Desktop\\Entourage CTA",
-      "InputValue": "C:\\Users\\car11899\\Desktop\\Entourage CTA",
+      "HintPath": "C:\\Users\\CAR11899\\Documents\\Glue\\Glue Templates - 2019",
+      "InputValue": "C:\\Users\\CAR11899\\Documents\\Glue\\Glue Templates - 2019",
       "NodeType": "ExtensionNode",
       "Id": "490b72763c6747dbadff1f2849e8c9fb",
       "Inputs": [],
@@ -533,7 +533,7 @@
         ],
         "Left": -245.19642240034045,
         "Top": 116.90775809560941,
-        "Width": 284.0,
+        "Width": 296.0,
         "Height": 190.0,
         "FontSize": 36.0,
         "InitialTop": 212.90775809560941,
@@ -554,7 +554,7 @@
         "Height": 225.6797361006154,
         "FontSize": 36.0,
         "InitialTop": 474.201095824445,
-        "InitialHeight": 159.6797361006154,
+        "InitialHeight": 155.6797361006154,
         "TextblockHeight": 86.0,
         "Background": "#FF48B9FF"
       },
@@ -572,7 +572,7 @@
         "Height": 292.88417855457396,
         "FontSize": 36.0,
         "InitialTop": 37.2027276937003,
-        "InitialHeight": 226.88417855457396,
+        "InitialHeight": 273.88417855457396,
         "TextblockHeight": 86.0,
         "Background": "#FFC1D676"
       },
@@ -587,11 +587,11 @@
         ],
         "Left": 749.58295301912813,
         "Top": 29.344392672783215,
-        "Width": 906.44739245536312,
-        "Height": 357.98649167410929,
+        "Width": 1118.4473924553631,
+        "Height": 390.10570565095333,
         "FontSize": 36.0,
         "InitialTop": 82.344392672783215,
-        "InitialHeight": 281.73156063063936,
+        "InitialHeight": 252.98649167410929,
         "TextblockHeight": 43.0,
         "Background": "#FF48B9FF"
       }

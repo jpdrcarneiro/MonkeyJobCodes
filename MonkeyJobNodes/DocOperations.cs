@@ -16,13 +16,14 @@ namespace MonkeyJobNodes
       /// Get Essential documents to run nodes
       /// </summary>
       /// <returns></returns>
-      [MultiReturn(new[] { "UiApplication", "Application", "UiDocument", "CurrentDocument" })]
+      [MultiReturn(new[] { "UiApplication", "Application", "UiDocument", "CurrentDocument", "CurrentView" })]
       public Dictionary<string, object> docOperationsNeeds()
       {
          Autodesk.Revit.UI.UIApplication uiapp = RevitServices.Persistence.DocumentManager.Instance.CurrentUIApplication;
          Autodesk.Revit.ApplicationServices.Application app = uiapp.Application;
          Autodesk.Revit.UI.UIDocument uiDoc = uiapp.ActiveUIDocument;
          Autodesk.Revit.DB.Document currentDoc = RevitServices.Persistence.DocumentManager.Instance.CurrentDBDocument;
+            Autodesk.Revit.DB.View currentView = uiDoc.ActiveView; 
 
 
          Dictionary<string, object> multiOutput = new Dictionary<string, object>();
@@ -30,6 +31,7 @@ namespace MonkeyJobNodes
          multiOutput.Add("Application", app);
          multiOutput.Add("UiDocument", uiDoc);
          multiOutput.Add("CurrentDocument", currentDoc);
+            multiOutput.Add("CurrentView", currentView);
 
          return multiOutput;
       }
@@ -40,8 +42,29 @@ namespace MonkeyJobNodes
       /// <param name="transactionName"></param>
       /// <returns></returns>
       public Transaction openTransaction(Autodesk.Revit.DB.Document currentDoc, string transactionName) {
-         Transaction transaction = new Transaction(currentDoc, transactionName);
-         return transaction;
+            Transaction transaction;
+            transaction = new Transaction(currentDoc, transactionName);
+            try
+            {
+                transaction.Start();
+            }
+            catch (Autodesk.Revit.Exceptions.InvalidOperationException)
+            {
+                if (transaction.GetStatus() == TransactionStatus.Started)
+                {
+                    transaction.RollBack();
+                    transaction.Start();
+                }
+                else
+                {
+                    transaction.Commit();
+                    transaction.Start();
+                }
+                
+            }
+            return transaction;
+
+         
       }
       /// <summary>
       /// Commit change to the document
@@ -378,9 +401,50 @@ namespace MonkeyJobNodes
 
 
         }
-        
+        public static void showStringOnScreen(string dialogTitle, string contentString)
+        {
+            TaskDialog exception = new TaskDialog(dialogTitle);
+            exception.MainInstruction = dialogTitle;
+            exception.MainContent = contentString;
+            exception.CommonButtons = TaskDialogCommonButtons.Close;
+            exception.DefaultButton = TaskDialogResult.Close;
+            TaskDialogResult tResult = exception.Show();
 
-   }
+
+        }
+        public bool HideElementByID(Autodesk.Revit.DB.Document currentDocument, string uniqueID, Autodesk.Revit.DB.View view)
+        {
+
+            Autodesk.Revit.DB.Element elem = currentDocument.GetElement(uniqueID);
+            Autodesk.Revit.DB.ElementId elementId = elem.Id;
+            List<Autodesk.Revit.DB.ElementId> ids = new List<Autodesk.Revit.DB.ElementId>();
+            ids.Add(elementId);
+            //int counter = 0;
+            try
+            {
+                Transaction tran = openTransaction(currentDocument, "Hide Element");
+                view.HideElements(ids);
+                //counter++;
+                //Console.WriteLine(counter.ToString());
+                CommitTransaction(tran, true);
+                tran.Dispose();
+                return true;
+            }
+            catch (Autodesk.Revit.Exceptions.InvalidOperationException e)
+            {
+                showExceptionOnScreen(e);
+                return false;
+            }
+            catch (Exception)
+            {
+                //counter++;
+                //Console.WriteLine(counter.ToString());
+                return false;
+            }
+        }
+
+
+    }
 
    
 }
