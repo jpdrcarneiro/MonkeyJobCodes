@@ -1,0 +1,64 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>ClashReportTemplate</title>
+</head>
+
+<body>
+	<table style="width: 100%",
+		   border ="1",
+		   id = header>
+		<tr>
+		<td width="210px", height="110px", align="left">
+			<img src="CompanyLogo.png",
+				 style="width:200px;height:100px;",
+				 align="left">
+		</td>
+		<td align="center">
+			<h2>Model Name</h2>
+			<h3> Clash Test Name</h3>
+		</td>
+		<td width="210px", height="110px">
+			<p align="center">Date: <span id="date"></span><br>
+				Time: <span id="time"</span><br>
+			</p>
+			<h4 align="center">User: Add UserName</h4>
+				<script>
+					var dt = new Date();
+					document.getElementById("date").innerHTML = dt.toLocaleDateString();	
+					document.getElementById("time").innerHTML = dt.toLocaleTimeString();
+				</script>
+			
+		</td>
+		</tr>
+	</table>
+	<table style="width: 100%",
+		   border ="1",
+		   id = ClashInfo>
+		<tr>
+		<tr>
+			<td id=clashImage, width="400px", height="600px", align="left"><img src="CompanyLogo.png", width="490px", height="590px"></td>
+			<td id=clashData align="right", valign="top">
+				<P align="justify">
+					<b>Name:</b> Clash 1 <br>
+					<b>Status: </b> New <br>
+					<b>Level: </b> Level x <br>
+					<b>Grid Intersection: </b><br>
+					<b>Date Found: </b><br>
+					<b>Assing to:</b> <br>
+					<b>Approved by: </b> <br>
+					<b>Approved on:</b> <br>
+					<b>Comments: </b><br>
+					Get comments from Clash detective
+					
+					
+					
+					
+				</P>
+			</td>
+		</tr>
+		
+	</table>
+</body>
+</html>
