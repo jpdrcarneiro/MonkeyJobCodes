@@ -107,7 +107,7 @@ namespace MonkeyJobNodes
         /// Extract a list of ElementsID with the spacefied key-word on Structural Material
         /// </summary>
         /// <param name="CurrentDocument"></param>
-        /// <param name="Material"></param>
+        /// <param name="MaterialName"></param>
         /// <returns name="ElementIDs">Returns ElementIDs as String</returns>
         public static string[] checkStructuralMaterial (Autodesk.Revit.DB.Document CurrentDocument, String Material)
         {
@@ -148,25 +148,27 @@ namespace MonkeyJobNodes
                         }
                         //count++;
                     }
-                    else if( elem.GetType() is Autodesk.Revit.DB.Floor)
-                    {
-                        Autodesk.Revit.DB.Floor floor = elem as Autodesk.Revit.DB.Floor;
-                        string floorType = floor.FloorType.ToString();
-                        if (floorType.Contains(Material))
-                        {
-                            elemList.Add(elem.UniqueId.ToString());
-                        }
+                    //else if( elem.GetType() is Autodesk.Revit.DB.Floor)
+                    //{
+                    //    Autodesk.Revit.DB.Floor floor = elem as Autodesk.Revit.DB.Floor;
+                    //    string floorType = floor.FloorType.ToString();
+                    //    DocOperations.showStringOnScreen(floorType, floorType);
+                    //    if (floorType.Contains(Material))
+                    //    {
+                    //        elemList.Add(elem.UniqueId.ToString());
+                    //    }
 
-                    }
-                    else if (elem.GetType() is Autodesk.Revit.DB.Wall)
-                    {
-                        Autodesk.Revit.DB.Wall wall = elem as Autodesk.Revit.DB.Wall;
-                        string wallType = wall.WallType.ToString();
-                        if (wallType.Contains(Material))
-                        {
-                            elemList.Add(elem.UniqueId.ToString());
-                        }
-                    }
+                    //}
+                    //else if (elem.GetType() is Autodesk.Revit.DB.Wall)
+                    //{
+                    //    Autodesk.Revit.DB.Wall wall = elem as Autodesk.Revit.DB.Wall;
+                    //    string wallType = wall.WallType.ToString();
+                    //    DocOperations.showStringOnScreen(wallType, wallType);
+                    //    if (wallType.Contains(Material))
+                    //    {
+                    //        elemList.Add(elem.UniqueId.ToString());
+                    //    }
+                    //}
                     else
                     {
                         continue;
