@@ -137,38 +137,48 @@ namespace MonkeyJobNodes
                         }
                         else if (elem.LookupParameter("Structural Material").AsValueString().Contains("Category"))
                         {
-                            if (elem.Category.Material.LookupParameter("Structural Material") != null && elem.Category.Material.LookupParameter("Structural Material").AsValueString().Contains(Material))
+                            try
                             {
-                                string nameTemp = elem.Category.Material.LookupParameter("Structural Material").Definition.Name;
-                                string valueTemp = elem.Category.Material.LookupParameter("Structural Material").AsValueString();
-                                elemList.Add(elem.UniqueId.ToString());
-                                //content = content + elem.Id.ToString() + ":" + elem.Name + "___" + nameTemp + ":" + valueTemp + "\r\n";
+                                if (elem.Category.Material.LookupParameter("Structural Material") != null && elem.Category.Material.LookupParameter("Structural Material").AsValueString().Contains(Material))
+                                {
+                                    string nameTemp = elem.Category.Material.LookupParameter("Structural Material").Definition.Name;
+                                    string valueTemp = elem.Category.Material.LookupParameter("Structural Material").AsValueString();
+                                    elemList.Add(elem.UniqueId.ToString());
+                                    //content = content + elem.Id.ToString() + ":" + elem.Name + "___" + nameTemp + ":" + valueTemp + "\r\n";
+                                }
+
+                            }
+                            catch (NullReferenceException)
+                            {
+                                //DocOperations.showStringOnScreen("Exception", elem.Name.ToString());
+                                continue;
                             }
 
                         }
                         //count++;
                     }
-                    //else if( elem.GetType() is Autodesk.Revit.DB.Floor)
-                    //{
-                    //    Autodesk.Revit.DB.Floor floor = elem as Autodesk.Revit.DB.Floor;
-                    //    string floorType = floor.FloorType.ToString();
-                    //    DocOperations.showStringOnScreen(floorType, floorType);
-                    //    if (floorType.Contains(Material))
-                    //    {
-                    //        elemList.Add(elem.UniqueId.ToString());
-                    //    }
+                    else if (elem.GetType() is Autodesk.Revit.DB.Floor)
+                    {
+                        Autodesk.Revit.DB.Floor floor = elem as Autodesk.Revit.DB.Floor;
+                        string floorType = floor.FloorType.ToString();
+                        DocOperations.showStringOnScreen(floorType, floorType);
+                        if (floorType.Contains(Material))
+                        {
+                            elemList.Add(elem.UniqueId.ToString());
+                        }
 
-                    //}
-                    //else if (elem.GetType() is Autodesk.Revit.DB.Wall)
-                    //{
-                    //    Autodesk.Revit.DB.Wall wall = elem as Autodesk.Revit.DB.Wall;
-                    //    string wallType = wall.WallType.ToString();
-                    //    DocOperations.showStringOnScreen(wallType, wallType);
-                    //    if (wallType.Contains(Material))
-                    //    {
-                    //        elemList.Add(elem.UniqueId.ToString());
-                    //    }
-                    //}
+                    }
+                    else if (elem.GetType() is Autodesk.Revit.DB.Wall)
+                    {
+                        Autodesk.Revit.DB.Wall wall = elem as Autodesk.Revit.DB.Wall;
+                        DocOperations.showStringOnScreen("Wall", wall.GetMaterialIds(false).ToString());
+                        string wallType = wall.WallType.ToString();
+                        DocOperations.showStringOnScreen(wallType, wallType);
+                        if (wallType.Contains(Material))
+                        {
+                            elemList.Add(elem.UniqueId.ToString());
+                        }
+                    }
                     else
                     {
                         continue;
