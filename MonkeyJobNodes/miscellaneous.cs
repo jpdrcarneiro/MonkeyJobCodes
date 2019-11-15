@@ -244,9 +244,32 @@ namespace MonkeyJobNodes
 
             return element.GetType().ToString();
         }
+        /// <summary>
+        /// This is a switch to drive data direction.
+        /// </summary>
+        /// <param name="data">Any Variable that you want to control its direction</param>
+        /// <param name="isDebug">Boolean that determine direction</param>
+        /// <returns></returns>
+        [MultiReturn(new[] { "Debug", "Release" })]
+        public static Dictionary<string, object> DataSwitch(object data, bool isDebug = false)
+        {
+            Dictionary<string, object> multiOutPut = new Dictionary<string, object>();
+            if (isDebug == true)
+            {
+                multiOutPut.Add("Debug", data);
+                multiOutPut.Add("Release", null);
+            }
+            else
+            {
+                multiOutPut.Add("Debug", null);
+                multiOutPut.Add("Release", data);
+            }
+            return multiOutPut;
 
-        
+        }
 
 
-   }
+
+
+    }
 }
