@@ -59,8 +59,8 @@
     },
     {
       "ConcreteType": "CoreNodeModels.Input.Directory, CoreNodeModels",
-      "HintPath": "C:\\Users\\CAR11899\\Documents\\Glue\\Glue Templates - 2019",
-      "InputValue": "C:\\Users\\CAR11899\\Documents\\Glue\\Glue Templates - 2019",
+      "HintPath": "R:\\500_Construction\\Personnel\\Carneiro\\MasterFiles",
+      "InputValue": "R:\\500_Construction\\Personnel\\Carneiro\\MasterFiles",
       "NodeType": "ExtensionNode",
       "Id": "490b72763c6747dbadff1f2849e8c9fb",
       "Inputs": [],
@@ -324,7 +324,7 @@
     {
       "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
       "NodeType": "BooleanInputNode",
-      "InputValue": false,
+      "InputValue": true,
       "Id": "ee014d96df9e42e6b77dba2da411e3ab",
       "Inputs": [],
       "Outputs": [
@@ -406,7 +406,7 @@
       "ScaleFactor": 1.0,
       "HasRunWithoutCrash": true,
       "IsVisibleInDynamoLibrary": true,
-      "Version": "2.0.3.8810",
+      "Version": "2.0.2.6826",
       "RunType": "Manual",
       "RunPeriod": "1000"
     },
@@ -440,8 +440,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": -235.19642240034045,
-        "Y": 212.90775809560941
+        "X": -329.44540508516889,
+        "Y": 219.08801925527027
       },
       {
         "ShowGeometry": true,
@@ -531,14 +531,14 @@
         "Nodes": [
           "490b72763c6747dbadff1f2849e8c9fb"
         ],
-        "Left": -245.19642240034045,
-        "Top": 116.90775809560941,
-        "Width": 296.0,
-        "Height": 190.0,
+        "Left": -339.44540508516889,
+        "Top": 166.08801925527027,
+        "Width": 338.0,
+        "Height": 147.0,
         "FontSize": 36.0,
-        "InitialTop": 212.90775809560941,
+        "InitialTop": 219.08801925527027,
         "InitialHeight": 145.0,
-        "TextblockHeight": 86.0,
+        "TextblockHeight": 43.0,
         "Background": "#FFC1D676"
       },
       {
@@ -588,7 +588,7 @@
         "Left": 749.58295301912813,
         "Top": 29.344392672783215,
         "Width": 1118.4473924553631,
-        "Height": 390.10570565095333,
+        "Height": 431.10570565095333,
         "FontSize": 36.0,
         "InitialTop": 82.344392672783215,
         "InitialHeight": 252.98649167410929,
@@ -596,8 +596,8 @@
         "Background": "#FF48B9FF"
       }
     ],
-    "X": 346.82162295969374,
-    "Y": 73.921582125670938,
-    "Zoom": 0.647221840091218
+    "X": -315.19366093864357,
+    "Y": 79.981253816746289,
+    "Zoom": 0.601561444886338
   }
 }
