@@ -969,7 +969,7 @@
       "ConcreteType": "Dynamo.Nodes.DSModelElementSelection, DSRevitNodesUI",
       "NodeType": "ExtensionNode",
       "InstanceId": [
-        "7e19c666-6529-4f2c-9d06-9e9213c807bf-001e72cb"
+        "9d097b7d-7acb-4ab8-b77d-0cff0ca3d2b1-00192596"
       ],
       "Id": "ec8ca2233ca349a3841732cee6fd8696",
       "Inputs": [],
@@ -990,7 +990,7 @@
       "ConcreteType": "Dynamo.Nodes.DSModelElementSelection, DSRevitNodesUI",
       "NodeType": "ExtensionNode",
       "InstanceId": [
-        "cb506d2d-ccec-4da2-8dd3-2cc8c90c7461-0015339c"
+        "b93abb51-b7ae-4f9a-8a54-8043d173758b-00192646"
       ],
       "Id": "c07a94a3d9b847f1b6f519a048c51aee",
       "Inputs": [],
@@ -1006,6 +1006,74 @@
         }
       ],
       "Replication": "Disabled"
+    },
+    {
+      "ConcreteType": "Dynamo.Graph.Nodes.ZeroTouch.DSFunction, DynamoCore",
+      "NodeType": "FunctionNode",
+      "FunctionSignature": "MonkeyJobNodes.Miscellaneous.DataSwitch@var,bool",
+      "Id": "2f1a895eed154131b9b5957ee35e35ed",
+      "Inputs": [
+        {
+          "Id": "f6b45b14f63a40e59e6b643dbc1f0ec6",
+          "Name": "data",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "c942cfed474045f6805205896f0a35d1",
+          "Name": "isDebug",
+          "Description": "bool\nDefault value : false",
+          "UsingDefaultValue": true,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Outputs": [
+        {
+          "Id": "f909fa50c15b4856bf9fb985e72b9297",
+          "Name": "Debug",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        },
+        {
+          "Id": "eb6bf7ec7b654004956b33ff5617f2cd",
+          "Name": "Release",
+          "Description": "var",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Auto",
+      "Description": "Miscellaneous.DataSwitch (data: var, isDebug: bool = false): var[]..[]"
+    },
+    {
+      "ConcreteType": "CoreNodeModels.Input.BoolSelector, CoreNodeModels",
+      "NodeType": "BooleanInputNode",
+      "InputValue": false,
+      "Id": "9e056a120499434392ca13463b81eb06",
+      "Inputs": [],
+      "Outputs": [
+        {
+          "Id": "5e9fb0dd8408403ba974d972920b307d",
+          "Name": "",
+          "Description": "Boolean",
+          "UsingDefaultValue": false,
+          "Level": 2,
+          "UseLevels": false,
+          "KeepListStructure": false
+        }
+      ],
+      "Replication": "Disabled",
+      "Description": "Selection between a true and false."
     }
   ],
   "Connectors": [
@@ -1097,7 +1165,7 @@
     {
       "Start": "7bb7ec5caf0d47b4972f8f70ed48701f",
       "End": "7611ccc51cc84b7d9952190538dbbd1a",
-      "Id": "3ab7ca132ec54052b9308d1207f83f2d"
+      "Id": "6c28bebf155245898a89cf80564b4693"
     },
     {
       "Start": "df7c2db1686b4a0890f59b016c077ec1",
@@ -1156,8 +1224,8 @@
     },
     {
       "Start": "793f40aee35748a2b5b0f9795a25abac",
-      "End": "d913057b9d87415192498c7fd28fb98e",
-      "Id": "577641a6e8124c6db86e62120027649d"
+      "End": "f6b45b14f63a40e59e6b643dbc1f0ec6",
+      "Id": "caa71627eb024202acd4b323f3e0c366"
     },
     {
       "Start": "06e2bbe76300405a97f6ca06b383e2f6",
@@ -1173,6 +1241,21 @@
       "Start": "eae5861313ee4eb596a3b08ae7990974",
       "End": "2aef0bdeab5f4633a212fceb576bc493",
       "Id": "3588d143cff140b98c8dba852c378b0f"
+    },
+    {
+      "Start": "f909fa50c15b4856bf9fb985e72b9297",
+      "End": "d913057b9d87415192498c7fd28fb98e",
+      "Id": "97d3ef1746f44db98ab20e82434492c6"
+    },
+    {
+      "Start": "eb6bf7ec7b654004956b33ff5617f2cd",
+      "End": "9ee1298ebfed423785ac54d468f48a90",
+      "Id": "0d8ac709b23c4ba2a92819c92633d9ec"
+    },
+    {
+      "Start": "5e9fb0dd8408403ba974d972920b307d",
+      "End": "c942cfed474045f6805205896f0a35d1",
+      "Id": "c402057396c24a229b833093f97840eb"
     }
   ],
   "Dependencies": [
@@ -1190,15 +1273,15 @@
     },
     "Camera": {
       "Name": "Background Preview",
-      "EyeX": -17.0,
-      "EyeY": 24.0,
-      "EyeZ": 50.0,
-      "LookX": 12.0,
-      "LookY": -13.0,
-      "LookZ": -58.0,
-      "UpX": 0.0,
-      "UpY": 1.0,
-      "UpZ": 0.0
+      "EyeX": -401.74875747697706,
+      "EyeY": 168.01436058529902,
+      "EyeZ": 164.10696622277902,
+      "LookX": 284.03948217666778,
+      "LookY": -285.34471155815908,
+      "LookZ": -143.54482190802077,
+      "UpX": 0.43948908411664239,
+      "UpY": 0.870355695939903,
+      "UpZ": -0.22210427165475374
     },
     "NodeViews": [
       {
@@ -1328,8 +1411,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 5358.3152012828305,
-        "Y": -85.5574619489741
+        "X": 5767.3988296354619,
+        "Y": -135.5976174579236
       },
       {
         "ShowGeometry": true,
@@ -1378,8 +1461,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 5644.1921084680716,
-        "Y": -106.46786196182791
+        "X": 6079.833281129876,
+        "Y": -268.98702866257162
       },
       {
         "ShowGeometry": true,
@@ -1388,8 +1471,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 5346.8837595059658,
-        "Y": -234.6732256152888
+        "X": 5769.83534054647,
+        "Y": -258.71096983447728
       },
       {
         "ShowGeometry": true,
@@ -1398,8 +1481,8 @@
         "IsSetAsInput": false,
         "IsSetAsOutput": false,
         "Excluded": false,
-        "X": 5017.1619434168169,
-        "Y": -185.87022375213468
+        "X": 5594.3264030821583,
+        "Y": -440.66288186006136
       },
       {
         "ShowGeometry": true,
@@ -1490,6 +1573,26 @@
         "Excluded": false,
         "X": 4524.1330164314159,
         "Y": 66.082496140704166
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Miscellaneous.DataSwitch",
+        "Id": "2f1a895eed154131b9b5957ee35e35ed",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 5420.5518956224514,
+        "Y": -271.79958635688467
+      },
+      {
+        "ShowGeometry": true,
+        "Name": "Boolean",
+        "Id": "9e056a120499434392ca13463b81eb06",
+        "IsSetAsInput": false,
+        "IsSetAsOutput": false,
+        "Excluded": false,
+        "X": 5235.6634469716109,
+        "Y": -241.73476834570147
       }
     ],
     "Annotations": [
@@ -1511,8 +1614,8 @@
         "Background": "#FFC1D676"
       }
     ],
-    "X": -2681.4815777423305,
-    "Y": 452.12169257180847,
-    "Zoom": 0.59120702476703635
+    "X": -4645.5073841332678,
+    "Y": 489.65107805918933,
+    "Zoom": 0.895833645552891
   }
 }
