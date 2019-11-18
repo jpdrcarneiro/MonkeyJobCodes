@@ -1,0 +1,155 @@
+ /// <summary>
+        /// Extract a list of ElementsID with the spacefied key-word on Structural Material
+        /// </summary>
+        /// <param name="CurrentDocument"></param>
+        /// <param name="MaterialName"></param>
+        /// <returns name="ElementIDs">Returns ElementIDs as String</returns>
+        public static string[] checkStructuralMaterial (Autodesk.Revit.DB.Document CurrentDocument, String Material)
+        {
+            Autodesk.Revit.DB.FilteredElementCollector collector = new Autodesk.Revit.DB.FilteredElementCollector(CurrentDocument);
+            Autodesk.Revit.DB.LogicalOrFilter logicFilter = new Autodesk.Revit.DB.LogicalOrFilter(new Autodesk.Revit.DB.ElementIsElementTypeFilter(true), new Autodesk.Revit.DB.ElementIsElementTypeFilter(false));
+            IEnumerable < Autodesk.Revit.DB.Element> elements = collector.WherePasses(logicFilter);
+            List<string> elemList = new List<string>();
+            //string content = string.Empty;
+            //int count = 0;
+            
+            using (var elementsSequence = elements.GetEnumerator())
+            {
+                while (elementsSequence.MoveNext())
+                {
+                    Autodesk.Revit.DB.Element elem = elementsSequence.Current;
+                    Autodesk.Revit.DB.ParameterSet parameterSet = elem.Parameters;
+                    //content = content + elem.Parameters.ToString() + "\r\n"; 
+                    //Autodesk.Revit.DB.ElementId[] matIDs = elem.GetMaterialIds(false).ToArray();
+                    if (parameterSet.IsEmpty == false && elem.LookupParameter("Structural Material") != null)
+                    {
+                        if (elem.LookupParameter("Structural Material").AsValueString().Contains(Material))
+                        {
+                            string nameTemp = elem.LookupParameter("Structural Material").Definition.Name;
+                            string valueTemp = elem.LookupParameter("Structural Material").AsValueString();
+                            elemList.Add(elem.UniqueId.ToString());
+                            //content = content + elem.Id.ToString() + ":" + elem.Name + "___" + nameTemp + ":" + valueTemp + "\r\n";
+                        }
+                        else if (elem.LookupParameter("Structural Material").AsValueString().Contains("Category"))
+                        {
+                            try
+                            {
+                                if (elem.Category.Material.LookupParameter("Structural Material") != null && elem.Category.Material.LookupParameter("Structural Material").AsValueString().Contains(Material))
+                                {
+                                    string nameTemp = elem.Category.Material.LookupParameter("Structural Material").Definition.Name;
+                                    string valueTemp = elem.Category.Material.LookupParameter("Structural Material").AsValueString();
+                                    elemList.Add(elem.UniqueId.ToString());
+                                    //content = content + elem.Id.ToString() + ":" + elem.Name + "___" + nameTemp + ":" + valueTemp + "\r\n";
+                                }
+
+                            }
+                            catch (NullReferenceException)
+                            {
+                                //DocOperations.showStringOnScreen("Exception", elem.Name.ToString());
+                                continue;
+                            }
+
+                        }
+                        //count++;
+                    }
+                    else if (elem.GetType() is Autodesk.Revit.DB.Floor)
+                    {
+                        Autodesk.Revit.DB.Floor floor = elem as Autodesk.Revit.DB.Floor;
+                        string floorType = floor.FloorType.ToString();
+                        DocOperations.showStringOnScreen(floorType, floorType);
+                        if (floorType.Contains(Material))
+                        {
+                            elemList.Add(elem.UniqueId.ToString());
+                        }
+
+                    }
+                    else if (elem.GetType() is Autodesk.Revit.DB.Wall)
+                    {
+                        Autodesk.Revit.DB.Wall wall = elem as Autodesk.Revit.DB.Wall;
+                        DocOperations.showStringOnScreen("Wall", wall.GetMaterialIds(false).ToString());
+                        string wallType = wall.WallType.ToString();
+                        DocOperations.showStringOnScreen(wallType, wallType);
+                        if (wallType.Contains(Material))
+                        {
+                            elemList.Add(elem.UniqueId.ToString());
+                        }
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                    
+                }
+            }
+            //DocOperations.showStringOnScreen("Material IDs", content);
+            return elemList.ToArray();
+        }
+
+
+		      public static Autodesk.Revit.DB.Category ElementCategory(Autodesk.Revit.DB.Element elem, string parameterName)
+      {
+         string result = "";
+         if (elem.LookupParameter(parameterName) != null)
+         {
+            return null;
+         }
+         else
+         {
+            //Autodesk.Revit.DB.ElementId typeId = elem.GetTypeId();
+
+            //Autodesk.Revit.UI.UIApplication uiapp = RevitServices.Persistence.DocumentManager.Instance.CurrentUIApplication;
+            //Autodesk.Revit.ApplicationServices.Application app = uiapp.Application;
+            //Autodesk.Revit.DB.Document doc = RevitServices.Persistence.DocumentManager.Instance.CurrentDBDocument;
+
+            //Autodesk.Revit.DB.ElementType elementType = doc.GetElement(typeId) as Autodesk.Revit.DB.ElementType;
+            //string familyName = elementType.FamilyName;
+
+            Autodesk.Revit.DB.Category category = elem.Category;
+
+            //Autodesk.Revit.DB.Parameter newParam = new Autodesk.Revit.DB.Parameter(parameterName);
+
+            //elem.Parameters.Insert =
+
+            return category;
+         }
+
+      }
+
+
+
+	        public static Dictionary<string, object> EqualElementsDataSets() {
+         return null;
+      }
+
+
+
+	   public bool HideElementByID(Autodesk.Revit.DB.Document currentDocument, string uniqueID, Autodesk.Revit.DB.View view)
+        {
+
+            Autodesk.Revit.DB.Element elem = currentDocument.GetElement(uniqueID);
+            Autodesk.Revit.DB.ElementId elementId = elem.Id;
+            List<Autodesk.Revit.DB.ElementId> ids = new List<Autodesk.Revit.DB.ElementId>();
+            ids.Add(elementId);
+            //int counter = 0;
+            try
+            {
+                Transaction tran = openTransaction(currentDocument, "Hide Element");
+                view.HideElements(ids);
+                //counter++;
+                //Console.WriteLine(counter.ToString());
+                CommitTransaction(tran, true);
+                tran.Dispose();
+                return true;
+            }
+            catch (Autodesk.Revit.Exceptions.InvalidOperationException e)
+            {
+                showExceptionOnScreen(e);
+                return false;
+            }
+            catch (Exception)
+            {
+                //counter++;
+                //Console.WriteLine(counter.ToString());
+                return false;
+            }
+        }
