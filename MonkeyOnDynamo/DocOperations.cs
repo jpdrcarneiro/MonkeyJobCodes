@@ -8,7 +8,7 @@ using Autodesk.DesignScript.Geometry;
 using Autodesk.DesignScript.Runtime;
 using Autodesk.Revit.UI;
 
-namespace MonkeyJobNodes
+namespace MonkeyOnDynamo
 {
    public class DocOperations
    {

@@ -14,7 +14,7 @@ using Autodesk.Navisworks.Api.ApplicationParts;
 //External References
 using IronPdf;
 
-namespace MonkeyJobsNavisPlugIn
+namespace MonkeyOnNavis
 {
     [PluginAttribute("MonkeyJobs.Generate PDF Report",                   //Plugin name
                     "MNKJ",                                       //4 character Developer ID or GUID

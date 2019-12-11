@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System;
 
 
-namespace MonkeyJobNodes
+namespace MonkeyOnDynamo
 {
    /// <summary>
    /// Codes created to automize reptitive work that a monkey can do

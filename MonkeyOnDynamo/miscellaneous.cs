@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Autodesk.DesignScript.Geometry;
 using Autodesk.DesignScript.Runtime;
-using MonkeyJobNodes;
+using MonkeyOnDynamo;
 
-namespace MonkeyJobNodes
+namespace MonkeyOnDynamo
 {
    public static class Miscellaneous
    {

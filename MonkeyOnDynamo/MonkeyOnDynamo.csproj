@@ -119,7 +119,7 @@
   <ItemGroup>
     <Compile Include="DocOperations.cs" />
     <Compile Include="Miscellaneous.cs" />
-    <Compile Include="MonkeyJobNodes.cs" />
+    <Compile Include="MonkeyOnDynamo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
