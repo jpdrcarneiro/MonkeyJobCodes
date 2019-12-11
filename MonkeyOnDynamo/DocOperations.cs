@@ -224,22 +224,40 @@ namespace MonkeyJobNodes
 
       }
 
-      /// <summary>
-      /// Convert Dynamo Select Models Elements into Revit API elements
-      /// </summary>
-      /// <param name="directShape">Input from Select Model Elements</param>
-      /// <returns>Autodesk.Revit.DB.Element - Check Revit API documentation</returns>
-      [MultiReturn(new[] { "ElementID", "RevitApiElement", "BoundingBox", "CenterBoundingBox", "TempID" }) ]
-      public static Dictionary<string,object> ConvertToAPIElement(Revit.Elements.DirectShape directShape)
+        /// <summary>
+        /// Convert Dynamo Select Models Elements into Revit API elements
+        /// </summary>
+        /// <param name="directShape">Input from Select Model Elements</param>
+        /// <returns>Autodesk.Revit.DB.Element - Check Revit API documentation</returns>
+        [MultiReturn(new[] { "ElementID", "RevitApiElement", "BoundingBox", "CenterBoundingBox", "TempID" })]
+        public static Dictionary<string, object> ConvertToAPIElement(object elementGeneral)
       {
-         if (directShape == null)
+
+            
+         if (elementGeneral == null)
          {
             return null;
          }
          else
          {
+                int ID = new int();
+                if (elementGeneral.GetType().ToString() == "Revit.Elements.Element")
+                {
+                    Revit.Elements.Element elem = elementGeneral as Revit.Elements.Element;
+                    ID = elem.Id;
+                }
+                else if (elementGeneral.GetType().ToString() == "Revit.Elements.DirectShape") 
+                {
+                    Revit.Elements.Element elem = elementGeneral as Revit.Elements.DirectShape;
+                    ID = elem.Id;
+                }
+                else
+                {
+                    showStringOnScreen("Element Type", elementGeneral.GetType().ToString());
+                    return null;
+                }
 
-            int ID = directShape.Id;
+            
 
 
             Autodesk.Revit.UI.UIApplication uiapp = RevitServices.Persistence.DocumentManager.Instance.CurrentUIApplication;
@@ -363,31 +381,40 @@ namespace MonkeyJobNodes
          table1.Merge(table2, preserveChanges, MissingSchemaAction.AddWithKey);
          return table1;
       }
+        /// <summary>
+        /// Show the information inside a variable type DataTable
+        /// </summary>
+        /// <param name="dataTable"></param>
+        /// <returns></returns>
         public static string[] DataTableContent(DataTable dataTable)
         {
             if(dataTable == null)
             {
                 return null;
             }
-            List<string> content = new List<string>();
-            foreach(DataRow row in dataTable.Rows)
+            else
             {
-                object[] data = row.ItemArray;
-                string temp = string.Empty;
-                for(int i = 0; i < data.Length; i++)
+                List<string> content = new List<string>();
+                foreach (DataRow row in dataTable.Rows)
                 {
-                    if (i == data.Length - 1)
+                    object[] data = row.ItemArray;
+                    string temp = string.Empty;
+                    for (int i = 0; i < data.Length; i++)
                     {
-                        temp = temp + data[i].ToString();
+                        if (i == data.Length - 1)
+                        {
+                            temp = temp + data[i].ToString();
+                        }
+                        else
+                        {
+                            temp = temp + data[i].ToString() + ",";
+                        }
                     }
-                    else
-                    {
-                        temp = temp + data[i].ToString() + ",";
-                    }
+                    content.Add(temp);
                 }
-                content.Add(temp);
+                return content.ToArray();
             }
-            return content.ToArray();
+            
         }
         
         /// <summary>
