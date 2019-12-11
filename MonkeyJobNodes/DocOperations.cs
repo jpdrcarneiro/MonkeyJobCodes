@@ -351,6 +351,7 @@ namespace MonkeyJobNodes
          return data.ToArray();
       }
 
+        //UnderDevelopment
       public static DataTable MergeDataTables(DataTable table1, DataTable table2, bool preserveChanges)
       {
          if (table1 == null || table2 == null)
@@ -388,7 +389,11 @@ namespace MonkeyJobNodes
             }
             return content.ToArray();
         }
-
+        
+        /// <summary>
+        /// Forces Exception to appear on screen, this is for debuging porpuses
+        /// </summary>
+        /// <param name="e">Exception</param>
         private static void showExceptionOnScreen(Exception e) {
             string dialogTitle = e.GetType().ToString();
             string exceptionDetails = e.ToString();
@@ -401,6 +406,12 @@ namespace MonkeyJobNodes
 
 
         }
+
+        /// <summary>
+        /// Cheap copy of print on screen
+        /// </summary>
+        /// <param name="dialogTitle">The title of the string if any</param>
+        /// <param name="contentString">What needs to be printed</param>
         public static void showStringOnScreen(string dialogTitle, string contentString)
         {
             TaskDialog exception = new TaskDialog(dialogTitle);
@@ -412,36 +423,7 @@ namespace MonkeyJobNodes
 
 
         }
-        public bool HideElementByID(Autodesk.Revit.DB.Document currentDocument, string uniqueID, Autodesk.Revit.DB.View view)
-        {
-
-            Autodesk.Revit.DB.Element elem = currentDocument.GetElement(uniqueID);
-            Autodesk.Revit.DB.ElementId elementId = elem.Id;
-            List<Autodesk.Revit.DB.ElementId> ids = new List<Autodesk.Revit.DB.ElementId>();
-            ids.Add(elementId);
-            //int counter = 0;
-            try
-            {
-                Transaction tran = openTransaction(currentDocument, "Hide Element");
-                view.HideElements(ids);
-                //counter++;
-                //Console.WriteLine(counter.ToString());
-                CommitTransaction(tran, true);
-                tran.Dispose();
-                return true;
-            }
-            catch (Autodesk.Revit.Exceptions.InvalidOperationException e)
-            {
-                showExceptionOnScreen(e);
-                return false;
-            }
-            catch (Exception)
-            {
-                //counter++;
-                //Console.WriteLine(counter.ToString());
-                return false;
-            }
-        }
+       
 
 
     }

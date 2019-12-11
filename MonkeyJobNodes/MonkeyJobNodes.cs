@@ -158,39 +158,6 @@ namespace MonkeyJobNodes
          }
 
       }
-      public static Autodesk.Revit.DB.Category ElementCategory(Autodesk.Revit.DB.Element elem, string parameterName)
-      {
-         string result = "";
-         if (elem.LookupParameter(parameterName) != null)
-         {
-            return null;
-         }
-         else
-         {
-            //Autodesk.Revit.DB.ElementId typeId = elem.GetTypeId();
-
-            //Autodesk.Revit.UI.UIApplication uiapp = RevitServices.Persistence.DocumentManager.Instance.CurrentUIApplication;
-            //Autodesk.Revit.ApplicationServices.Application app = uiapp.Application;
-            //Autodesk.Revit.DB.Document doc = RevitServices.Persistence.DocumentManager.Instance.CurrentDBDocument;
-
-            //Autodesk.Revit.DB.ElementType elementType = doc.GetElement(typeId) as Autodesk.Revit.DB.ElementType;
-            //string familyName = elementType.FamilyName;
-
-            Autodesk.Revit.DB.Category category = elem.Category;
-
-            //Autodesk.Revit.DB.Parameter newParam = new Autodesk.Revit.DB.Parameter(parameterName);
-
-            //elem.Parameters.Insert =
-
-            return category;
-         }
-
-      }
-
-      public static Dictionary<string, object> EqualElementsDataSets() {
-         return null;
-      }
-
 
 
 
