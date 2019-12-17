@@ -1,6 +1,7 @@
 library(stringr)
 library(plyr)
 library(janitor)
+library(openNLP)
 
 august = read.csv("Data/20190807.csv")
 august$status_code = NULL

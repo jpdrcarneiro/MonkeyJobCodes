@@ -57,3 +57,5 @@ word_frqdst.tail(10).plot(kind='line', x='word', y='value', color='red')
 plt.show()
 
 
+
+
