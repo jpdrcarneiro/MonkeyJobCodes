@@ -5,7 +5,7 @@ This will be populated
 Most of the example files requires extra packages, provided below:
 
 1. [Rhythm](https://dynamopackages.com/#) 
-2. [BimmorphNodes](https://dynamopackages.com/#)
+2. [BimorphNodes](https://dynamopackages.com/#)
 3. [Archi-lab.net](https://archi-lab.net/)
 4. [Lunchbox](https://provingground.io/tools/lunchbox/)
 
