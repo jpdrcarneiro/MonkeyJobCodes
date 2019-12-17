@@ -6,7 +6,7 @@ from nltk.corpus import stopwords
 import matplotlib.pyplot as plt
 import string
 
-data = pd.read_csv("D:\Schedule\Schedule.csv", sep=",", skiprows=0, header=[1], encoding="utf-8")
+data = pd.read_csv("D:\\Schedule\\Schedule.csv", sep=",", skiprows=0, header=[1], encoding="utf-8")
 
 data = pd.DataFrame(data)#.drop([])
 
@@ -40,4 +40,4 @@ all_words = [word for word in all_words if not word in list_words]
 #print (data['Activity Name'])
 
 freq_dist = FreqDist(all_words)
-print (freq_dist.most_common(20))
+#print (freq_dist.most_common(20))
