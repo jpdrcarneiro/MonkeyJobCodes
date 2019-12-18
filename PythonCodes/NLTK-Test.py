@@ -5,6 +5,8 @@ from nltk import *
 from nltk.corpus import stopwords
 import matplotlib.pyplot as plt
 import string
+import timeit
+
 
 data = pd.read_csv("D:\\Schedule\\20190913.csv", sep=",", skiprows=0, header=[1], encoding="utf-8")
 
@@ -65,3 +67,8 @@ for i, activity in enumerate(data['Activity Name']):
         data['Activity Name'][i][j] = (data['Activity Name'][i][j][0], data['Activity Name'][i][j][1], Classify_word_feature(data['Activity Name'][i][j][0]))
         print (i, j, data['Activity Name'][i][j])
     exit()
+
+
+
+elapsed_time = timeit.timeit(code_to_test, number=100)/100
+print('time: ',elapsed_time)
