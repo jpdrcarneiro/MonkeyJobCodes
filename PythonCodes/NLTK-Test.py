@@ -67,7 +67,7 @@ for i, activity in enumerate(data['Activity Name']):
         if (j >= len(data['Activity Name'][i])):
             break
         data['Activity Name'][i][j] = (data['Activity Name'][i][j][0], data['Activity Name'][i][j][1], Classify_word_feature(data['Activity Name'][i][j][0]))
-        print (i, j, data['Activity Name'][i][j])
+        # print (i, j, data['Activity Name'][i][j])
     # exit()
 
 
