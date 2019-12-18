@@ -14,11 +14,17 @@ data = pd.read_csv("D:\\Schedule\\20190913.csv", sep=",", skiprows=0, header=[1]
 
 data = pd.DataFrame(data)#.drop([])
 
+del data['Delete This Row']
+del data['Unnamed: 8']
+del data['Unnamed: 9']
+
 # print(data.head())
 
-only_4d_coded = data[data['BIM 4D Code'].notnull()]
+only_4d_coded = data[(data['BIM 4D Code'].notnull()) & (data['BIM 4D Code'].str.len() >= 3)]
 # print(only_4d_coded.size , data.size) 
-only_4d_coded = only_4d_coded[only_4d_coded['BIM 4D Code'].str.len() >= 3]
+# print(only_4d_coded)
+
+# only_4d_coded = only_4d_coded[only_4d_coded['BIM 4D Code'].str.len() >= 3]
 
 # print(only_4d_coded.head())
 # print(only_4d_coded.size , data.size) 
@@ -47,10 +53,10 @@ def Organize_Tokenize_Data(dataFrame, column):
 all_words = Organize_Tokenize_Data(only_4d_coded, 'Activity Name')
 
 all_words = [word for word in all_words if not word in stopwords.words('english')]
-#print (data['Activity Name'])
+# print (data['Activity Name'])
 
 all_words = FreqDist(all_words)
-print (all_words.most_common(20))
+# print (all_words.most_common(20))
 word_features = list([i[0] for i in all_words.most_common(300)])
 # print (word_features)
 # exit()
@@ -62,15 +68,35 @@ def Classify_word_feature(word):
 
 Organize_Tokenize_Data(data, 'Activity Name')
 
-for i, activity in enumerate(data['Activity Name']):
-    for j, word in enumerate(data['Activity Name']):
-        if (j >= len(data['Activity Name'][i])):
-            break
-        data['Activity Name'][i][j] = (data['Activity Name'][i][j][0], data['Activity Name'][i][j][1], Classify_word_feature(data['Activity Name'][i][j][0]))
-        # print (i, j, data['Activity Name'][i][j])
-    # exit()
+def Add_most_classification (dataFrame, columnName):
+    for i, activity in enumerate(dataFrame[columnName]):
+        for j, word in enumerate(dataFrame[columnName]):
+            if (j >= len(dataFrame[columnName][i])):
+                break
+            dataFrame[columnName][i][j] = (dataFrame[columnName][i][j][0], dataFrame[columnName][i][j][1], Classify_word_feature(dataFrame[columnName][i][j][0]))
+            # print (i, j, data['Activity Name'][i][j])
+        # exit()
+    return True
 
+Add_most_classification(data, 'Activity Name')
+
+data['4D classification'] = ((data['BIM 4D Code'].notnull()) & (only_4d_coded['BIM 4D Code'].str.len() >= 3))
+
+test_data = pd.read_csv("D:\\Schedule\\20191113.csv", sep=",", skiprows=0, header=[1], encoding="utf-8")
+
+test_data = pd.DataFrame(test_data)#.drop([])
+
+del test_data['Delete This Row']
+del test_data['Unnamed: 8']
+del test_data['Unnamed: 9']
+
+Organize_Tokenize_Data(test_data, 'Activity Name')
+
+Add_most_classification(test_data, 'Activity Name')
+
+print(data)
+print(test_data)
 
 t1 = time.time()
-elapsed_time = t1-t0
+elapsed_time = (t1-t0)/60
 print('time: ', str(elapsed_time))
