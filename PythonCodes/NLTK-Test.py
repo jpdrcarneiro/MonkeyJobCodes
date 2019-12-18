@@ -68,7 +68,7 @@ for i, activity in enumerate(data['Activity Name']):
             break
         data['Activity Name'][i][j] = (data['Activity Name'][i][j][0], data['Activity Name'][i][j][1], Classify_word_feature(data['Activity Name'][i][j][0]))
         print (i, j, data['Activity Name'][i][j])
-    exit()
+    # exit()
 
 
 t1 = time.time()
