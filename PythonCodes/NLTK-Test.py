@@ -1,3 +1,6 @@
+import time
+t0 = time.time()
+
 import sys,os
 import pandas as pd
 import numpy as np
@@ -5,7 +8,6 @@ from nltk import *
 from nltk.corpus import stopwords
 import matplotlib.pyplot as plt
 import string
-import timeit
 
 
 data = pd.read_csv("D:\\Schedule\\20190913.csv", sep=",", skiprows=0, header=[1], encoding="utf-8")
@@ -69,6 +71,6 @@ for i, activity in enumerate(data['Activity Name']):
     exit()
 
 
-
-elapsed_time = timeit.timeit(code_to_test, number=100)/100
-print('time: ',elapsed_time)
+t1 = time.time()
+elapsed_time = t1-t0
+print('time: ', str(elapsed_time))
