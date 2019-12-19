@@ -94,8 +94,25 @@ Organize_Tokenize_Data(test_data, 'Activity Name')
 
 Add_most_classification(test_data, 'Activity Name')
 
-print(data)
-print(test_data)
+# def ColsToDict(col1, col2):
+#     newDict = {}
+#     if (col1.size != col2.size):
+#         return None
+#     for i, value in enumerate(col1):
+#         newDict[col1[i]] = col2[i]
+#     return newDict
+
+training_set = data[['Activity Name', '4D classification']].copy()
+test_set = test_data[['Activity Name']].copy()
+test_set['4D classification'] = None
+
+# print(training_set)
+# print(test_set)
+
+classifier = NaiveBayesClassifier.train(training_set)
+data_class = pd.DataFrame(classifier.classify_many(test_set))
+
+data_class.to_csv('D:\\Schedule\\appliedSet.csv')
 
 t1 = time.time()
 elapsed_time = (t1-t0)/60
