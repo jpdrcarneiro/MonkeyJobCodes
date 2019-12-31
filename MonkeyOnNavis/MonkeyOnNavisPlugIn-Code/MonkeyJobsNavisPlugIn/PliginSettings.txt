@@ -1,0 +1,3 @@
+﻿Company logo path: "C:\\...."
+
+User Name: "Test Name"
