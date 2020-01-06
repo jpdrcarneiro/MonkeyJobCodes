@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using Autodesk.Navisworks.Api;
 using Autodesk.Navisworks.Api.Plugins;
 using Autodesk.Navisworks.Api.ApplicationParts;
+using Autodesk.Navisworks.Api.ComApi;
 
 
 //External References
@@ -48,6 +49,16 @@ namespace MonkeyOnNavis
             Autodesk.Navisworks.Api.Clash.DocumentClashTests documentClashTests = clashDoc.TestsData;
             //Autodesk.Navisworks.Api.SavedItem[] clashTestsInfo = documentClashTests.Tests.ToArray();
             string infoOut = string.Empty;
+
+         try
+         {
+            GetSavedViewpoints();
+         }
+         catch (Exception e)
+         {
+            MessageBox.Show(e.ToString());
+         }
+
          if (documentClashTests.Tests.Count() > 0)
          {
 
@@ -73,6 +84,7 @@ namespace MonkeyOnNavis
 
                foreach (Autodesk.Navisworks.Api.SavedItem issue in clashTest.Children)
                {
+                  
 
                   //The template copy method changed
                   //string tempName = resultDir + issue.DisplayName + ".html";
@@ -249,6 +261,8 @@ namespace MonkeyOnNavis
          string approvedBy = string.Empty;
          string approvedOn = string.Empty;
          string comments = string.Empty;
+         string isGroup = string.Empty;
+         string type = string.Empty;
 
          if (clash.GetType().ToString() == "Autodesk.Navisworks.Api.Clash.ClashResult")
          {
@@ -266,6 +280,8 @@ namespace MonkeyOnNavis
             {
                comments = comments + $" {com.CreationDate} : {com.Author} comment {com.Id} : {com.ToString()} ||<br>";
             }
+            isGroup = clashResult.IsGroup.ToString();
+            type = clashResult.Description.ToString();
          }
          else if (clash.GetType().ToString() == "Autodesk.Navisworks.Api.Clash.ClashResultGroup")
          {
@@ -283,6 +299,8 @@ namespace MonkeyOnNavis
             {
                comments = comments + $" {com.CreationDate.ToString()} : {com.Author.ToString()} comment {com.Id.ToString()} : {com.ToString()} ||<br>";
             }
+            isGroup = clashGroup.IsGroup.ToString();
+            type = clashGroup.Description.ToString();
          }
          else
          {
@@ -299,6 +317,8 @@ namespace MonkeyOnNavis
          string clashInformation = $@"<p align='justify'> 
                                        <b> Name:</b> {clashName} <br>
                                        <b> Status: </b> {clashStatus}<br>
+                                       <b> Type: </b> {type}<br>
+                                       <b> Is Group: </b> {isGroup}<br>
                                        <b> Height: </b> {Z} <br>
                                        <b> Location: </b>{X} x {Y}<br>
                                        <b> Date Found: </b>{date}<br>
@@ -312,6 +332,25 @@ namespace MonkeyOnNavis
          return clashInformation;
 
 
+      }
+      public void GetSavedViewpoints()
+      {
+         //This method only show the viewpoints saved on file instead of clash detective!
+         Viewpoint viewpoint = new Viewpoint();
+
+         Autodesk.Navisworks.Api.Document activeDocument= Autodesk.Navisworks.Api.Application.ActiveDocument;
+         Autodesk.Navisworks.Api.DocumentParts.DocumentSavedViewpoints savedViewpoints = activeDocument.SavedViewpoints;
+
+
+         Autodesk.Navisworks.Api.SavedItemCollection savedItems = savedViewpoints.ToSavedItemCollection();
+         MessageBox.Show("Number of ViewPoints: " + savedItems.Count.ToString());
+         string allSavedItems = string.Empty;
+         foreach (Autodesk.Navisworks.Api.SavedItem savedItemView in savedItems)
+         {
+            allSavedItems = allSavedItems + $"Type: {savedItemView.GetType()}; name: {savedItemView.DisplayName} /n";
+         }
+
+         MessageBox.Show("End of GetSavedViewpoints() :" + allSavedItems);
       }
 
     }
