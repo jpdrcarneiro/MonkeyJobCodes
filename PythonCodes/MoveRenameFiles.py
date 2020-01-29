@@ -6,7 +6,7 @@ import shutil
 
 to_move = []
 counter = 0
-destination = os.path.normpath("C:\\Users\\jpdrc\\Documents\\Scripts\\TestFiles\\4D_MOT-WCTA-08-30-2019-OverallIray")
+destination = os.path.normpath("C:\Users\car11899\Documents\Temp_Work\4D_MOT_3GW2_Interface_Iray_01132020")
 for root, dirnames, filenames in os.walk("C:\\Users\\jpdrc\\Documents\\Scripts\\TestFiles\\4D_MOT-CCTA-08-29-2019-OverallIray\\"):
     for filename in fnmatch.filter(filenames, "*copy*"):
         temp = "4D_MOT-WCTA-08292019-OverallView_" + str(counter).zfill(6) + ".jpg"
