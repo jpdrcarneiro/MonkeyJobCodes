@@ -9,6 +9,15 @@ from nltk.corpus import stopwords
 import matplotlib.pyplot as plt
 import string
 
+import spacy
+#Loading laguage model 
+nlp =  spacy.load('en_core_web_lg')
+
+from spacy.matcher import Matcher
+m_tool = Matcher(nlp.vocab)
+
+print("dependencies load complete !")
+
 
 data = pd.read_csv("D:\\Schedule\\20190913.csv", sep=",", skiprows=0, header=[1], encoding="utf-8")
 
@@ -21,6 +30,8 @@ del data['Unnamed: 9']
 # print(data.head())
 
 only_4d_coded = data[(data['BIM 4D Code'].notnull()) & (data['BIM 4D Code'].str.len() >= 3)]
+print("data load and clean complete!")
+
 # print(only_4d_coded.size , data.size) 
 # print(only_4d_coded)
 
@@ -31,7 +42,27 @@ only_4d_coded = data[(data['BIM 4D Code'].notnull()) & (data['BIM 4D Code'].str.
 
 #cleaning and organizing
 
+def createActivityPatterns(dataFrame, colName):
+    all_activities_patterns = []
+    for i, activity in enumerate(dataFrame[colName]):
+        single_pattern = []
+        activity = activity.lower()
+        temp = str(activity).split()
+        for j, word in enumerate(temp):
+            if str(word) in string.punctuation:
+                pattern = {'IS_PUNCT': True}
+            elif str(word).isdigit():
+                pattern = {'IS_NUMBER': True}
+            else:
+                pattern = {'LOWER' : word}
+            single_pattern.append(pattern)
+        all_activities_patterns.append(single_pattern)
+    return all_activities_patterns
+        
+new_patterns = createActivityPatterns(only_4d_coded, 'Activity Name')
 
+print (new_patterns[0])g
+exit()
 
 def Organize_Tokenize_Data(dataFrame, column):
     all_words = []
