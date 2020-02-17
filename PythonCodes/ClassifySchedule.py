@@ -1,16 +1,15 @@
+#import dependecies
 import sys,os
 import pandas as pd
 import numpy as np
 import nltk as nl
 import matplotlib.pyplot as plt
 
+#data read
 data = pd.read_csv("D:\Schedule\Schedule.csv", sep=",", skiprows=0, header=[1], encoding="utf-8")
-
 data = pd.DataFrame(data)#.drop([])
 
-#for col in data.columns:
-#    print (col)
-#print (data.head())
+print (data.head())
 
 #isolating activity names
 activity_names = data['Activity Name']
@@ -55,6 +54,9 @@ word_frqdst.to_csv("D:\Schedule\WordFrqDst.csv")
 
 word_frqdst.tail(10).plot(kind='line', x='word', y='value', color='red')
 plt.show()
+
+if type(activity) is float:
+    continue
 
 
 
