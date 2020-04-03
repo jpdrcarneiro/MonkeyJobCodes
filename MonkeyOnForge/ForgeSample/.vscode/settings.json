@@ -1,8 +1,7 @@
 {
-    "python.pythonPath": "C:\\Users\\CAR11899\\AppData\\Local\\Microsoft\\WindowsApps\\python.exe",
     "autodesk.forge.environments": [
         {
-            "title": "From Glue to Docs",
+            "title": "ForgeSample",
             "clientId": "RMcVsIiBgGPwoy2ACkfpkvVggeFrpMsI",
             "clientSecret": "iBsM20nL2O84RMRL",
             "region": "US"
