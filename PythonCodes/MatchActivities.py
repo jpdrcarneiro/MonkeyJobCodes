@@ -2,15 +2,16 @@ import sys, os
 from xlrd import open_workbook
 from xlutils.copy import copy
 
-new = open_workbook(r"C:\\Users\\CAR11899\\Documents\\Schedule_Repopulating\\LINXS-2002REC-Activities for BIM.xlsx")
-old = open_workbook(r"C:\\Users\\CAR11899\\Documents\\Schedule_Repopulating\\LINXS-Current-BIM export 12 19 19 C only.xlsx")
+import openpyxl
 
-new_write = copy(new)
+import pandas as pd
 
-worksheet_old = old.sheet_by_index(0)
-worksheet_new = new.sheet_by_index(0)
-worksheet_new_wr = new_write.get_sheet(0)
 
+new = "C:\\Users\\jpdrc\\Documents\\Schedule_Repopulating\\LINXS-2002REC-Activities for BIM.xlsx"
+old = "C:\\Users\\jpdrc\\Documents\\Schedule_Repopulating\\LINXS-Current-BIM export 12 19 19 C only_JPC.xlsx"
+
+new_workbook = pd.read_excel(new)
+old_workbook =  pd.read_excel(old)
 
 
 old_codes = dict()
@@ -18,43 +19,42 @@ new_codes = dict()
 
 counter = 0
 
-for row in range(2, worksheet_old.nrows):
+for row in range(3, len(old_workbook.index)):
     #for row in range(2, worksheet_old.nrows):
-    if len(worksheet_old.cell_value(row,4)) > 0:
-        #print(worksheet_old.cell_value(row,3))
-        #print(worksheet_old.cell_value(row,4))
-        old_codes[worksheet_old.cell_value(row,3)] = worksheet_old.cell_value(row,4)
+    if pd.notna(old_workbook['Column5'][row]) and len(str(old_workbook['Column5'][row])) > 2:
+        old_codes[old_workbook['Column4'][row]] = old_workbook['Column5'][row]
     counter += 1
     if counter % 100 == 0:
         print(counter)
 
 list_keys = old_codes.keys()
 
+print(len(old_codes))
+
 counter = 0
 
 errors = []
 string_error = "activity: {}, 4d_code: {}, row: {} \n"
 
-for row in range(2, worksheet_new.nrows):
-    key = worksheet_new.cell_value(row,3)
-    value = worksheet_new.cell_value(row,4)
-    if len(value) > 0:
-        new_codes[key] = value
+for row in range(2, len(new_workbook.index)):
+    key = new_workbook['task_name'][row]
+    value = new_workbook['user_field_679'][row]
     if key in list_keys:
-        if value !=  old_codes[key]:
-            try:
-                worksheet_new_wr.write(row,4, old_codes[key])
-            except:
-                errors.append(string_error.format(key, value, row))
-                continue
+        new_codes[key] = value
+        try:
+            new_workbook['user_field_679'][row] = old_codes[key]
+        except:
+            errors.append(string_error.format(key, value, row))
+            continue
     counter += 1
     if counter % 100 == 0:
         print(counter)
 
-with open('C:\\Users\\CAR11899\\Documents\\Schedule_Repopulating\\errorLog.txt', 'w') as f:
+print(len(old_codes), len(new_codes))
+
+with open('C:\\Users\\jpdrc\\Documents\\Schedule_Repopulating\\errorLog.txt', 'w') as f:
     for item in errors:
         f.writelines(item)
 
+new_workbook.to_excel("C:\\Users\\jpdrc\\Documents\\Schedule_Repopulating\\LINXS-2002REC-Activities for BIM(updated).xlsx")
 
-new_write.save("C:\\Users\\CAR11899\\Documents\\Schedule_Repopulating\\LINXS-2002REC-Activities for BIM.xlsx")
-print(len(old_codes), len(new_codes))
