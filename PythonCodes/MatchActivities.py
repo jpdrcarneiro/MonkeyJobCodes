@@ -8,7 +8,7 @@ import pandas as pd
 
 
 new = "C:\\Users\\jpdrc\\Documents\\Schedule_Repopulating\\LINXS-2002REC-Activities for BIM.xlsx"
-old = "C:\\Users\\jpdrc\\Documents\\Schedule_Repopulating\\LINXS-Current-BIM export 12 19 19 C only_JPC.xlsx"
+old = "C:\\Users\\jpdrc\\Documents\\Schedule_Repopulating\\LINXS-Current-BIM export 12 19 19 C only.xlsx"
 
 new_workbook = pd.read_excel(new)
 old_workbook =  pd.read_excel(old)
@@ -21,8 +21,8 @@ counter = 0
 
 for row in range(3, len(old_workbook.index)):
     #for row in range(2, worksheet_old.nrows):
-    if pd.notna(old_workbook['Column5'][row]) and len(str(old_workbook['Column5'][row])) > 2:
-        old_codes[old_workbook['Column4'][row]] = old_workbook['Column5'][row]
+    if pd.notna(old_workbook['user_field_679'][row]) and len(str(old_workbook['user_field_679'][row])) > 2:
+        old_codes[old_workbook['task_code'][row]] = old_workbook['user_field_679'][row]
     counter += 1
     if counter % 100 == 0:
         print(counter)
@@ -37,7 +37,7 @@ errors = []
 string_error = "activity: {}, 4d_code: {}, row: {} \n"
 
 for row in range(2, len(new_workbook.index)):
-    key = new_workbook['task_name'][row]
+    key = new_workbook['task_code'][row]
     value = new_workbook['user_field_679'][row]
     if key in list_keys:
         new_codes[key] = value
