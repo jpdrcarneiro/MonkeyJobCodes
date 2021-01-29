@@ -43,13 +43,14 @@ def OpenMsg(msgPath):
 
 def CreateListOfFiles(dirPath):
     fileToCheck = []
-    q = Path(dirPath)
+    txtPath = dirPath + "\FilesToRead.txt"
+    q = Path(txtPath)
     if q.exists ():
         mtime= datetime.datetime.fromtimestamp(q.stat().st_mtime).date()
     else:
         mtime = datetime.date(2020,1,1)
     if q.exists() == False or mtime != datetime.date.today() or q.stat().st_size <= 1:
-        f = open(q, "w")
+        f = q.open(mode="w", buffering=-1, encoding=None, errors=None, newline=None)
         for root, dirs, files in os.walk(dirPath):
             for file in files:
                 filePath = os.path.join(root, file)
@@ -81,27 +82,37 @@ def OpenFile(filePath):
         print("docx was opened")
     elif fileType == "xlsx" or fileType == "xls":
         f = OpenExcel(filePath)
-        print("Ecel file was opened")
+        print("Excel file was opened")
     elif fileType == "msg":
         f = OpenMsg(filePath)
         print("MSG file was opened")
     else:
-        print ("file type {}".format(fileType))
+        #print ("file type %s" %fileType)
         return None
     return f
 
 
 def main():
-    
-    testFiles = CreateListOfFiles(r"D:\TestFile")
-    print (testFiles)
+
+    #dirPath = input("Type Directory: ")
+    dirPath = r"D:\TestFiles"
+    #keyWord = input("Type Keyword: ")
+    testFiles = CreateListOfFiles(dirPath)
+    #print (testFiles)
+    errorFiles = []
     for file in testFiles:
-        f = OpenFile(file)
         try:
-            f.close()
+            f = OpenFile(file)
+            #f.close()
         except:
+            errorFiles.append(str(file) + ", \n")
             continue
-    
+    errorFilePath = dirPath + r"\NotOpenedFiles.txt"
+    with open(errorFilePath, "w") as e:
+        e.writelines(errorFiles)
+        e.close()
+    print('Total number of files = ' + str(len(testFiles)))
+    print("Total Files not opened = " + str(len(errorFiles)))
 
     
     
