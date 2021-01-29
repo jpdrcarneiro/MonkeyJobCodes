@@ -13,12 +13,16 @@ def OpenPDF(pdfPath):
 
     pdfReader = PyPDF2.PdfFileReader(pdfFileObj)
 
-    #pageObj = pdfReader.getPage(0) 
-  
-    #print(pageObj.extractText()) 
-  
+    fileContent = []
+    numberOfPages = pdfReader.getNumPages()
+    print(str(range(numberOfPages)))
+    for pageNumber in range(numberOfPages):
+        print(pageNumber)
+        pdfPage = pdfReader.getPage(pageNumber)
+        pageContent = pdfPage.extractText()
+        fileContent.append(pageContent)
 
-    return pdfReader
+    return fileContent
 
 def OpenDocx(docxPath):
     docxDocument = Document(docxPath)
@@ -73,6 +77,7 @@ def CheckFileType(file):
     return fileType
 
 def OpenFile(filePath):
+    fileText = []
     fileType = CheckFileType(filePath)
     if fileType == "pdf":
         f = OpenPDF(filePath)
@@ -94,8 +99,12 @@ def OpenFile(filePath):
 
 def main():
 
+    print(OpenPDF(r'D:\TestFile\ECTA\1073 ECTA 100 PCT – ARCH P7 STR PED WALKWAY(P1 P7 VP)\3_Bluebeam Sessions\DA5277-ECTA-03_P7_Ped Walkway_100pct_QC_3.pdf'))
+
+    exit()
+
     #dirPath = input("Type Directory: ")
-    dirPath = r"D:\TestFiles"
+    dirPath = r"D:\TestFile"
     #keyWord = input("Type Keyword: ")
     testFiles = CreateListOfFiles(dirPath)
     #print (testFiles)
