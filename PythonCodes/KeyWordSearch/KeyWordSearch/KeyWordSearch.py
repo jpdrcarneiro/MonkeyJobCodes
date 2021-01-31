@@ -6,7 +6,17 @@ import pandas as pd
 import extract_msg
 import datetime
 from pathlib import Path
+import tensorflow_text as text
+from tensorflow.strings import lower
+import nltk
+from nltk.stem import WordNetLemmatizer
+from nltk.corpus import stopwords
+import itertools
+import string
+import numpy as np
 
+nltk.download('wordnet')
+nltk.download('stopwords')
 
 def OpenPDF(pdfPath):
     pdfFileObj = open( pdfPath, 'rb')
@@ -26,14 +36,15 @@ def OpenPDF(pdfPath):
 
 def OpenDocx(docxPath):
     docxDocument = Document(docxPath)
-
-    #for p in docxDocument.paragraphs:
-        #print (p.text)
-    return docxDocument
+    fileContent = []
+    for p in docxDocument.paragraphs:
+        fileContent.append(p.text)
+    return fileContent
 
 def OpenExcel(xlsxPath):
-    data = pd.ExcelFile(xlsxPath)
-    return data
+    data = pd.read_excel(xlsxPath, index_col=0)
+    return data.to_string()
+
 
 def OpenMsg(msgPath):
     msg = extract_msg.Message(msgPath)
@@ -43,7 +54,9 @@ def OpenMsg(msgPath):
     #print (msg.date)
     #print (msg.body)
 
-    return msg
+    data = [msg.subject, msg.body]
+
+    return data
 
 def CreateListOfFiles(dirPath):
     fileToCheck = []
@@ -96,33 +109,100 @@ def OpenFile(filePath):
         return None
     return f
 
+def keyWordProcessing(strKeyWord):
+    strKeyWord = strKeyWord.translate(str.maketrans('', '', string.punctuation))
+    strKeyWord = strKeyWord.lower()
+    keyWordsList = strKeyWord.split()
+    return keyWordsList
+
+
+def Tokenize(strList):
+    if type(strList[0]) == list:
+        strList = list(itertools.chain(*strList))
+    lemma = WordNetLemmatizer()
+    lemmaList = list(map(lemma.lemmatize, strList))
+    print(lemmaList)
+    if type(lemmaList[0]) == list or len(lemmaList)>= 2:
+        for i, phrase in enumerate(lemmaList):
+            lemmaList[i] = lemmaList[i].translate(str.maketrans('', '', string.punctuation))
+    else:
+        lemmaList[0] = lemmaList[0].translate(str.maketrans('', '', string.punctuation))
+    print(strList)
+    lowerList = lower(strList)
+    #print(lowerList)
+    tokenizer =text.WhitespaceTokenizer()
+    tokens = tokenizer.tokenize(lowerList)
+    #print(tokens.to_list())
+    try:
+        tokensList = tokens.to_list()
+    except AttributeError as error:
+        tokensList = tokens.numpy().tolist()
+    #print(tokensList)
+    if type(tokensList[0]) == list:
+        tokensList = list(itertools.chain(*tokensList))
+    #print(tokensList)
+    filteredList= []
+    for word in tokensList:
+        if word.decode('UTF-8') not in stopwords.words('english'):
+            filteredList.append(word.decode('UTF-8'))
+    #print(filteredList)
+    return filteredList
+
 
 def main():
 
-    print(OpenPDF(r'D:\TestFile\ECTA\1073 ECTA 100 PCT – ARCH P7 STR PED WALKWAY(P1 P7 VP)\3_Bluebeam Sessions\DA5277-ECTA-03_P7_Ped Walkway_100pct_QC_3.pdf'))
-
-    exit()
+    #testFiles = [r'D:\TestFile\ECTA\1073 ECTA 100 PCT – ARCH P7 STR PED WALKWAY(P1 P7 VP)\3_Bluebeam Sessions\DA5277-ECTA-03_P7_Ped Walkway_100pct_QC_3.pdf', 
+    #             r"D:\TestFiles\ECTA\L8PM-HDR-BRD-ECTA-REV D 100% Viewing Platform VC2\2_QC\2_Reviews\DD and QC Process Documentation FormIFC View Platform VC2_ECTA 100%.docx",
+    #             r"D:\TestFiles\ECTA\DA-5270-ECTA-Stations 30% Submittal to DBJV\3_Bluebeam Sessions\ECTA_Comm Systems.xlsx",
+    #             r"D:\TestFiles\ECTA\L8PM-HDR-BRD-ECTA-STL-REV D IFC Vertical Structures VC1\2_QC\2_Reviews\FW_ Draft WITF_ ECTA and MSF Extreme Loading Implementation Reports.msg"]
 
     #dirPath = input("Type Directory: ")
-    dirPath = r"D:\TestFile"
-    #keyWord = input("Type Keyword: ")
+    dirPath = r"D:\TestFiles"
+
+    #keyWords = input("Type Keywords separated by space: ")
+    keywords = "message, other"
+    keywords = keyWordProcessing(keywords)
+
     testFiles = CreateListOfFiles(dirPath)
     #print (testFiles)
+
     errorFiles = []
+    matchedFiles = []
+    noneFiles = []
     for file in testFiles:
         try:
             f = OpenFile(file)
+            #print(f)
             #f.close()
         except:
             errorFiles.append(str(file) + ", \n")
             continue
+        try:
+            fTokens = Tokenize(f)
+        except TypeError as error:
+            noneFiles.append(str(file) + ", \n")
+            print(str(error))
+            continue
+        for word in keywords:
+            print(word)
+            if word in fTokens and type(f) != None:
+                matchedFiles.append(str(file) + ", \n")
     errorFilePath = dirPath + r"\NotOpenedFiles.txt"
     with open(errorFilePath, "w") as e:
         e.writelines(errorFiles)
         e.close()
+    matchedFilesPath = dirPath + r"\MatchedFiles.txt"
+    with open(matchedFilesPath, 'w') as e:
+        e.writelines(matchedFiles)
+        e.close()
+    noneFilesPath = dirPath + r"\NoneFiles.txt"
+    with open(noneFilesPath, 'w') as e:
+        e.writelines(noneFiles)
+        e.close()
     print('Total number of files = ' + str(len(testFiles)))
     print("Total Files not opened = " + str(len(errorFiles)))
-
+    print("Total Matched = " + str(len(matchedFiles)))
+    print("Total number of nones = " + str(len(noneFiles)))
     
     
 
