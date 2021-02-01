@@ -16,18 +16,19 @@ import itertools
 import string
 import numpy as np
 from time import sleep
+import time
+from datetime import timedelta
 
 nltk.download('wordnet')
 nltk.download('stopwords')
 
+def RunTime(startTime):
+    totalTime = time.time() - startTime
+    print("Script Run Time = " + str(timedelta(seconds=totalTime)))
+    return None
+
 def OpenPDF(pdfPath):
     pdfFileObj = open( pdfPath, 'rb')
-
-    p1 = Process(target=PyPDF2.PdfFileReader, args=[pdfFileObj])
-    p1.start()
-    p1.join(timeout=3600)
-    p1.terminate
-
     pdfReader = PyPDF2.PdfFileReader(pdfFileObj)
 
     fileContent = []
@@ -128,13 +129,13 @@ def Tokenize(strList):
         strList = list(itertools.chain(*strList))
     lemma = WordNetLemmatizer()
     lemmaList = list(map(lemma.lemmatize, strList))
-    print(lemmaList)
+    #print(lemmaList)
     if type(lemmaList[0]) == list or len(lemmaList)>= 2:
         for i, phrase in enumerate(lemmaList):
             lemmaList[i] = lemmaList[i].translate(str.maketrans('', '', string.punctuation))
     else:
         lemmaList[0] = lemmaList[0].translate(str.maketrans('', '', string.punctuation))
-    print(strList)
+    #print(strList)
     lowerList = lower(strList)
     #print(lowerList)
     tokenizer =text.WhitespaceTokenizer()
@@ -157,25 +158,29 @@ def Tokenize(strList):
 
 
 def main():
+    startTime = time.time()
 
-    #testFiles = [r'D:\TestFile\ECTA\1073 ECTA 100 PCT – ARCH P7 STR PED WALKWAY(P1 P7 VP)\3_Bluebeam Sessions\DA5277-ECTA-03_P7_Ped Walkway_100pct_QC_3.pdf', 
+    #testFiles = [r'D:\TestFiles\ECTA\DA-5270-ECTA-Stations 30% Submittal to DBJV\3_Bluebeam Sessions\ECTA_Architectural_Summary.pdf', 
+    #             r'D:\TestFiles\ECTA\L8PM-HDR-BRD-ECTA-STL-REV D IFC Vertical Structures VC1\2_QC\3_Bluebeam Sessions\594-132-2.4_Vertical Structure VC1_100% QCR - 709-893-848.pdf',
     #             r"D:\TestFiles\ECTA\L8PM-HDR-BRD-ECTA-REV D 100% Viewing Platform VC2\2_QC\2_Reviews\DD and QC Process Documentation FormIFC View Platform VC2_ECTA 100%.docx",
     #             r"D:\TestFiles\ECTA\DA-5270-ECTA-Stations 30% Submittal to DBJV\3_Bluebeam Sessions\ECTA_Comm Systems.xlsx",
     #             r"D:\TestFiles\ECTA\L8PM-HDR-BRD-ECTA-STL-REV D IFC Vertical Structures VC1\2_QC\2_Reviews\FW_ Draft WITF_ ECTA and MSF Extreme Loading Implementation Reports.msg"]
 
     #dirPath = input("Type Directory: ")
     dirPath = r"D:\New folder"
+    #dirPath = r"D:\TestFiles"
 
     #keyWords = input("Type Keywords separated by space: ")
     keywords = "tonage tonnage ton increase"
     keywords = keyWordProcessing(keywords)
-    print("Creating file list")
+    print("Creating file list........................................................")
     testFiles = CreateListOfFiles(dirPath)
 
     errorFiles = []
     matchedFiles = []
     noneFiles = []
     for file in testFiles:
+        RunTime(startTime)
         try:
             print("Opening file............" + str(file))
             f = OpenFile(file)
@@ -192,7 +197,7 @@ def main():
             print(str(error))
             continue
         for word in keywords:
-            print('word search in progress.................')
+            print('word search in progress.................' + word)
             if word in fTokens and type(f) != None:
                 matchedFiles.append(str(file) + ", \n")
     print("sving files......................")
@@ -211,6 +216,7 @@ def main():
         e.close()
     noneFiles = list(set(noneFiles))
     print("Done! and Stats")
+    RunTime(startTime)
     print('Total number of files = ' + str(len(testFiles)))
     print("Total Files not opened = " + str(len(errorFiles)))
     print("Total Matched = " + str(len(matchedFiles)))
