@@ -157,10 +157,10 @@ def main():
     #             r"D:\TestFiles\ECTA\L8PM-HDR-BRD-ECTA-STL-REV D IFC Vertical Structures VC1\2_QC\2_Reviews\FW_ Draft WITF_ ECTA and MSF Extreme Loading Implementation Reports.msg"]
 
     #dirPath = input("Type Directory: ")
-    dirPath = r"D:\TestFiles"
+    dirPath = r"D:\New folder"
 
     #keyWords = input("Type Keywords separated by space: ")
-    keywords = "message, other"
+    keywords = "tonage tonnage ton increase"
     keywords = keyWordProcessing(keywords)
 
     testFiles = CreateListOfFiles(dirPath)
@@ -194,11 +194,13 @@ def main():
     matchedFilesPath = dirPath + r"\MatchedFiles.txt"
     with open(matchedFilesPath, 'w') as e:
         e.writelines(matchedFiles)
-        e.close()
+        e.close() 
+    matchedFiles = list(set(matchedFiles))
     noneFilesPath = dirPath + r"\NoneFiles.txt"
     with open(noneFilesPath, 'w') as e:
         e.writelines(noneFiles)
         e.close()
+    noneFiles = list(set(noneFiles))
     print('Total number of files = ' + str(len(testFiles)))
     print("Total Files not opened = " + str(len(errorFiles)))
     print("Total Matched = " + str(len(matchedFiles)))
