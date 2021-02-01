@@ -1,4 +1,5 @@
 import sys, os
+from multiprocessing import Process
 import csv
 import PyPDF2
 from docx import Document
@@ -14,12 +15,18 @@ from nltk.corpus import stopwords
 import itertools
 import string
 import numpy as np
+from time import sleep
 
 nltk.download('wordnet')
 nltk.download('stopwords')
 
 def OpenPDF(pdfPath):
     pdfFileObj = open( pdfPath, 'rb')
+
+    p1 = Process(target=PyPDF2.PdfFileReader, args=[pdfFileObj])
+    p1.start()
+    p1.join(timeout=3600)
+    p1.terminate
 
     pdfReader = PyPDF2.PdfFileReader(pdfFileObj)
 
@@ -162,31 +169,33 @@ def main():
     #keyWords = input("Type Keywords separated by space: ")
     keywords = "tonage tonnage ton increase"
     keywords = keyWordProcessing(keywords)
-
+    print("Creating file list")
     testFiles = CreateListOfFiles(dirPath)
-    #print (testFiles)
 
     errorFiles = []
     matchedFiles = []
     noneFiles = []
     for file in testFiles:
         try:
+            print("Opening file............" + str(file))
             f = OpenFile(file)
-            #print(f)
-            #f.close()
-        except:
+            #add time out
+        except Exception as e:
             errorFiles.append(str(file) + ", \n")
+            print(e)
             continue
         try:
+            print("tokenizing file..............................")
             fTokens = Tokenize(f)
         except TypeError as error:
             noneFiles.append(str(file) + ", \n")
             print(str(error))
             continue
         for word in keywords:
-            print(word)
+            print('word search in progress.................')
             if word in fTokens and type(f) != None:
                 matchedFiles.append(str(file) + ", \n")
+    print("sving files......................")
     errorFilePath = dirPath + r"\NotOpenedFiles.txt"
     with open(errorFilePath, "w") as e:
         e.writelines(errorFiles)
@@ -201,6 +210,7 @@ def main():
         e.writelines(noneFiles)
         e.close()
     noneFiles = list(set(noneFiles))
+    print("Done! and Stats")
     print('Total number of files = ' + str(len(testFiles)))
     print("Total Files not opened = " + str(len(errorFiles)))
     print("Total Matched = " + str(len(matchedFiles)))
