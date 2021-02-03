@@ -24,8 +24,20 @@ nltk.download('stopwords')
 
 def RunTime(startTime):
     totalTime = time.time() - startTime
-    print("Script Run Time = " + str(timedelta(seconds=totalTime)))
+    print("Script Run Time = " + str(timedelta(seconds=totalTime))+ "\n") 
     return None
+
+def drawProgressBar(percent, barLen = 50):
+    sys.stdout.write("\r")
+    progress = ""
+    for i in range(barLen):
+        if i < int(barLen * percent):
+            progress += "="
+        else:
+            progress += " "
+    sys.stdout.write("[ %s ] %.2f%% \n" % (progress, percent * 100))
+    sys.stdout.flush()
+
 
 def OpenPDF(pdfPath):
     pdfFileObj = open( pdfPath, 'rb')
@@ -179,8 +191,11 @@ def main():
     errorFiles = []
     matchedFiles = []
     noneFiles = []
+    counter = -1
     for file in testFiles:
         RunTime(startTime)
+        counter += 1
+        drawProgressBar(counter/len(testFiles))
         try:
             print("Opening file............" + str(file))
             f = OpenFile(file)
