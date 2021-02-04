@@ -107,7 +107,7 @@ def CreateListOfFiles(dirPath):
 def CheckFileType(file):
     fileType = str(file)
     fileType = fileType.split(".")[-1]
-    return fileType
+    return fileType.lower()
 
 def OpenFile(filePath):
     fileText = []

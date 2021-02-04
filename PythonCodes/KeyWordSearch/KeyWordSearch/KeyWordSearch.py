@@ -13,8 +13,8 @@ def main():
     #             r"D:\TestFiles\ECTA\L8PM-HDR-BRD-ECTA-STL-REV D IFC Vertical Structures VC1\2_QC\2_Reviews\FW_ Draft WITF_ ECTA and MSF Extreme Loading Implementation Reports.msg"]
 
     #dirPath = input("Type Directory: ")
-    #dirPath = r"D:\New folder"
-    dirPath = r"D:\TestFiles"
+    dirPath = r"D:\New folder"
+    #dirPath = r"D:\TestFiles"
 
     #keyWords = input("Type Keywords separated by space: ")
     keywords = "tonage tonnage ton increase"
