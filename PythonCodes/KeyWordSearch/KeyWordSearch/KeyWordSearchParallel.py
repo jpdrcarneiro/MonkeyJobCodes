@@ -18,8 +18,8 @@ def main():
 
 
     #dirPath = input("Type Directory: ")
-    dirPath = r"D:\TestFiles"
-    #dirPath = r"D:\New folder"
+    #dirPath = r"D:\TestFiles"
+    dirPath = r"D:\New folder"
 
     #print("Creating file list........................................................")
     testFiles = CreateListOfFiles(dirPath)
