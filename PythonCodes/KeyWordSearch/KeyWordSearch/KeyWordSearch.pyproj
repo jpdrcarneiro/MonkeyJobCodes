@@ -4,13 +4,14 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>d8b86089-126b-4d11-acec-bd51cfea9bc2</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>KeyWordSearch.py</StartupFile>
+    <StartupFile>KeyWordSearchParallel.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
     <Name>KeyWordSearch</Name>
     <RootNamespace>KeyWordSearch</RootNamespace>
+    <IsWindowsApplication>False</IsWindowsApplication>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -23,6 +24,9 @@
   <ItemGroup>
     <Compile Include="KeyWordSearch.py" />
     <Compile Include="KeyWordFunctions.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="KeyWordSearchParallel.py">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

@@ -18,9 +18,13 @@ import numpy as np
 from time import sleep
 import time
 from datetime import timedelta
+from gevent import Timeout
+from gevent import monkey
 
-nltk.download('wordnet')
-nltk.download('stopwords')
+timeoutTime = 30
+
+#nltk.download('wordnet')
+#nltk.download('stopwords')
 
 def RunTime(startTime):
     totalTime = time.time() - startTime
@@ -40,9 +44,15 @@ def drawProgressBar(percent, barLen = 50):
 
 
 def OpenPDF(pdfPath):
-    pdfFileObj = open( pdfPath, 'rb')
-    pdfReader = PyPDF2.PdfFileReader(pdfFileObj)
-
+    try:
+        timeout = Timeout(timeoutTime)
+        timeout.start()
+        pdfFileObj = open( pdfPath, 'rb')
+        pdfReader = PyPDF2.PdfFileReader(pdfFileObj)
+    except Exception as e:
+        print("timeout!!!")
+        print(e)
+        return None
     fileContent = []
     numberOfPages = pdfReader.getNumPages()
     print(str(range(numberOfPages)))
@@ -55,20 +65,40 @@ def OpenPDF(pdfPath):
     return fileContent
 
 def OpenDocx(docxPath):
-    docxDocument = Document(docxPath)
+    try:
+        timeout = Timeout(timeoutTime)
+        timeout.start()
+        docxDocument = Document(docxPath)
+    except Exception as e:
+        print("timeout!!!")
+        print(e)
+        return None
     fileContent = []
     for p in docxDocument.paragraphs:
         fileContent.append(p.text)
     return fileContent
 
 def OpenExcel(xlsxPath):
-    data = pd.read_excel(xlsxPath, index_col=0)
+    try:
+        timeout = Timeout(timeoutTime)
+        timeout.start()
+        data = pd.read_excel(xlsxPath, index_col=0)
+    except Exception as e:
+        print("timeout!!!")
+        print(e)
+        return None
     return data.to_string()
 
 
 def OpenMsg(msgPath):
-    msg = extract_msg.Message(msgPath)
-
+    try:
+        timeout = Timeout(timeoutTime)
+        timeout.start()
+        msg = extract_msg.Message(msgPath)
+    except Exception as e:
+        print("timeout!!!")
+        print(e)
+        return None
     #print (msg.sender)
     #print (msg.subject)
     #print (msg.date)
@@ -248,3 +278,34 @@ def ReadSavedData(dirPath):
     noneFiles = FlattenList(noneFiles)
     readFiles = FlattenList(readFiles)
     return errorFiles, matchedFiles, noneFiles, readFiles
+
+def ProcessFile(file, stTime, keyWords):
+    errorFile =str()
+    matchedFile = str()
+    noneFile = str()
+    readFile = str()
+    RunTime(stTime)
+    readFile = str(file) + ","
+    try:
+        print("Opening file............" + str(file))
+        f = OpenFile(file)
+        if type(f)==None:
+            noneFile = str(file) + ","
+            return errorFile, matchedFile, noneFile, readFile
+    except Exception as e:
+        errorFile =(str(file) + ",")
+        print(e)
+        return errorFile, matchedFile, noneFile, readFile
+    try:
+        print("tokenizing file..............................")
+        fTokens = Tokenize(f)
+    except TypeError as error:
+        noneFile = str(file) + ","
+        print(str(error))
+        return errorFile, matchedFile, noneFile, readFile
+    for word in keyWords:
+        print('word search in progress.................' + word)
+        if word in fTokens and type(f) != None:
+            matchedFile = str(file) + ","
+    print(RunTime(stTime))
+    return errorFile, matchedFile, noneFile, readFile
